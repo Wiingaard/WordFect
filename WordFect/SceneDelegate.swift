@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         playingField2.bricks[.horizontal, 1] = TestLine.cat
         playingField2.bricks[.vertical, 6] = TestLine.martin
         playingField2.bricks[MatrixIndex(row: 1, column: 6)] = PlacedBrick.character("h")
-        playingField2.bricks.dump()
+//        playingField2.bricks.dump()
         
         print("All in:", Permutation(of: [1,2,1,2,3], size: 3).count)
         

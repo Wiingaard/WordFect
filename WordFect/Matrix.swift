@@ -65,9 +65,16 @@ extension Matrix where T: MatrixDumpable {
 enum MatrixDirection {
     case horizontal
     case vertical
+    
+    var orthogonal: MatrixDirection {
+        switch self {
+        case .horizontal: return .vertical
+        case .vertical: return .horizontal
+        }
+    }
 }
 
-struct MatrixIndex: CustomStringConvertible {
+struct MatrixIndex: CustomStringConvertible, Equatable {
     let row: Int
     let column: Int
     
@@ -77,6 +84,16 @@ struct MatrixIndex: CustomStringConvertible {
             return MatrixIndex(row: row, column: column + count)
         case .vertical:
             return MatrixIndex(row: row + count, column: column)
+        }
+    }
+    
+    /// Reads  "Position, how horizontal/vertical are you?"
+    /// (row: 0, coloum: 3) results is 0 vertical and 3 horizontal
+    /// Rows are vertical and Coloumn are horizontal
+    subscript(direction: MatrixDirection) -> Int {
+        switch direction {
+        case .horizontal: return column
+        case .vertical: return row
         }
     }
     

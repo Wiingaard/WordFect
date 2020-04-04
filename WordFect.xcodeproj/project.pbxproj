@@ -13,13 +13,13 @@
 		5B223A5A242542B000EC773B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B223A59242542B000EC773B /* Preview Assets.xcassets */; };
 		5B223A5D242542B000EC773B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B223A5B242542B000EC773B /* LaunchScreen.storyboard */; };
 		5B223A65242543DE00EC773B /* CSVImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B223A64242543DE00EC773B /* CSVImporter.swift */; };
+		5B66E0942438CF8B0077A84E /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B66E0932438CF8B0077A84E /* MatrixTests.swift */; };
 		5BD5A6442431469600F8FA5C /* SearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5A6432431469600F8FA5C /* SearchTests.swift */; };
 		5BD5A6462435157F00F8FA5C /* Optional+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5A6452435157F00F8FA5C /* Optional+Extension.swift */; };
 		5BFCC7C724254BFA0078AC50 /* ParseWordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7C624254BFA0078AC50 /* ParseWordList.swift */; };
 		5BFCC7C9242557070078AC50 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7C8242557070078AC50 /* Board.swift */; };
 		5BFCC7CB24263C1A0078AC50 /* BoardPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7CA24263C1A0078AC50 /* BoardPosition.swift */; };
 		5BFCC7CD2426450B0078AC50 /* BonusPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7CC2426450B0078AC50 /* BonusPosition.swift */; };
-		5BFCC7D5242652D70078AC50 /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7D4242652D70078AC50 /* BoardTests.swift */; };
 		5BFCC7DD242655470078AC50 /* ParseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7DC242655470078AC50 /* ParseTests.swift */; };
 		5BFCC7DF2426597E0078AC50 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7DE2426597E0078AC50 /* BoardViewController.swift */; };
 		5BFCC7E2242659F60078AC50 /* BoardPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7E1242659F60078AC50 /* BoardPositionView.swift */; };
@@ -67,6 +67,7 @@
 		5B223A5C242542B000EC773B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B223A5E242542B000EC773B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B223A64242543DE00EC773B /* CSVImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVImporter.swift; sourceTree = "<group>"; };
+		5B66E0932438CF8B0077A84E /* MatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixTests.swift; sourceTree = "<group>"; };
 		5BD5A6432431469600F8FA5C /* SearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTests.swift; sourceTree = "<group>"; };
 		5BD5A6452435157F00F8FA5C /* Optional+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Extension.swift"; sourceTree = "<group>"; };
 		5BFCC7C624254BFA0078AC50 /* ParseWordList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseWordList.swift; sourceTree = "<group>"; };
@@ -74,7 +75,6 @@
 		5BFCC7CA24263C1A0078AC50 /* BoardPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPosition.swift; sourceTree = "<group>"; };
 		5BFCC7CC2426450B0078AC50 /* BonusPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusPosition.swift; sourceTree = "<group>"; };
 		5BFCC7D2242652D60078AC50 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5BFCC7D4242652D70078AC50 /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		5BFCC7D6242652D70078AC50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BFCC7DC242655470078AC50 /* ParseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseTests.swift; sourceTree = "<group>"; };
 		5BFCC7DE2426597E0078AC50 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 		5BFCC7D3242652D70078AC50 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				5BFCC7D4242652D70078AC50 /* BoardTests.swift */,
+				5B66E0932438CF8B0077A84E /* MatrixTests.swift */,
 				5BD5A6432431469600F8FA5C /* SearchTests.swift */,
 				5BFCC7DC242655470078AC50 /* ParseTests.swift */,
 				5BFCC7D6242652D70078AC50 /* Info.plist */,
@@ -328,8 +328,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B66E0942438CF8B0077A84E /* MatrixTests.swift in Sources */,
 				5BD5A6442431469600F8FA5C /* SearchTests.swift in Sources */,
-				5BFCC7D5242652D70078AC50 /* BoardTests.swift in Sources */,
 				5BFCC7DD242655470078AC50 /* ParseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

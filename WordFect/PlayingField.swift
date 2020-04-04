@@ -18,15 +18,16 @@ class PlayingField {
         self.bricks = Matrix<PlacedBrick?>.init(bricks)
     }
     
-    struct SearchResult {
-        let origin: MatrixIndex
-        let direction: MatrixDirection
-        let word: [PlacedBrick]
-    }
-    
     struct PositionSearch {
         let horizontal: DirectionSearch
         let vertical: DirectionSearch
+    }
+    
+    func searchPosition(_ position: MatrixIndex, tray: Tray) -> PositionSearch {
+        return .init(
+            horizontal: searchDirection(position, direction: .horizontal, tray: tray),
+            vertical: searchDirection(position, direction: .vertical, tray: tray)
+        )
     }
     
     struct DirectionSearch {
@@ -41,46 +42,23 @@ class PlayingField {
         }
     }
     
-    func searchPosition(_ position: MatrixIndex, tray: Tray) -> PositionSearch {
+    func searchDirection(_ position: MatrixIndex, direction: MatrixDirection, tray: Tray) -> DirectionSearch {
         // Can be optimized:
         // - Allow `potentialMatches` to take minLength parameter if no characters is within proximity
         
-        let horizontalSearch: DirectionSearch
-        if position.column > 0 && bricks[position.move(.horizontal, count: -1)] != nil {
-            // Found horizontal predesessor
-            horizontalSearch = DirectionSearch.empty(position, direction: .horizontal)
-            
-        } else {
-            let searchLine = getSearchLine(.horizontal, position: position)
-            let words = PlayingField.potentialMatches(tray: tray, fixed: searchLine.bricks, lineLength: searchLine.length)
-            horizontalSearch = DirectionSearch(
-                origin: position,
-                direction: .horizontal,
-                fixedBricks: searchLine.bricks,
-                length: searchLine.length,
-                results: words
-            )
+        /// Check for predecessor brick
+        if position[direction] > 0 && bricks[position.move(direction, count: -1)] != nil {
+            return .empty(position, direction: direction)
         }
         
-        let verticalSearch: DirectionSearch
-        if position.row > 0 && bricks[position.move(.vertical, count: -1)] != nil {
-            // Found vertical predesessor
-            verticalSearch = DirectionSearch.empty(position, direction: .vertical)
-        } else {
-            let searchLine = getSearchLine(.vertical, position: position)
-            let words = PlayingField.potentialMatches(tray: tray, fixed: searchLine.bricks, lineLength: searchLine.length)
-            verticalSearch = DirectionSearch(
-                origin: position,
-                direction: .vertical,
-                fixedBricks: searchLine.bricks,
-                length: searchLine.length,
-                results: words
-            )
-        }
-        
-        return .init(
-            horizontal: horizontalSearch,
-            vertical: verticalSearch
+        let searchLine = getSearchLine(direction, position: position)
+        let words = PlayingField.potentialMatches(tray: tray, fixed: searchLine.bricks, lineLength: searchLine.length)
+        return DirectionSearch(
+            origin: position,
+            direction: direction,
+            fixedBricks: searchLine.bricks,
+            length: searchLine.length,
+            results: words
         )
     }
     
@@ -93,15 +71,9 @@ class PlayingField {
     
     /// From a given `position` and `direction` on the board, return a line to be searched.
     func getSearchLine(_ direction: MatrixDirection, position: MatrixIndex) -> SearchLine {
-        let charactersFromPosition: ArraySlice<PlacedBrick?>
-        switch direction {
-        case .horizontal:
-            let line = bricks[direction, position.row]
-            charactersFromPosition = line[position.column..<Board.size]
-        case .vertical:
-            let line = bricks[direction, position.column]
-            charactersFromPosition = line[position.row..<Board.size]
-        }
+        
+        let line = bricks[direction, position[direction.orthogonal]]
+        let charactersFromPosition = line[position[direction]..<Board.size]
         
         let fixed = charactersFromPosition.enumerated().compactMap { (index,brick) -> FixedBrick? in
             guard let brick = brick else { return nil }
