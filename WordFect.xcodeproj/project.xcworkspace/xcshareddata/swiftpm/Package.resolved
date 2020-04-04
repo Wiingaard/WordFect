@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Combinatorics",
+        "repositoryURL": "https://github.com/dankogai/swift-combinatorics.git",
+        "state": {
+          "branch": null,
+          "revision": "08ca1a006601ec932115f33ffc0469e67284d68f",
+          "version": "0.0.2"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
