@@ -14,24 +14,24 @@ class SearchTests: XCTestCase {
     // [a, 1, 2, b, 3, 4, c, d, _, e]
     // Expecting: "a1234bc"
     func testAdjustMatch() {
-        var word: [PlacedBrick] = [
+        let word: [PlacedBrick] = [
             PlacedBrick.character("1"),
             PlacedBrick.character("2"),
             PlacedBrick.character("3"),
             PlacedBrick.character("4")
         ]
         
-        let fixed: [PlayingField.FixedCharecter] = [
-            (character: "a", index: 0),
-            (character: "b", index: 3),
-            (character: "c", index: 6),
-            (character: "d", index: 7),
-            (character: "e", index: 9),
+        let fixed: [PlayingField.FixedBrick] = [
+            .init(brick: .character("a"), index: 0),
+            .init(brick: .character("b"), index: 3),
+            .init(brick: .character("c"), index: 6),
+            .init(brick: .character("d"), index: 7),
+            .init(brick: .character("e"), index: 9)
         ]
         
-        PlayingField.adjust(string: &word, fixed: fixed)
+        let adjustedWord = PlayingField.adjust(string: word, fixed: fixed)
         
-        let checkWord = String(word.map { $0.character })
+        let checkWord = String(adjustedWord.map { $0.character })
         
         assert(checkWord == "a12b34cd")
     }
@@ -43,12 +43,12 @@ class SearchTests: XCTestCase {
             TrayBrick.joker
         ]
         
-        let fixed: [PlayingField.FixedCharecter] = [
-            (character: "a", index: 0),
-            (character: "b", index: 3),
-            (character: "c", index: 6),
-            (character: "d", index: 7),
-            (character: "e", index: 9),
+        let fixed: [PlayingField.FixedBrick] = [
+            .init(brick: .character("a"), index: 0),
+            .init(brick: .character("b"), index: 3),
+            .init(brick: .character("c"), index: 6),
+            .init(brick: .character("d"), index: 7),
+            .init(brick: .character("e"), index: 9)
         ]
         
         let matches = PlayingField.potentialMatches(
@@ -83,12 +83,12 @@ class SearchTests: XCTestCase {
             TrayBrick.character("7")
         ]
         
-        let fixed: [PlayingField.FixedCharecter] = [
-            (character: "a", index: 0),
-            (character: "b", index: 3),
-            (character: "c", index: 6),
-            (character: "d", index: 7),
-            (character: "e", index: 9),
+        let fixed: [PlayingField.FixedBrick] = [
+            .init(brick: .character("a"), index: 0),
+            .init(brick: .character("b"), index: 3),
+            .init(brick: .character("c"), index: 6),
+            .init(brick: .character("d"), index: 7),
+            .init(brick: .character("e"), index: 9)
         ]
         
         let matches = PlayingField.potentialMatches(
@@ -117,16 +117,16 @@ class SearchTests: XCTestCase {
         playingField.bricks[.vertical, 6] = TestLine.martin
         
         let martinLine = playingField.getSearchLine(.vertical, position: MatrixIndex.init(row: 5, column: 6))
-        let martinCharacters = martinLine.fixedCharacter.reduce("") { $0 + String($1.brick.character) }
-        let martinIndexes = martinLine.fixedCharacter.map { $0.index }
+        let martinCharacters = martinLine.bricks.reduce("") { $0 + String($1.brick.character) }
+        let martinIndexes = martinLine.bricks.map { $0.index }
         
         assert(martinLine.length == 10)
         assert(martinCharacters == "rtin")
         assert(martinIndexes == [0,1,2,3])
         
         let catLine = playingField.getSearchLine(.horizontal, position: MatrixIndex.init(row: 1, column: 0))
-        let catCharacters = catLine.fixedCharacter.reduce("") { $0 + String($1.brick.character) }
-        let carIndexes = catLine.fixedCharacter.map { $0.index }
+        let catCharacters = catLine.bricks.reduce("") { $0 + String($1.brick.character) }
+        let carIndexes = catLine.bricks.map { $0.index }
         
         assert(catLine.length == 15)
         assert(catCharacters == "cat")

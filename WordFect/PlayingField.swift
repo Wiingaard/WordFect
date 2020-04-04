@@ -65,16 +65,13 @@ class PlayingField {
         )
     }
     
-    // TODO: Align FixedCharecter -> FixedBrick
     struct FixedBrick {
         let brick: PlacedBrick
         let index: Int
     }
     
-    typealias FixedCharecter = (character: Character, index: Int)
-    
     /// Finds all potential word matched for a given line.
-    static func potentialMatches(tray: Tray, fixed: [FixedCharecter], lineLength: Int) -> Set<[PlacedBrick]> {
+    static func potentialMatches(tray: Tray, fixed: [FixedBrick], lineLength: Int) -> Set<[PlacedBrick]> {
         guard lineLength > fixed.count else { return [] }
         let maxLength = min(lineLength, tray.count + fixed.count)
         
@@ -92,23 +89,13 @@ class PlayingField {
         })
     }
     
-    /// Inserts the `fixed` characters into `string` as long as they are connected to the beginning of the string.
+    /// Inserts the `fixed` bricks into `string` as long as they are connected to the beginning of the string.
     /// Assumes that fixed is sorted after assending index
-    static func adjust(string: inout [PlacedBrick], fixed: [FixedCharecter]) {
-        fixed.forEach { (char, index) in
-            if (index < string.count + 1) {
-                string.insert(.character(char), at: index)
-            }
-        }
-    }
-    
-    /// Inserts the `fixed` characters into `string` as long as they are connected to the beginning of the string.
-    /// Assumes that fixed is sorted after assending index
-    static func adjust(string: [PlacedBrick], fixed: [FixedCharecter]) -> [PlacedBrick] {
+    static func adjust(string: [PlacedBrick], fixed: [FixedBrick]) -> [PlacedBrick] {
         var _string = string
-        fixed.forEach { (char, index) in
-            if (index < _string.count + 1) {
-                _string.insert(.character(char), at: index)
+        fixed.forEach { brick in
+            if (brick.index < _string.count + 1) {
+                _string.insert(brick.brick, at: brick.index)
             }
         }
         return _string
