@@ -18,31 +18,80 @@ class PlayingField {
         self.bricks = Matrix<PlacedBrick?>.init(bricks)
     }
     
-    func searchPosition(_ position: MatrixIndex, tray: Tray) -> [MatchLine] {
-        let horizontalMatches: [MatchLine]
+    struct SearchResult {
+        let origin: MatrixIndex
+        let direction: MatrixDirection
+        let word: [PlacedBrick]
+    }
+    
+    struct PositionSearch {
+        let horizontal: DirectionSearch
+        let vertical: DirectionSearch
+    }
+    
+    struct DirectionSearch {
+        let origin: MatrixIndex
+        let direction: MatrixDirection
+        let fixedBricks: [FixedBrick]
+        let length: Int
+        let results: Set<[PlacedBrick]>
+        
+        static func empty(_ origin: MatrixIndex, direction: MatrixDirection) -> DirectionSearch {
+            .init(origin: origin, direction: direction, fixedBricks: [], length: 0, results: [])
+        }
+    }
+    
+    func searchPosition(_ position: MatrixIndex, tray: Tray) -> PositionSearch {
+        // Can be optimized:
+        // - Allow `potentialMatches` to take minLength parameter if no characters is within proximity
+        
+        let horizontalSearch: DirectionSearch
         if position.column > 0 && bricks[position.move(.horizontal, count: -1)] != nil {
             // Found horizontal predesessor
-            horizontalMatches = []
+            horizontalSearch = DirectionSearch.empty(position, direction: .horizontal)
+            
         } else {
-            horizontalMatches = []
+            let searchLine = getSearchLine(.horizontal, position: position)
+            let words = PlayingField.potentialMatches(tray: tray, fixed: searchLine.bricks, lineLength: searchLine.length)
+            horizontalSearch = DirectionSearch(
+                origin: position,
+                direction: .horizontal,
+                fixedBricks: searchLine.bricks,
+                length: searchLine.length,
+                results: words
+            )
         }
         
-        let verticalMatches: [MatchLine]
+        let verticalSearch: DirectionSearch
         if position.row > 0 && bricks[position.move(.vertical, count: -1)] != nil {
             // Found vertical predesessor
-            verticalMatches = []
+            verticalSearch = DirectionSearch.empty(position, direction: .vertical)
         } else {
-            verticalMatches = []
+            let searchLine = getSearchLine(.vertical, position: position)
+            let words = PlayingField.potentialMatches(tray: tray, fixed: searchLine.bricks, lineLength: searchLine.length)
+            verticalSearch = DirectionSearch(
+                origin: position,
+                direction: .vertical,
+                fixedBricks: searchLine.bricks,
+                length: searchLine.length,
+                results: words
+            )
         }
         
-        return horizontalMatches + verticalMatches
+        return .init(
+            horizontal: horizontalSearch,
+            vertical: verticalSearch
+        )
     }
     
     struct SearchLine {
+        /// The bricks placed on the line
         let bricks: [FixedBrick]
+        /// The max length of the line
         let length: Int
     }
     
+    /// From a given `position` and `direction` on the board, return a line to be searched.
     func getSearchLine(_ direction: MatrixDirection, position: MatrixIndex) -> SearchLine {
         let charactersFromPosition: ArraySlice<PlacedBrick?>
         switch direction {
@@ -66,7 +115,9 @@ class PlayingField {
     }
     
     struct FixedBrick {
+        /// A brick placed on a line
         let brick: PlacedBrick
+        /// The brick index from the beginning of the line
         let index: Int
     }
     
@@ -101,8 +152,10 @@ class PlayingField {
         return _string
     }
     
+    /// All the characters that a joker can be turned into
     static let jokerSet = "abcdefghijklmnopqrstuvxyzæøå"
     
+    /// An honest tray. A tray without any jokers will result in a single PermutationSet
     typealias PermutationSet = [PlacedBrick]
     
     /// Purpose is to turn potential jokers in the Tray, into different combinations of possible honest trays.
@@ -124,12 +177,4 @@ class PlayingField {
             return [charactersInTray.map(PlacedBrick.character)]
         }
     }
-}
-
-struct MatchLine {
-    typealias Word = [PlacedBrick]
-
-    let origin: MatrixIndex
-    let direction: MatrixDirection
-    let word: Word
 }
