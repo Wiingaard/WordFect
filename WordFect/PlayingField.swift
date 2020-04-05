@@ -51,12 +51,16 @@ class PlayingField {
             return .empty(position, direction: direction)
         }
         
+        guard let minSearchLength = findMinimumSearchLength(from: position, direction: direction) else {
+            return .empty(position, direction: direction)
+        }
+        
         let searchLine = getSearchLine(direction, position: position)
         let words = PlayingField.potentialMatches(
             tray: tray,
             fixed: searchLine.bricks,
             maxLength: searchLine.length,
-            minLength: 1
+            minLength: minSearchLength
         )
         return DirectionSearch(
             origin: position,
@@ -65,6 +69,50 @@ class PlayingField {
             length: searchLine.length,
             results: words
         )
+    }
+    
+    static func lengthToNextBrick(on line: [PlacedBrick?], from: Int) -> Int? {
+        let toElementIndex: (Int, PlacedBrick?) -> Int? = { (offset, element) in
+            element == nil ? nil : offset
+        }
+        
+        return line.enumerated()
+            .filter { $0.offset > from }
+            .compactMap(toElementIndex)
+            .min()
+            .map { $0 - from }
+    }
+    
+    static func min<T: Comparable>(of items: [T]) -> T? {
+        var _items = items
+        guard let last = _items.popLast() else { return nil }
+        var currentMin = last
+        while let item = _items.popLast() {
+            currentMin = Swift.min(currentMin, item)
+        }
+        return currentMin
+    }
+    
+    func findMinimumSearchLength(from position: MatrixIndex, direction: MatrixDirection) -> Int? {
+        var potentialMinLength = [Int]()
+        
+        func checkLine(offset: Int) {
+            let movedLinePosition = position.move(direction.orthogonal, count: offset)
+            if movedLinePosition.isWithinBoard() {
+                let line = bricks[direction, movedLinePosition[direction.orthogonal]]
+                if let length = PlayingField.lengthToNextBrick(on: line, from: movedLinePosition[direction]) {
+                    potentialMinLength.append(offset == 0 ? length : length + 1)
+                } else if bricks[position] != nil {
+                    potentialMinLength.append(1)
+                }
+            }
+        }
+        
+        checkLine(offset: -1)
+        checkLine(offset: 0)
+        checkLine(offset: 1)
+        
+        return PlayingField.min(of: potentialMinLength)
     }
     
     struct SearchLine {
@@ -107,7 +155,7 @@ class PlayingField {
     /// Finds all potential word matched for a given line.
     static func potentialMatches(tray: Tray, fixed: [FixedBrick], maxLength: Int, minLength: Int) -> Set<[PlacedBrick]> {
         guard maxLength > fixed.count else { return [] }
-        let max = min(maxLength, tray.count + fixed.count)
+        let max = Swift.min(maxLength, tray.count + fixed.count)
         
         var permutations = [Permutation<PlacedBrick>]()
         for size in 1...max {

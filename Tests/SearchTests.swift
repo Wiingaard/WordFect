@@ -198,10 +198,49 @@ class SearchTests: XCTestCase {
         
     }
     
-    func testPositionSearch() {
+    func testMin() {
+        assert(PlayingField.min(of: [Int]()) == nil)
+        assert(PlayingField.min(of: [1]) == 1)
+        assert(PlayingField.min(of: [1,2]) == 1)
+        assert(PlayingField.min(of: [3,2,1]) == 1)
+    }
+    
+    func testLol() {
+        assert(PlayingField.lengthToNextBrick(on: TestLine.cat, from: 0) == 2)
+        assert(PlayingField.lengthToNextBrick(on: TestLine.cat, from: 1) == 1)
+        assert(PlayingField.lengthToNextBrick(on: TestLine.cat, from: 2) == 1)
+        assert(PlayingField.lengthToNextBrick(on: TestLine.cat, from: 5) == nil)
+    }
+    
+    func testFindMinimumSearchLength() {
         let playingField = PlayingField(bricks: TestMap.empty)
         playingField.bricks[.horizontal, 1] = TestLine.cat
         playingField.bricks[.vertical, 6] = TestLine.martin
+        playingField.bricks.dump()
+        
+        assert(playingField.findMinimumSearchLength(from: .init(row: 0, column: 1), direction: .horizontal) == 2)
+        assert(playingField.findMinimumSearchLength(from: .init(row: 1, column: 0), direction: .horizontal) == 2)
+        assert(playingField.findMinimumSearchLength(from: .init(row: 2, column: 0), direction: .horizontal) == 3)
+        
+        assert(playingField.findMinimumSearchLength(from: .init(row: 3, column: 0), direction: .horizontal) == 6)
+        assert(playingField.findMinimumSearchLength(from: .init(row: 3, column: 6), direction: .horizontal) == 1)
+        assert(playingField.findMinimumSearchLength(from: .init(row: 3, column: 7), direction: .horizontal) == nil)
+        
+        assert(playingField.findMinimumSearchLength(from: .init(row: 0, column: 1), direction: .vertical) == 2)
+        assert(playingField.findMinimumSearchLength(from: .init(row: 0, column: 2), direction: .vertical) == 1)
+        assert(playingField.findMinimumSearchLength(from: .init(row: 0, column: 6), direction: .vertical) == 3)
+        assert(playingField.findMinimumSearchLength(from: .init(row: 1, column: 6), direction: .vertical) == 2)
+        
+        assert(playingField.findMinimumSearchLength(from: .init(row: 10, column: 10), direction: .vertical) == nil)
+        assert(playingField.findMinimumSearchLength(from: .init(row: 10, column: 10), direction: .horizontal) == nil)
+    }
+
+    func testSearch() {
+        
+        let playingField = PlayingField(bricks: TestMap.empty)
+        playingField.bricks[.horizontal, 1] = TestLine.cat
+        playingField.bricks[.vertical, 6] = TestLine.martin
+        playingField.bricks.dump()
         
         let tray: [TrayBrick] = [
             TrayBrick.character("1"),
@@ -209,9 +248,30 @@ class SearchTests: XCTestCase {
             TrayBrick.character("3")
         ]
         
-        let firstSearch = playingField.searchPosition(.init(row: 0, column: 0), tray: tray)
+        let search1 = playingField.searchPosition(.init(row: 0, column: 0), tray: tray)
+        assert(search1.horizontal.results.count == 6)
+        assert(search1.vertical.results.count == 0)
         
-        printSearchResults(firstSearch.horizontal)
+        let search2 = playingField.searchPosition(.init(row: 0, column: 2), tray: tray)
+        assert(search2.horizontal.results.count == 12)
+        assert(search2.vertical.results.count == 15)
+        
+        let search3 = playingField.searchPosition(.init(row: 5, column: 0), tray: tray)
+        assert(search3.horizontal.results.count == 0)
+        assert(search3.vertical.results.count == 0)
+        
+        let search4 = playingField.searchPosition(.init(row: 2, column: 4), tray: tray)
+        assert(search4.horizontal.results.count == 6)
+        assert(search4.vertical.results.count == 0)
+        
+        let search5 = playingField.searchPosition(.init(row: 1, column: 4), tray: tray)
+        assert(search5.horizontal.results.count == 0)
+        assert(search5.vertical.results.count == 15)
+        
+        let search6 = playingField.searchPosition(.init(row: 1, column: 2), tray: tray)
+        assert(search6.horizontal.results.count == 15)
+        assert(search6.vertical.results.count == 15)
+        
     }
-
+    
 }

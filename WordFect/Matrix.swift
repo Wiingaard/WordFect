@@ -97,6 +97,12 @@ struct MatrixIndex: CustomStringConvertible, Equatable {
         }
     }
     
+    func isWithinBoard() -> Bool {
+        guard row >= 0 && row < Board.size else { return false }
+        guard column >= 0 && column < Board.size else { return false }
+        return true
+    }
+    
     var description: String {
         return "(\(row),\(column))"
     }
