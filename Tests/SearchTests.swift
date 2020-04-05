@@ -54,7 +54,8 @@ class SearchTests: XCTestCase {
         let matches = PlayingField.potentialMatches(
             tray: tray,
             fixed: fixed,
-            lineLength: 6
+            maxLength: 6,
+            minLength: 1
         )
         
         func matchesOfLength(_ length: Int) -> Int {
@@ -94,7 +95,8 @@ class SearchTests: XCTestCase {
         let matches = PlayingField.potentialMatches(
             tray: tray,
             fixed: fixed,
-            lineLength: 15
+            maxLength: 15,
+            minLength: 1
         )
         
         func matchesOfLength(_ length: Int) -> Int {
@@ -108,6 +110,68 @@ class SearchTests: XCTestCase {
         assert(matchesOfLength(10) == 2520)
         assert(matchesOfLength(11) == 5040)
         assert(matchesOfLength(12) == 5040)
+    }
+    
+    func testCanReactLength() {
+        let fixed: [PlayingField.FixedBrick] = [
+            .init(brick: .character("a"), index: 0),
+            .init(brick: .character("b"), index: 2),
+            .init(brick: .character("b"), index: 5),
+        ]
+        
+        assert(PlayingField.canReachLength(1, permutationSetSize: 2, fixed: fixed) == true)
+        assert(PlayingField.canReachLength(2, permutationSetSize: 2, fixed: fixed) == true)
+        assert(PlayingField.canReachLength(3, permutationSetSize: 2, fixed: fixed) == true)
+        assert(PlayingField.canReachLength(4, permutationSetSize: 2, fixed: fixed) == true)
+        assert(PlayingField.canReachLength(5, permutationSetSize: 2, fixed: fixed) == false)
+        assert(PlayingField.canReachLength(5, permutationSetSize: 3, fixed: fixed) == true)
+        assert(PlayingField.canReachLength(6, permutationSetSize: 3, fixed: fixed) == true)
+        
+    }
+    
+    func printMatches(_ matches: Set<[PlacedBrick]>) {
+        print(matches
+            .map { match in match.reduce("") { $0 + String($1.character) } }
+            .sorted()
+            .joined(separator: "\n")
+        )
+    }
+    
+    func printSearchResults(_ results: PlayingField.DirectionSearch) {
+        print(results.results.count, " results for ", results.direction)
+        printMatches(results.results)
+    }
+    
+    func testPotentialMatchesMinLength() {
+        
+        let tray: [TrayBrick] = [
+            TrayBrick.character("1"),
+            TrayBrick.character("2"),
+            TrayBrick.character("3")
+        ]
+        
+        let fixed: [PlayingField.FixedBrick] = [
+            .init(brick: .character("a"), index: 1),
+        ]
+        
+        let matches = PlayingField.potentialMatches(
+            tray: tray,
+            fixed: fixed,
+            maxLength: 15,
+            minLength: 4
+        )
+        
+        func matchesOfLength(_ length: Int) -> Int {
+            return matches.filter { $0.count == length }.count
+        }
+        
+        assert(matchesOfLength(1) == 0)
+        assert(matchesOfLength(2) == 0)
+        assert(matchesOfLength(3) == 0)
+        assert(matchesOfLength(4) == 6)
+        assert(matchesOfLength(5) == 0)
+        assert(matchesOfLength(6) == 0)
+        assert(matchesOfLength(7) == 0)
     }
     
     func testGetSearchLine() {
@@ -132,6 +196,22 @@ class SearchTests: XCTestCase {
         assert(catCharacters == "cat")
         assert(carIndexes == [2,3,4])
         
+    }
+    
+    func testPositionSearch() {
+        let playingField = PlayingField(bricks: TestMap.empty)
+        playingField.bricks[.horizontal, 1] = TestLine.cat
+        playingField.bricks[.vertical, 6] = TestLine.martin
+        
+        let tray: [TrayBrick] = [
+            TrayBrick.character("1"),
+            TrayBrick.character("2"),
+            TrayBrick.character("3")
+        ]
+        
+        let firstSearch = playingField.searchPosition(.init(row: 0, column: 0), tray: tray)
+        
+        printSearchResults(firstSearch.horizontal)
     }
 
 }

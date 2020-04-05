@@ -52,7 +52,12 @@ class PlayingField {
         }
         
         let searchLine = getSearchLine(direction, position: position)
-        let words = PlayingField.potentialMatches(tray: tray, fixed: searchLine.bricks, lineLength: searchLine.length)
+        let words = PlayingField.potentialMatches(
+            tray: tray,
+            fixed: searchLine.bricks,
+            maxLength: searchLine.length,
+            minLength: 1
+        )
         return DirectionSearch(
             origin: position,
             direction: direction,
@@ -93,17 +98,23 @@ class PlayingField {
         let index: Int
     }
     
+    /// Determins if a given permutation set with fixed bricks can reach a given length
+    static func canReachLength(_ minSize: Int, permutationSetSize: Int, fixed: [FixedBrick]) -> Bool {
+        let fixedWithinRange = fixed.filter { $0.index < minSize }.count
+        return fixedWithinRange + permutationSetSize >= minSize
+    }
+    
     /// Finds all potential word matched for a given line.
-    static func potentialMatches(tray: Tray, fixed: [FixedBrick], lineLength: Int) -> Set<[PlacedBrick]> {
-        guard lineLength > fixed.count else { return [] }
-        let maxLength = min(lineLength, tray.count + fixed.count)
+    static func potentialMatches(tray: Tray, fixed: [FixedBrick], maxLength: Int, minLength: Int) -> Set<[PlacedBrick]> {
+        guard maxLength > fixed.count else { return [] }
+        let max = min(maxLength, tray.count + fixed.count)
         
-        let permutationSets = Self.permutationSets(tray: tray)
         var permutations = [Permutation<PlacedBrick>]()
-        
-        for size in 1...maxLength {
-            permutationSets.forEach { set in
-                permutations.append(Permutation(of: set, size: size))
+        for size in 1...max {
+            permutationSets(tray: tray).forEach { set in
+                if canReachLength(minLength, permutationSetSize: size, fixed: fixed) {
+                    permutations.append(Permutation(of: set, size: size))
+                }
             }
         }
         
