@@ -25,22 +25,42 @@ class Validate {
         list: [String],
         bricks: Search.Bricks
     ) -> Search.PositionSearch {
-        return Search.PositionSearch(
-            horizontal: validateDirection(results.horizontal, list: list, bricks: bricks),
-            vertical: validateDirection(results.vertical, list: list, bricks: bricks)
-        )
+//        return Search.PositionSearch(
+//            horizontal: validateDirection(results.horizontal, list: list, bricks: bricks),
+//            vertical: validateDirection(results.vertical, list: list, bricks: bricks)
+//        )
+        fatalError()
     }
     
     static func validateDirection(
         _ result: Search.DirectionSearch,
         list: [String],
         bricks: Search.Bricks
-    ) -> Search.DirectionSearch {
+    ) -> [CrossWordsResult] {
+        var validatedResults = [CrossWordsResult]()
         
-        result.results
-            .filter { isValidWord($0, list: list) }
+        for word in result.results {
+            guard isValidWord(word, list: list) else { continue }
+            
+            let crossWords = findCrossWords(
+                word,
+                wordDirection: result.direction,
+                position: result.origin,
+                bricks: bricks
+            )
+            
+            guard crossWords.crossWords.count > 0 else { continue }
+            
+            let hasInvalidWord = crossWords.crossWords.contains { crossWord in
+                !isValidWord(crossWord.word.map { $0.brick }, list: list)
+            }
+            
+            guard !hasInvalidWord else { continue }
+            
+            validatedResults.append(crossWords)
+        }
         
-        fatalError()
+        return validatedResults
     }
     
     static func isValidWord(_ word: [PlacedBrick], list: [String]) -> Bool {
@@ -56,8 +76,10 @@ class Validate {
     ) -> CrossWordsResult {
         var crossIndex = 0
         let crossWords = word.reduce(into: [CrossWord]()) { (result, next) in
+            
             let word = findWord(
-                position.move(wordDirection, count: crossIndex),
+                at: position.move(wordDirection, count: crossIndex),
+                brick: next,
                 direction: wordDirection.orthogonal,
                 bricks: bricks
             )
@@ -70,13 +92,15 @@ class Validate {
     }
     
     static func findWord(
-        _ position: MatrixIndex,
+        at position: MatrixIndex,
+        brick: PlacedBrick,
         direction: MatrixDirection,
         bricks: Search.Bricks
     ) -> [FixedBrick] {
         
         let characterIndex = position[direction]
-        let line = bricks[direction, position[direction.orthogonal]]
+        var line = bricks[direction, position[direction.orthogonal]]
+        line[position[direction]] = brick
         
         let slices = line.enumerated().split { $1 == nil }
         let matchingSlice = slices.first { slice -> Bool in
@@ -85,7 +109,7 @@ class Validate {
             }
         }
         
-        guard let match = matchingSlice else { return [] }
+        guard let match = matchingSlice, match.count > 1 else { return [] }
         
         return match.compactMap { (offset, element) -> FixedBrick? in
             guard let brick = element else { return nil }
