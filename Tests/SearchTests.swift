@@ -11,6 +11,8 @@ import XCTest
 
 class SearchTests: XCTestCase {
     
+    typealias Bricks = Matrix<PlacedBrick?>
+    
     // [a, 1, 2, b, 3, 4, c, d, _, e]
     // Expecting: "a1234bc"
     func testAdjustMatch() {
@@ -21,7 +23,7 @@ class SearchTests: XCTestCase {
             PlacedBrick.character("4")
         ]
         
-        let fixed: [PlayingField.FixedBrick] = [
+        let fixed: [Search.FixedBrick] = [
             .init(brick: .character("a"), index: 0),
             .init(brick: .character("b"), index: 3),
             .init(brick: .character("c"), index: 6),
@@ -29,7 +31,7 @@ class SearchTests: XCTestCase {
             .init(brick: .character("e"), index: 9)
         ]
         
-        let adjustedWord = PlayingField.adjust(string: word, fixed: fixed)
+        let adjustedWord = Search.adjust(string: word, fixed: fixed)
         
         let checkWord = String(adjustedWord.map { $0.character })
         
@@ -43,7 +45,7 @@ class SearchTests: XCTestCase {
             TrayBrick.joker
         ]
         
-        let fixed: [PlayingField.FixedBrick] = [
+        let fixed: [Search.FixedBrick] = [
             .init(brick: .character("a"), index: 0),
             .init(brick: .character("b"), index: 3),
             .init(brick: .character("c"), index: 6),
@@ -51,7 +53,7 @@ class SearchTests: XCTestCase {
             .init(brick: .character("e"), index: 9)
         ]
         
-        let matches = PlayingField.potentialMatches(
+        let matches = Search.potentialMatches(
             tray: tray,
             fixed: fixed,
             maxLength: 6,
@@ -84,7 +86,7 @@ class SearchTests: XCTestCase {
             TrayBrick.character("7")
         ]
         
-        let fixed: [PlayingField.FixedBrick] = [
+        let fixed: [Search.FixedBrick] = [
             .init(brick: .character("a"), index: 0),
             .init(brick: .character("b"), index: 3),
             .init(brick: .character("c"), index: 6),
@@ -92,7 +94,7 @@ class SearchTests: XCTestCase {
             .init(brick: .character("e"), index: 9)
         ]
         
-        let matches = PlayingField.potentialMatches(
+        let matches = Search.potentialMatches(
             tray: tray,
             fixed: fixed,
             maxLength: 15,
@@ -113,33 +115,20 @@ class SearchTests: XCTestCase {
     }
     
     func testCanReactLength() {
-        let fixed: [PlayingField.FixedBrick] = [
+        let fixed: [Search.FixedBrick] = [
             .init(brick: .character("a"), index: 0),
             .init(brick: .character("b"), index: 2),
             .init(brick: .character("b"), index: 5),
         ]
         
-        assert(PlayingField.canReachLength(1, permutationSetSize: 2, fixed: fixed) == true)
-        assert(PlayingField.canReachLength(2, permutationSetSize: 2, fixed: fixed) == true)
-        assert(PlayingField.canReachLength(3, permutationSetSize: 2, fixed: fixed) == true)
-        assert(PlayingField.canReachLength(4, permutationSetSize: 2, fixed: fixed) == true)
-        assert(PlayingField.canReachLength(5, permutationSetSize: 2, fixed: fixed) == false)
-        assert(PlayingField.canReachLength(5, permutationSetSize: 3, fixed: fixed) == true)
-        assert(PlayingField.canReachLength(6, permutationSetSize: 3, fixed: fixed) == true)
+        assert(Search.canReachLength(1, permutationSetSize: 2, fixed: fixed) == true)
+        assert(Search.canReachLength(2, permutationSetSize: 2, fixed: fixed) == true)
+        assert(Search.canReachLength(3, permutationSetSize: 2, fixed: fixed) == true)
+        assert(Search.canReachLength(4, permutationSetSize: 2, fixed: fixed) == true)
+        assert(Search.canReachLength(5, permutationSetSize: 2, fixed: fixed) == false)
+        assert(Search.canReachLength(5, permutationSetSize: 3, fixed: fixed) == true)
+        assert(Search.canReachLength(6, permutationSetSize: 3, fixed: fixed) == true)
         
-    }
-    
-    func printMatches(_ matches: Set<[PlacedBrick]>) {
-        print(matches
-            .map { match in match.reduce("") { $0 + String($1.character) } }
-            .sorted()
-            .joined(separator: "\n")
-        )
-    }
-    
-    func printSearchResults(_ results: PlayingField.DirectionSearch) {
-        print(results.results.count, " results for ", results.direction)
-        printMatches(results.results)
     }
     
     func testPotentialMatchesMinLength() {
@@ -150,11 +139,11 @@ class SearchTests: XCTestCase {
             TrayBrick.character("3")
         ]
         
-        let fixed: [PlayingField.FixedBrick] = [
+        let fixed: [Search.FixedBrick] = [
             .init(brick: .character("a"), index: 1),
         ]
         
-        let matches = PlayingField.potentialMatches(
+        let matches = Search.potentialMatches(
             tray: tray,
             fixed: fixed,
             maxLength: 15,
@@ -175,103 +164,111 @@ class SearchTests: XCTestCase {
     }
     
     func testGetSearchLine() {
+        let testMap = self.testMap()
         
-        let playingField = PlayingField(bricks: TestMap.empty)
-        playingField.bricks[.horizontal, 1] = TestLine.cat
-        playingField.bricks[.vertical, 6] = TestLine.martin
-        
-        let martinLine = playingField.getSearchLine(.vertical, position: MatrixIndex.init(row: 5, column: 6))
+        let martinLine = Search.getSearchLine(
+            .vertical,
+            position: MatrixIndex.init(row: 5, column: 6),
+            bricks: testMap
+        )
         let martinCharacters = martinLine.bricks.reduce("") { $0 + String($1.brick.character) }
         let martinIndexes = martinLine.bricks.map { $0.index }
-        
         assert(martinLine.length == 10)
         assert(martinCharacters == "rtin")
         assert(martinIndexes == [0,1,2,3])
         
-        let catLine = playingField.getSearchLine(.horizontal, position: MatrixIndex.init(row: 1, column: 0))
+        let catLine = Search.getSearchLine(
+            .horizontal,
+            position: MatrixIndex.init(row: 1, column: 0),
+            bricks: testMap
+        )
         let catCharacters = catLine.bricks.reduce("") { $0 + String($1.brick.character) }
         let carIndexes = catLine.bricks.map { $0.index }
-        
         assert(catLine.length == 15)
         assert(catCharacters == "cat")
         assert(carIndexes == [2,3,4])
-        
     }
     
-    func testMin() {
-        assert(PlayingField.min(of: [Int]()) == nil)
-        assert(PlayingField.min(of: [1]) == 1)
-        assert(PlayingField.min(of: [1,2]) == 1)
-        assert(PlayingField.min(of: [3,2,1]) == 1)
-    }
-    
-    func testLol() {
-        assert(PlayingField.lengthToNextBrick(on: TestLine.cat, from: 0) == 2)
-        assert(PlayingField.lengthToNextBrick(on: TestLine.cat, from: 1) == 1)
-        assert(PlayingField.lengthToNextBrick(on: TestLine.cat, from: 2) == 1)
-        assert(PlayingField.lengthToNextBrick(on: TestLine.cat, from: 5) == nil)
+    func testLengthToNextBrick() {
+        assert(Search.lengthToNextBrick(on: TestLine.cat, from: 0) == 2)
+        assert(Search.lengthToNextBrick(on: TestLine.cat, from: 1) == 1)
+        assert(Search.lengthToNextBrick(on: TestLine.cat, from: 2) == 1)
+        assert(Search.lengthToNextBrick(on: TestLine.cat, from: 5) == nil)
     }
     
     func testFindMinimumSearchLength() {
-        let playingField = PlayingField(bricks: TestMap.empty)
-        playingField.bricks[.horizontal, 1] = TestLine.cat
-        playingField.bricks[.vertical, 6] = TestLine.martin
-        playingField.bricks.dump()
-        
-        assert(playingField.findMinimumSearchLength(from: .init(row: 0, column: 1), direction: .horizontal) == 2)
-        assert(playingField.findMinimumSearchLength(from: .init(row: 1, column: 0), direction: .horizontal) == 2)
-        assert(playingField.findMinimumSearchLength(from: .init(row: 2, column: 0), direction: .horizontal) == 3)
-        
-        assert(playingField.findMinimumSearchLength(from: .init(row: 3, column: 0), direction: .horizontal) == 6)
-        assert(playingField.findMinimumSearchLength(from: .init(row: 3, column: 6), direction: .horizontal) == 1)
-        assert(playingField.findMinimumSearchLength(from: .init(row: 3, column: 7), direction: .horizontal) == nil)
-        
-        assert(playingField.findMinimumSearchLength(from: .init(row: 0, column: 1), direction: .vertical) == 2)
-        assert(playingField.findMinimumSearchLength(from: .init(row: 0, column: 2), direction: .vertical) == 1)
-        assert(playingField.findMinimumSearchLength(from: .init(row: 0, column: 6), direction: .vertical) == 3)
-        assert(playingField.findMinimumSearchLength(from: .init(row: 1, column: 6), direction: .vertical) == 2)
-        
-        assert(playingField.findMinimumSearchLength(from: .init(row: 10, column: 10), direction: .vertical) == nil)
-        assert(playingField.findMinimumSearchLength(from: .init(row: 10, column: 10), direction: .horizontal) == nil)
+        let testMap = self.testMap()
+        assert(Search.findMinimumSearchLength(from: .init(row: 0, column: 1), direction: .horizontal, bricks: testMap) == 2)
+        assert(Search.findMinimumSearchLength(from: .init(row: 1, column: 0), direction: .horizontal, bricks: testMap) == 2)
+        assert(Search.findMinimumSearchLength(from: .init(row: 2, column: 0), direction: .horizontal, bricks: testMap) == 3)
+        assert(Search.findMinimumSearchLength(from: .init(row: 3, column: 0), direction: .horizontal, bricks: testMap) == 6)
+        assert(Search.findMinimumSearchLength(from: .init(row: 3, column: 6), direction: .horizontal, bricks: testMap) == 1)
+        assert(Search.findMinimumSearchLength(from: .init(row: 3, column: 7), direction: .horizontal, bricks: testMap) == nil)
+        assert(Search.findMinimumSearchLength(from: .init(row: 0, column: 1), direction: .vertical, bricks: testMap) == 2)
+        assert(Search.findMinimumSearchLength(from: .init(row: 0, column: 2), direction: .vertical, bricks: testMap) == 1)
+        assert(Search.findMinimumSearchLength(from: .init(row: 0, column: 6), direction: .vertical, bricks: testMap) == 3)
+        assert(Search.findMinimumSearchLength(from: .init(row: 1, column: 6), direction: .vertical, bricks: testMap) == 2)
+        assert(Search.findMinimumSearchLength(from: .init(row: 10, column: 10), direction: .vertical, bricks: testMap) == nil)
+        assert(Search.findMinimumSearchLength(from: .init(row: 10, column: 10), direction: .horizontal, bricks: testMap) == nil)
     }
 
     func testSearch() {
-        
-        let playingField = PlayingField(bricks: TestMap.empty)
-        playingField.bricks[.horizontal, 1] = TestLine.cat
-        playingField.bricks[.vertical, 6] = TestLine.martin
-        playingField.bricks.dump()
-        
         let tray: [TrayBrick] = [
             TrayBrick.character("1"),
             TrayBrick.character("2"),
             TrayBrick.character("3")
         ]
         
-        let search1 = playingField.searchPosition(.init(row: 0, column: 0), tray: tray)
+        let testMap = self.testMap()
+        
+        let search1 = Search.searchPosition(.init(row: 0, column: 0), bricks: testMap, tray: tray)
         assert(search1.horizontal.results.count == 6)
         assert(search1.vertical.results.count == 0)
         
-        let search2 = playingField.searchPosition(.init(row: 0, column: 2), tray: tray)
+        let search2 = Search.searchPosition(.init(row: 0, column: 2), bricks: testMap, tray: tray)
         assert(search2.horizontal.results.count == 12)
         assert(search2.vertical.results.count == 15)
         
-        let search3 = playingField.searchPosition(.init(row: 5, column: 0), tray: tray)
+        let search3 = Search.searchPosition(.init(row: 5, column: 0), bricks: testMap, tray: tray)
         assert(search3.horizontal.results.count == 0)
         assert(search3.vertical.results.count == 0)
         
-        let search4 = playingField.searchPosition(.init(row: 2, column: 4), tray: tray)
+        let search4 = Search.searchPosition(.init(row: 2, column: 4), bricks: testMap, tray: tray)
         assert(search4.horizontal.results.count == 6)
         assert(search4.vertical.results.count == 0)
         
-        let search5 = playingField.searchPosition(.init(row: 1, column: 4), tray: tray)
+        let search5 = Search.searchPosition(.init(row: 1, column: 4), bricks: testMap, tray: tray)
         assert(search5.horizontal.results.count == 0)
         assert(search5.vertical.results.count == 15)
         
-        let search6 = playingField.searchPosition(.init(row: 1, column: 2), tray: tray)
+        let search6 = Search.searchPosition(.init(row: 1, column: 2), bricks: testMap, tray: tray)
         assert(search6.horizontal.results.count == 15)
         assert(search6.vertical.results.count == 15)
-        
     }
     
+}
+
+// MARK: - Helper
+
+extension SearchTests {
+    
+    func printMatches(_ matches: Set<[PlacedBrick]>) {
+        print(matches
+            .map { match in match.reduce("") { $0 + String($1.character) } }
+            .sorted()
+            .joined(separator: "\n")
+        )
+    }
+    
+    func printSearchResults(_ results: Search.DirectionSearch) {
+        print(results.results.count, " results for ", results.direction)
+        printMatches(results.results)
+    }
+    
+    func testMap() -> Search.Bricks {
+        let map = Bricks(TestMap.empty)
+        map[.horizontal, 1] = TestLine.cat
+        map[.vertical, 6] = TestLine.martin
+        return map
+    }
 }
