@@ -10,6 +10,16 @@ import Foundation
 
 class Validate {
     
+    struct CrossWordsResult {
+        let originalWord: [PlacedBrick]
+        let crossWords: [CrossWord]
+    }
+    
+    struct CrossWord: Equatable {
+        let crossingIndex: Int
+        let word: [FixedBrick]
+    }
+    
     static func validate(
         _ results: Search.PositionSearch,
         list: [String],
@@ -38,20 +48,25 @@ class Validate {
         return list.contains(wordString)
     }
     
-    struct CrossWordsResult {
-        let originalWord: [PlacedBrick]
-        let crossWords: [FixedBrick]
-    }
-    
     static func findCrossWords(
         _ word: [PlacedBrick],
         wordDirection: MatrixDirection,
         position: MatrixIndex,
         bricks: Search.Bricks
     ) -> CrossWordsResult {
-        
-        
-        fatalError()
+        var crossIndex = 0
+        let crossWords = word.reduce(into: [CrossWord]()) { (result, next) in
+            let word = findWord(
+                position.move(wordDirection, count: crossIndex),
+                direction: wordDirection.orthogonal,
+                bricks: bricks
+            )
+            if (word.count > 1) {
+                result.append(.init(crossingIndex: crossIndex, word: word))
+            }
+            crossIndex += 1
+        }
+        return .init(originalWord: word, crossWords: crossWords)
     }
     
     static func findWord(

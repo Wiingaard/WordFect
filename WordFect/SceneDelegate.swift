@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
 //        Permutation(of: "swift").forEach { print($0) }
         
-        let joker = "123"
+//        let joker = "123"
 //        ProductSet(tray, joker).forEach { print($0) }
         
 //        Combination(of: joker, size: 2).forEach { print($0) }
