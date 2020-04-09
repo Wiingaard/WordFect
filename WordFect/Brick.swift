@@ -66,3 +66,10 @@ enum PlacedBrick: MatrixDumpable, Hashable {
     }
     
 }
+
+struct FixedBrick: Equatable {
+    /// A brick placed on a line
+    let brick: PlacedBrick
+    /// The brick index from the beginning of the line
+    let index: Int
+}

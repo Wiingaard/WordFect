@@ -23,7 +23,7 @@ class SearchTests: XCTestCase {
             PlacedBrick.character("4")
         ]
         
-        let fixed: [Search.FixedBrick] = [
+        let fixed: [FixedBrick] = [
             .init(brick: .character("a"), index: 0),
             .init(brick: .character("b"), index: 3),
             .init(brick: .character("c"), index: 6),
@@ -45,7 +45,7 @@ class SearchTests: XCTestCase {
             TrayBrick.joker
         ]
         
-        let fixed: [Search.FixedBrick] = [
+        let fixed: [FixedBrick] = [
             .init(brick: .character("a"), index: 0),
             .init(brick: .character("b"), index: 3),
             .init(brick: .character("c"), index: 6),
@@ -86,7 +86,7 @@ class SearchTests: XCTestCase {
             TrayBrick.character("7")
         ]
         
-        let fixed: [Search.FixedBrick] = [
+        let fixed: [FixedBrick] = [
             .init(brick: .character("a"), index: 0),
             .init(brick: .character("b"), index: 3),
             .init(brick: .character("c"), index: 6),
@@ -115,7 +115,7 @@ class SearchTests: XCTestCase {
     }
     
     func testCanReactLength() {
-        let fixed: [Search.FixedBrick] = [
+        let fixed: [FixedBrick] = [
             .init(brick: .character("a"), index: 0),
             .init(brick: .character("b"), index: 2),
             .init(brick: .character("b"), index: 5),
@@ -139,7 +139,7 @@ class SearchTests: XCTestCase {
             TrayBrick.character("3")
         ]
         
-        let fixed: [Search.FixedBrick] = [
+        let fixed: [FixedBrick] = [
             .init(brick: .character("a"), index: 1),
         ]
         

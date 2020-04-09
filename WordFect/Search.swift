@@ -49,13 +49,6 @@ class Search {
         }
     }
     
-    struct FixedBrick {
-        /// A brick placed on a line
-        let brick: PlacedBrick
-        /// The brick index from the beginning of the line
-        let index: Int
-    }
-    
     static func searchPosition(_ position: MatrixIndex, bricks: Bricks, tray: Tray) -> PositionSearch {
         return .init(
             horizontal: searchDirection(position, direction: .horizontal, tray: tray, bricks: bricks),
