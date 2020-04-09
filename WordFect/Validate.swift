@@ -36,7 +36,7 @@ class Validate {
     /// Validated the all the horizontal and vertical search results. Validates both the actual results and potential crosswords found in `bricks`. Validated according to `list`.
     static func validate(
         _ results: Search.PositionResult,
-        list: [String],
+        list: List,
         bricks: Search.Bricks
     ) -> PositionResult {
         return PositionResult.init(
@@ -49,13 +49,13 @@ class Validate {
     /// Main Validation logic. Ensures that a result is valid, and it has minimum one crosswors. All cross words must be valid.
     static func validateDirectionSearch(
         _ result: Search.DirectionSearch,
-        list: [String],
+        list: List,
         bricks: Search.Bricks
     ) -> [ValidatedResult] {
         var validatedResults = [ValidatedResult]()
         
         for word in result.results {
-            guard isValidWord(word, list: list) else { continue }
+            guard list.contains(word) else { continue }
             
             let crossWords = findCrossWords(
                 word,
@@ -67,7 +67,7 @@ class Validate {
             guard crossWords.crossWords.count > 0 else { continue }
             
             let hasInvalidWord = crossWords.crossWords.contains { crossWord in
-                !isValidWord(crossWord.word.map { $0.brick }, list: list)
+                !list.contains(crossWord.word)
             }
             
             guard !hasInvalidWord else { continue }
@@ -76,12 +76,6 @@ class Validate {
         }
         
         return validatedResults
-    }
-    
-    /// Checks if a given word is in the wordlist
-    static func isValidWord(_ word: [PlacedBrick], list: [String]) -> Bool {
-        let wordString = String(word.map { $0.character })
-        return list.contains(wordString)
     }
     
     /// Finding all crosswords to a given `word` located at `position` amount the current `bricks`. Does not validate crosswords, but crosswords must have more than 1 character.

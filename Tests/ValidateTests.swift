@@ -13,11 +13,6 @@ class ValidateTests: XCTestCase {
     
     typealias Bricks = Matrix<PlacedBrick?>
     
-    func testIsValidWord() {
-        assert(Validate.isValidWord(hus(), list: testList()) == true)
-        assert(Validate.isValidWord(lol(), list: testList()) == false)
-    }
-    
     func testFindWord() {
         let testMap = self.testMap()
         testMap[MatrixIndex.init(row: 1, column: 6)] = .character("h")
@@ -137,7 +132,7 @@ class ValidateTests: XCTestCase {
             results: Set([makeWord("fat"), makeWord("fatty"), makeWord("matty"), makeWord("saz")])
         )
         
-        let results = Validate.validateDirectionSearch(search, list: testList(), bricks: testMap)
+        let results = Validate.validateDirectionSearch(search, list: makeList(), bricks: testMap)
         let resultWords = results.map { String($0.word.map { $0.character }) }
         let catControlCrossword = Validate.CrossWord.init(
             crossingIndex: 1,
@@ -162,7 +157,7 @@ class ValidateTests: XCTestCase {
             results: Set([makeWord("zap"), makeWord("wrap"), makeWord("chat")])
         )
         
-        let results = Validate.validateDirectionSearch(search, list: testList(), bricks: testMap)
+        let results = Validate.validateDirectionSearch(search, list: makeList(), bricks: testMap)
         let resultsWords = results.map { String($0.word.map { $0.character }) }
         let catzControlCrossword = Validate.CrossWord.init(
             crossingIndex: 0,
@@ -183,8 +178,8 @@ class ValidateTests: XCTestCase {
 
 extension ValidateTests {
     
-    func testList() -> [String] {
-        ["hus","fat","fatty","cat","zap","catz","pm"]
+    func makeList() -> List {
+        List(["hus","fat","fatty","cat","zap","catz","pm"])
     }
     
     func makeWord(_ word: String) -> [PlacedBrick] {
