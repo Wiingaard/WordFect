@@ -93,7 +93,7 @@ class ValidateTests: XCTestCase {
         )
         let fatControl = Validate.CrossWord.init(crossingIndex: 1, word: controlWord(characters: "fat", starting: -1))
         assert(catResult.crossWords == [fatControl])
-        assert(catResult.originalWord == cat())
+        assert(catResult.word == cat())
         
         let martinResult = Validate.findCrossWords(
             martin(),
@@ -105,7 +105,7 @@ class ValidateTests: XCTestCase {
         let derpControl = Validate.CrossWord.init(crossingIndex: 2, word: controlWord(characters: "derp", starting: -2))
         let nopControl = Validate.CrossWord.init(crossingIndex: 5, word: controlWord(characters: "nop", starting: 0))
         assert(martinResult.crossWords == [momsControl, derpControl, nopControl])
-        assert(martinResult.originalWord == martin())
+        assert(martinResult.word == martin())
     }
     
     func testCrossWords2() {
@@ -122,7 +122,7 @@ class ValidateTests: XCTestCase {
         let catzControl = Validate.CrossWord.init(crossingIndex: 0, word: controlWord(characters: "catz", starting: -3))
         let pmControl = Validate.CrossWord.init(crossingIndex: 2, word: controlWord(characters: "pm", starting: 0))
         assert(result.crossWords == [catzControl, pmControl])
-        assert(result.originalWord == makeWord("zap"))
+        assert(result.word == makeWord("zap"))
     }
     
     func testValidateDirection() {
@@ -137,8 +137,8 @@ class ValidateTests: XCTestCase {
             results: Set([makeWord("fat"), makeWord("fatty"), makeWord("matty"), makeWord("saz")])
         )
         
-        let results = Validate.validateDirection(search, list: testList(), bricks: testMap)
-        let resultWords = results.map { String($0.originalWord.map { $0.character }) }
+        let results = Validate.validateDirectionSearch(search, list: testList(), bricks: testMap)
+        let resultWords = results.map { String($0.word.map { $0.character }) }
         let catControlCrossword = Validate.CrossWord.init(
             crossingIndex: 1,
             word: controlWord(characters: "cat", starting: -1)
@@ -162,8 +162,8 @@ class ValidateTests: XCTestCase {
             results: Set([makeWord("zap"), makeWord("wrap"), makeWord("chat")])
         )
         
-        let results = Validate.validateDirection(search, list: testList(), bricks: testMap)
-        let resultsWords = results.map { String($0.originalWord.map { $0.character }) }
+        let results = Validate.validateDirectionSearch(search, list: testList(), bricks: testMap)
+        let resultsWords = results.map { String($0.word.map { $0.character }) }
         let catzControlCrossword = Validate.CrossWord.init(
             crossingIndex: 0,
             word: controlWord(characters: "catz", starting: -3)
@@ -230,8 +230,8 @@ extension ValidateTests {
         print("crossing: ", crossWord.crossingIndex, " starting at: ", startingAt ?? "X", " word: ", word)
     }
     
-    func printResult(_ result: Validate.CrossWordsResult) {
-        print("Word: ", String(result.originalWord.map { $0.character }))
+    func printResult(_ result: Validate.ValidatedResult) {
+        print("Word: ", String(result.word.map { $0.character }))
         result.crossWords.forEach(printCrossWord)
     }
     

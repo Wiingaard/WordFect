@@ -10,34 +10,49 @@ import Foundation
 
 class Validate {
     
-    struct CrossWordsResult {
-        let originalWord: [PlacedBrick]
+    /// Final result from validating a position search
+    struct PositionResult {
+        let horizontal: [ValidatedResult]
+        let vertical: [ValidatedResult]
+        let position: MatrixIndex
+    }
+    
+    /// Holding a potential validatied Result. Both the actual result `word` and the `crossword` touching the word that also must validated
+    struct ValidatedResult {
+        /// The search result
+        let word: [PlacedBrick]
+        /// Crossword crossing the `word`
         let crossWords: [CrossWord]
     }
     
+    /// Describing a crossword in relation to it's word
     struct CrossWord: Equatable {
+        /// Describing where on the `word` this crossword is crossing
         let crossingIndex: Int
+        /// The actual crossword, with indicies defining where the characters are placed in relation to the `word`
         let word: [FixedBrick]
     }
     
+    /// Validated the all the horizontal and vertical search results. Validates both the actual results and potential crosswords found in `bricks`. Validated according to `list`.
     static func validate(
-        _ results: Search.PositionSearch,
+        _ results: Search.PositionResult,
         list: [String],
         bricks: Search.Bricks
-    ) -> Search.PositionSearch {
-//        return Search.PositionSearch(
-//            horizontal: validateDirection(results.horizontal, list: list, bricks: bricks),
-//            vertical: validateDirection(results.vertical, list: list, bricks: bricks)
-//        )
-        fatalError()
+    ) -> PositionResult {
+        return PositionResult.init(
+            horizontal: validateDirectionSearch(results.horizontal, list: list, bricks: bricks),
+            vertical: validateDirectionSearch(results.vertical, list: list, bricks: bricks),
+            position: results.horizontal.origin
+        )
     }
     
-    static func validateDirection(
+    /// Main Validation logic. Ensures that a result is valid, and it has minimum one crosswors. All cross words must be valid.
+    static func validateDirectionSearch(
         _ result: Search.DirectionSearch,
         list: [String],
         bricks: Search.Bricks
-    ) -> [CrossWordsResult] {
-        var validatedResults = [CrossWordsResult]()
+    ) -> [ValidatedResult] {
+        var validatedResults = [ValidatedResult]()
         
         for word in result.results {
             guard isValidWord(word, list: list) else { continue }
@@ -63,17 +78,19 @@ class Validate {
         return validatedResults
     }
     
+    /// Checks if a given word is in the wordlist
     static func isValidWord(_ word: [PlacedBrick], list: [String]) -> Bool {
         let wordString = String(word.map { $0.character })
         return list.contains(wordString)
     }
     
+    /// Finding all crosswords to a given `word` located at `position` amount the current `bricks`. Does not validate crosswords, but crosswords must have more than 1 character.
     static func findCrossWords(
         _ word: [PlacedBrick],
         wordDirection: MatrixDirection,
         position: MatrixIndex,
         bricks: Search.Bricks
-    ) -> CrossWordsResult {
+    ) -> ValidatedResult {
         var crossIndex = 0
         let crossWords = word.reduce(into: [CrossWord]()) { (result, next) in
             
@@ -88,9 +105,10 @@ class Validate {
             }
             crossIndex += 1
         }
-        return .init(originalWord: word, crossWords: crossWords)
+        return .init(word: word, crossWords: crossWords)
     }
     
+    /// Inserts `brick` at the `position` and searches the line at the current `bricks`. Returns the word found (seperated by nil), if if't more than 1 character long.
     static func findWord(
         at position: MatrixIndex,
         brick: PlacedBrick,
@@ -116,5 +134,4 @@ class Validate {
             return FixedBrick.init(brick: brick, index: offset - characterIndex)
         }
     }
-    
 }

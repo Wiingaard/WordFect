@@ -11,18 +11,11 @@ import Combinatorics
 
 class Search {
     
-    /// Main Matrix type in Search
-    typealias Bricks = Matrix<PlacedBrick?>
-    
-    /// An honest tray. A tray without any jokers will result in a single PermutationSet
-    typealias PermutationSet = [PlacedBrick]
-    
-    /// All the characters that a joker can be turned into
-    static let jokerSet = "abcdefghijklmnopqrstuvxyzæøå"
-    
-    struct PositionSearch {
+    /// Final result from searching a position
+    struct PositionResult {
         let horizontal: DirectionSearch
         let vertical: DirectionSearch
+        let position: MatrixIndex
     }
     
     struct SearchLine {
@@ -49,10 +42,20 @@ class Search {
         }
     }
     
-    static func searchPosition(_ position: MatrixIndex, bricks: Bricks, tray: Tray) -> PositionSearch {
+    /// Main Matrix type in Search
+    typealias Bricks = Matrix<PlacedBrick?>
+    
+    /// An honest tray. A tray without any jokers will result in a single PermutationSet
+    typealias PermutationSet = [PlacedBrick]
+    
+    /// All the characters that a joker can be turned into
+    static let jokerSet = "abcdefghijklmnopqrstuvxyzæøå"
+    
+    static func searchPosition(_ position: MatrixIndex, bricks: Bricks, tray: Tray) -> PositionResult {
         return .init(
             horizontal: searchDirection(position, direction: .horizontal, tray: tray, bricks: bricks),
-            vertical: searchDirection(position, direction: .vertical, tray: tray, bricks: bricks)
+            vertical: searchDirection(position, direction: .vertical, tray: tray, bricks: bricks),
+            position: position
         )
     }
     
