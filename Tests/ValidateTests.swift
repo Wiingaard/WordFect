@@ -14,7 +14,7 @@ class ValidateTests: XCTestCase {
     typealias Bricks = Matrix<PlacedBrick?>
     
     func testFindWord() {
-        let testMap = self.testMap()
+        let testMap = makeBricks()
         testMap[MatrixIndex.init(row: 1, column: 6)] = .character("h")
         testMap[MatrixIndex.init(row: 4, column: 3)] = .character("o")
         
@@ -66,7 +66,7 @@ class ValidateTests: XCTestCase {
     }
     
     func testCrossWords() {
-        let testMap = self.testMap()
+        let testMap = makeBricks()
         testMap[MatrixIndex.init(row: 0, column: 3)] = .character("f")
         testMap[MatrixIndex.init(row: 2, column: 3)] = .character("t")
         
@@ -81,17 +81,17 @@ class ValidateTests: XCTestCase {
         testMap.dump()
         
         let catResult = Validate.findCrossWords(
-            cat(),
+            makeWord("cat"),
             wordDirection: .horizontal,
             position: .init(row: 1, column: 2),
             bricks: testMap
         )
         let fatControl = Validate.CrossWord.init(crossingIndex: 1, word: controlWord(characters: "fat", starting: -1))
         assert(catResult.crossWords == [fatControl])
-        assert(catResult.word == cat())
+        assert(catResult.word == makeWord("cat"))
         
         let martinResult = Validate.findCrossWords(
-            martin(),
+            makeWord("martin"),
             wordDirection: .vertical,
             position: .init(row: 3, column: 6),
             bricks: testMap
@@ -100,12 +100,11 @@ class ValidateTests: XCTestCase {
         let derpControl = Validate.CrossWord.init(crossingIndex: 2, word: controlWord(characters: "derp", starting: -2))
         let nopControl = Validate.CrossWord.init(crossingIndex: 5, word: controlWord(characters: "nop", starting: 0))
         assert(martinResult.crossWords == [momsControl, derpControl, nopControl])
-        assert(martinResult.word == martin())
+        assert(martinResult.word == makeWord("martin"))
     }
     
     func testCrossWords2() {
-        let testMap = self.testMap()
-        testMap.dump()
+        let testMap = makeBricks()
         
         let result = Validate.findCrossWords(
             makeWord("zap"),
@@ -121,8 +120,7 @@ class ValidateTests: XCTestCase {
     }
     
     func testValidateDirection() {
-        let testMap = self.testMap()
-        testMap.dump()
+        let testMap = makeBricks()
         
         let search = Search.DirectionSearch(
             origin: .init(row: 0, column: 3),
@@ -146,7 +144,7 @@ class ValidateTests: XCTestCase {
     }
     
     func testValidateDirection2() {
-        let testMap = self.testMap()
+        let testMap = makeBricks()
         testMap.dump()
         
         let search = Search.DirectionSearch(
@@ -173,61 +171,4 @@ class ValidateTests: XCTestCase {
         assert(results.first!.crossWords.contains(catzControlCrossword))
         assert(results.first!.crossWords.contains(pmControlCrossword))
     }
-
-}
-
-extension ValidateTests {
-    
-    func makeList() -> List {
-        List(["hus","fat","fatty","cat","zap","catz","pm"])
-    }
-    
-    func makeWord(_ word: String) -> [PlacedBrick] {
-        word.map(PlacedBrick.character)
-    }
-    
-    func hus() -> [PlacedBrick] {
-        makeWord("hus")
-    }
-    
-    func lol() -> [PlacedBrick] {
-        makeWord("lol")
-    }
-    
-    func cat() -> [PlacedBrick] {
-        makeWord("cat")
-    }
-    
-    func martin() -> [PlacedBrick] {
-        makeWord("martin")
-    }
-    
-    func testMap() -> Search.Bricks {
-        let map = Bricks(TestMap.empty)
-        map[.horizontal, 1] = TestLine.cat
-        map[.vertical, 6] = TestLine.martin
-        return map
-    }
-    
-    func controlWord(characters: String, starting: Int) -> [FixedBrick] {
-        var result = [FixedBrick]()
-        var index = starting
-        characters.forEach { char in
-            result.append(.init(brick: .character(char), index: index))
-            index += 1
-        }
-        return result
-    }
-    
-    func printCrossWord(_ crossWord: Validate.CrossWord) {
-        let word = String(crossWord.word.map { $0.brick.character })
-        let startingAt = crossWord.word.first?.index
-        print("crossing: ", crossWord.crossingIndex, " starting at: ", startingAt ?? "X", " word: ", word)
-    }
-    
-    func printResult(_ result: Validate.ValidatedResult) {
-        print("Word: ", String(result.word.map { $0.character }))
-        result.crossWords.forEach(printCrossWord)
-    }
-    
 }

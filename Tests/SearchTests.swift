@@ -39,7 +39,6 @@ class SearchTests: XCTestCase {
     }
     
     func testPotentialMatchesWithJoker() {
-        
         let tray: [TrayBrick] = [
             TrayBrick.character("1"),
             TrayBrick.joker
@@ -75,7 +74,6 @@ class SearchTests: XCTestCase {
     }
     
     func testPotentialMatches() {
-        
         let tray: [TrayBrick] = [
             TrayBrick.character("1"),
             TrayBrick.character("2"),
@@ -132,7 +130,6 @@ class SearchTests: XCTestCase {
     }
     
     func testPotentialMatchesMinLength() {
-        
         let tray: [TrayBrick] = [
             TrayBrick.character("1"),
             TrayBrick.character("2"),
@@ -164,7 +161,7 @@ class SearchTests: XCTestCase {
     }
     
     func testGetSearchLine() {
-        let testMap = self.testMap()
+        let testMap = makeBricks()
         
         let martinLine = Search.getSearchLine(
             .vertical,
@@ -197,7 +194,7 @@ class SearchTests: XCTestCase {
     }
     
     func testFindMinimumSearchLength() {
-        let testMap = self.testMap()
+        let testMap = makeBricks()
         assert(Search.findMinimumSearchLength(from: .init(row: 0, column: 1), direction: .horizontal, bricks: testMap) == 2)
         assert(Search.findMinimumSearchLength(from: .init(row: 1, column: 0), direction: .horizontal, bricks: testMap) == 2)
         assert(Search.findMinimumSearchLength(from: .init(row: 2, column: 0), direction: .horizontal, bricks: testMap) == 3)
@@ -219,7 +216,7 @@ class SearchTests: XCTestCase {
             TrayBrick.character("3")
         ]
         
-        let testMap = self.testMap()
+        let testMap = makeBricks()
         
         let search1 = Search.searchPosition(.init(row: 0, column: 0), bricks: testMap, tray: tray)
         assert(search1.horizontal.results.count == 6)
@@ -244,31 +241,5 @@ class SearchTests: XCTestCase {
         let search6 = Search.searchPosition(.init(row: 1, column: 2), bricks: testMap, tray: tray)
         assert(search6.horizontal.results.count == 15)
         assert(search6.vertical.results.count == 15)
-    }
-    
-}
-
-// MARK: - Helper
-
-extension SearchTests {
-    
-    func printMatches(_ matches: Set<[PlacedBrick]>) {
-        print(matches
-            .map { match in match.reduce("") { $0 + String($1.character) } }
-            .sorted()
-            .joined(separator: "\n")
-        )
-    }
-    
-    func printSearchResults(_ results: Search.DirectionSearch) {
-        print(results.results.count, " results for ", results.direction)
-        printMatches(results.results)
-    }
-    
-    func testMap() -> Search.Bricks {
-        let map = Bricks(TestMap.empty)
-        map[.horizontal, 1] = TestLine.cat
-        map[.vertical, 6] = TestLine.martin
-        return map
     }
 }

@@ -21,5 +21,4 @@ class ParseTests: XCTestCase {
         assert(!isValid("abc1"))
         assert(!isValid("Abc"))
     }
-    
 }

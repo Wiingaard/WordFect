@@ -16,18 +16,9 @@ class ListTests: XCTestCase {
         
         assert(list.contains("hus"))
         assert(!list.contains("nothus"))
-        assert(list.contains(makePlaced("hus")))
-        assert(!list.contains(makePlaced("nothus")))
+        assert(list.contains(makeWord("hus")))
+        assert(!list.contains(makeWord("nothus")))
         assert(list.contains(makeFixed("hus")))
         assert(!list.contains(makeFixed("nothus")))
     }
-    
-    func makePlaced(_ word: String) -> [PlacedBrick] {
-        word.map(PlacedBrick.character)
-    }
-    
-    func makeFixed(_ word: String) -> [FixedBrick] {
-        word.enumerated().map { FixedBrick(brick: PlacedBrick.character($1), index: $0) }
-    }
-    
 }
