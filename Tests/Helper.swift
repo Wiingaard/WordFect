@@ -9,8 +9,8 @@
 import Foundation
 @testable import WordFect
 
-func makeList() -> List {
-    List(["hus","fat","fatty","cat","zap","catz","pm"])
+func makeList(withExtra words: [String] = []) -> List {
+    List(["hus","fat","fatty","cat","zap","catz","pm"] + words)
 }
 
 func makeWord(_ word: String) -> [PlacedBrick] {
@@ -64,4 +64,10 @@ func printMatches(_ matches: Set<[PlacedBrick]>) {
 func printDirectionSearch(_ results: Search.DirectionSearch) {
     print(results.results.count, " results for ", results.direction)
     printMatches(results.results)
+}
+
+func printRankingWord(_ word: [Rank.RankingBrick]) {
+    let printableWord = String(word.map { $0.brick.character })
+    let printablePositions = word.map { String($0.position.description) }.joined(separator: " ")
+    print(printableWord, " - [", printablePositions ,"]")
 }

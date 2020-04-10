@@ -119,6 +119,21 @@ class ValidateTests: XCTestCase {
         assert(result.word == makeWord("zap"))
     }
     
+    /// Find no crosswords on when a word is just being prolonged
+    func testCrossWords3() {
+        let testMap = makeBricks()
+        testMap.dump()
+        
+        let result = Validate.findCrossWords(
+            makeWord("martins"),
+            wordDirection: .vertical,
+            position: .init(row: 3, column: 6),
+            bricks: testMap
+        )
+        
+        assert(result.crossWords.count == 0)
+    }
+    
     func testValidateDirection() {
         let testMap = makeBricks()
         
@@ -170,5 +185,31 @@ class ValidateTests: XCTestCase {
         assert(results.first!.crossWords.count == 2)
         assert(results.first!.crossWords.contains(catzControlCrossword))
         assert(results.first!.crossWords.contains(pmControlCrossword))
+    }
+    
+    /// Can find a match without any crosswords. (Simply adding a character to a word)
+    func testValidateDirection3() {
+        let testMap = makeBricks()
+        testMap.dump()
+        
+        let search = Search.DirectionSearch(
+            origin: .init(row: 3, column: 6),
+            direction: .vertical,
+            fixedBricks: [],
+            length: 11,
+            results: Set([makeWord("martins")])
+        )
+        
+        let results = Validate.validateDirectionSearch(
+            search,
+            list: makeList(withExtra: ["martins"]),
+            bricks: testMap
+        )
+        
+        let resultsWords = results.map { String($0.word.map { $0.character }) }
+        
+        assert(resultsWords.count == 1)
+        assert(resultsWords.contains("martins"))
+        assert(results.first!.crossWords.count == 0)
     }
 }

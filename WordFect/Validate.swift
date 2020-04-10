@@ -46,7 +46,7 @@ class Validate {
         )
     }
     
-    /// Main Validation logic. Ensures that a result is valid, and it has minimum one crosswors. All cross words must be valid.
+    /// Main Validation logic. Ensures that a result is valid, and all potential crosswords are valid.
     static func validateDirectionSearch(
         _ result: Search.DirectionSearch,
         list: List,
@@ -64,13 +64,11 @@ class Validate {
                 bricks: bricks
             )
             
-            guard crossWords.crossWords.count > 0 else { continue }
-            
-            let hasInvalidWord = crossWords.crossWords.contains { crossWord in
+            let hasInvalidCrossWord = crossWords.crossWords.contains { crossWord in
                 !list.contains(crossWord.word)
             }
             
-            guard !hasInvalidWord else { continue }
+            guard !hasInvalidCrossWord else { continue }
             
             validatedResults.append(crossWords)
         }
@@ -87,7 +85,6 @@ class Validate {
     ) -> ValidatedResult {
         var crossIndex = 0
         let crossWords = word.reduce(into: [CrossWord]()) { (result, next) in
-            
             let word = findWord(
                 at: position.move(wordDirection, count: crossIndex),
                 brick: next,
