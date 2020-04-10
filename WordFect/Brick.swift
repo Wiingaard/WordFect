@@ -65,6 +65,13 @@ enum PlacedBrick: MatrixDumpable, Hashable {
         }
     }
     
+    var value: Int {
+        switch self {
+        case .joker: return 0
+        case .character(let char): return Rank.value(for: char)
+        }
+    }
+    
 }
 
 struct FixedBrick: Equatable {

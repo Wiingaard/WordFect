@@ -12,6 +12,7 @@ import XCTest
 class RankTests: XCTestCase {
     
     typealias Bricks = Matrix<PlacedBrick?>
+//    typealias Board = Matrix<BoardPosition>
     
     func testNewly() {
         let testMap = self.testMap()
@@ -30,6 +31,39 @@ class RankTests: XCTestCase {
             bricks: testMap
             ) == [FixedBrick(brick: .character("f"), index: 0), FixedBrick(brick: .character("t"), index: 2)])
     }
+    
+    func testBerp() {
+        let board = makeBoard()
+        board.dump()
+        
+        let letterBonus: [Rank.RankingBrick] = [
+            .init(brick: PlacedBrick.character("c"), position: .init(row: 0, column: 0), isNewlyPlaced: true),
+            .init(brick: PlacedBrick.character("a"), position: .init(row: 0, column: 1), isNewlyPlaced: false),
+            .init(brick: PlacedBrick.character("t"), position: .init(row: 0, column: 2), isNewlyPlaced: false),
+        ]
+        assert(Rank.calculateScore(for: letterBonus, board: board) == 27)
+        
+        let wordBonus: [Rank.RankingBrick] = [
+            .init(brick: PlacedBrick.character("c"), position: .init(row: 4, column: 0), isNewlyPlaced: true),
+            .init(brick: PlacedBrick.character("a"), position: .init(row: 4, column: 1), isNewlyPlaced: false),
+            .init(brick: PlacedBrick.character("t"), position: .init(row: 4, column: 2), isNewlyPlaced: false),
+        ]
+        assert(Rank.calculateScore(for: wordBonus, board: board) == 33)
+        
+        let ignoringNotNewlyPlaces: [Rank.RankingBrick] = [
+            .init(brick: PlacedBrick.character("c"), position: .init(row: 4, column: 2), isNewlyPlaced: true),
+            .init(brick: PlacedBrick.character("a"), position: .init(row: 4, column: 3), isNewlyPlaced: false),
+            .init(brick: PlacedBrick.character("t"), position: .init(row: 4, column: 4), isNewlyPlaced: false),
+        ]
+        assert(Rank.calculateScore(for: ignoringNotNewlyPlaces, board: board) == 11)
+        
+        let jokerWord: [Rank.RankingBrick] = [
+            .init(brick: PlacedBrick.joker("c"), position: .init(row: 4, column: 0), isNewlyPlaced: true),
+            .init(brick: PlacedBrick.character("a"), position: .init(row: 4, column: 1), isNewlyPlaced: false),
+            .init(brick: PlacedBrick.character("t"), position: .init(row: 4, column: 2), isNewlyPlaced: false),
+        ]
+        assert(Rank.calculateScore(for: jokerWord, board: board) == 9)
+    }
 
 }
 
@@ -44,20 +78,8 @@ extension RankTests {
         word.map(PlacedBrick.character)
     }
     
-    func hus() -> [PlacedBrick] {
-        makeWord("hus")
-    }
-    
-    func lol() -> [PlacedBrick] {
-        makeWord("lol")
-    }
-    
-    func cat() -> [PlacedBrick] {
-        makeWord("cat")
-    }
-    
-    func martin() -> [PlacedBrick] {
-        makeWord("martin")
+    func makeBoard() -> Matrix<BoardPosition> {
+        Matrix(Board.standart)
     }
     
     func testMap() -> Search.Bricks {
