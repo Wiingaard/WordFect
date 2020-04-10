@@ -65,11 +65,7 @@ class Rank {
         )
         
         let score = find.wordsToRank
-            .map {
-                let score = calculateScore(for: $0, board: board)
-                print(score)
-                return score                
-            }
+            .map { calculateScore(for: $0, board: board) }
             .reduce(0, +)
         
         return RankedResult(

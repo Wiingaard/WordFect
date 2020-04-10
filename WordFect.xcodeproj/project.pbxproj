@@ -127,6 +127,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B0012732441129C006780CD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5BFCC7C8242557070078AC50 /* Board.swift */,
+				5BFCC7CA24263C1A0078AC50 /* BoardPosition.swift */,
+				5BFCC7F5242D4B1E0078AC50 /* Brick.swift */,
+				5B57701F243FC6590090D039 /* List.swift */,
+				5BFCC7F7242D4CDC0078AC50 /* Tray.swift */,
+				5BFCC7CC2426450B0078AC50 /* BonusPosition.swift */,
+				5BFCC803242F8EBA0078AC50 /* Matrix.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5B001274244113AD006780CD /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				5B66E095243A4F4C0077A84E /* Search.swift */,
+				5B66E097243F03EF0077A84E /* Validate.swift */,
+				5B577023243FCA070090D039 /* Rank.swift */,
+				5B00126F2440D1B8006780CD /* PositionWorker.swift */,
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
 		5B223A44242542AD00EC773B = {
 			isa = PBXGroup;
 			children = (
@@ -148,21 +173,12 @@
 		5B223A4F242542AD00EC773B /* WordFect */ = {
 			isa = PBXGroup;
 			children = (
-				5B66E095243A4F4C0077A84E /* Search.swift */,
-				5B66E097243F03EF0077A84E /* Validate.swift */,
-				5B577023243FCA070090D039 /* Rank.swift */,
-				5B00126F2440D1B8006780CD /* PositionWorker.swift */,
 				5B223A50242542AD00EC773B /* AppDelegate.swift */,
 				5B223A52242542AD00EC773B /* SceneDelegate.swift */,
-				5BFCC7C8242557070078AC50 /* Board.swift */,
-				5BFCC7CA24263C1A0078AC50 /* BoardPosition.swift */,
-				5BFCC7F5242D4B1E0078AC50 /* Brick.swift */,
-				5B57701F243FC6590090D039 /* List.swift */,
-				5BFCC7F7242D4CDC0078AC50 /* Tray.swift */,
-				5BFCC7CC2426450B0078AC50 /* BonusPosition.swift */,
 				5BFCC7FA242D4ED50078AC50 /* PlayingField.swift */,
-				5BFCC803242F8EBA0078AC50 /* Matrix.swift */,
 				5BFCC801242D52B60078AC50 /* BrickMap.swift */,
+				5B001274244113AD006780CD /* Engine */,
+				5B0012732441129C006780CD /* Models */,
 				5BFCC7FE242D50FF0078AC50 /* Extensions */,
 				5BFCC7E0242659B70078AC50 /* Board View */,
 				5BFCC7F9242D4D8F0078AC50 /* Word list */,

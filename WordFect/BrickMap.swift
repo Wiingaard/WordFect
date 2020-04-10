@@ -9,7 +9,7 @@
 import Foundation
     
 private let emptyRow = Matrix<PlacedBrick?>.Line(repeating: nil, count: Board.size)
-private let emptyMap = Matrix<PlacedBrick?>.Grid.init(repeating: emptyRow, count: Board.size)
+private let emptyMap = Matrix<PlacedBrick?>.Grid(repeating: emptyRow, count: Board.size)
 
 private func emptyRows(_ count: Int) -> [[PlacedBrick?]] {
     return Array.init(repeating: emptyRow, count: count)
