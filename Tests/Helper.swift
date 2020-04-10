@@ -21,6 +21,10 @@ func makeFixed(_ word: String) -> [FixedBrick] {
     word.enumerated().map { FixedBrick(brick: PlacedBrick.character($1), index: $0) }
 }
 
+func makeTray(_ word: String) -> Tray {
+    word.map(TrayBrick.character)
+}
+
 func makeBricks() -> Search.Bricks {
     let map = Search.Bricks(TestMap.empty)
     map[.horizontal, 1] = TestLine.cat
@@ -70,4 +74,13 @@ func printRankingWord(_ word: [Rank.RankingBrick]) {
     let printableWord = String(word.map { $0.brick.character })
     let printablePositions = word.map { String($0.position.description) }.joined(separator: " ")
     print(printableWord, " - [", printablePositions ,"]")
+}
+
+func printRankResult(_ result: Rank.RankedResult) {
+    let newlyPlaces = result.newlyPlaced
+        .map { "'\($0.brick.character)' at \(result.position.move(result.direction, count: $0.index).description)" }
+        .joined(separator: " ")
+    
+    let word = String(result.word.map { $0.character })
+    print("\(newlyPlaces) -> '\(word)' score: \(result.score)")
 }

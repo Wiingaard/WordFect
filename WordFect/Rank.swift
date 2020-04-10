@@ -19,7 +19,7 @@ class Rank {
         let isNewlyPlaced: Bool
     }
     
-    struct RankedResult {
+    struct RankedResult: Equatable {
         let word: [PlacedBrick]
         let newlyPlaced: [FixedBrick]
         let score: Int
@@ -65,7 +65,11 @@ class Rank {
         )
         
         let score = find.wordsToRank
-            .map { calculateScore(for: $0, board: board) }
+            .map {
+                let score = calculateScore(for: $0, board: board)
+                print(score)
+                return score                
+            }
             .reduce(0, +)
         
         return RankedResult(
