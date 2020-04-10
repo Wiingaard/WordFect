@@ -78,7 +78,6 @@ class ValidateTests: XCTestCase {
         testMap[MatrixIndex.init(row: 5, column: 7)] = .character("p")
         testMap[MatrixIndex.init(row: 8, column: 7)] = .character("o")
         testMap[MatrixIndex.init(row: 8, column: 8)] = .character("p")
-        testMap.dump()
         
         let catResult = Validate.findCrossWords(
             makeWord("cat"),
@@ -122,7 +121,6 @@ class ValidateTests: XCTestCase {
     /// Find no crosswords on when a word is just being prolonged
     func testCrossWords3() {
         let testMap = makeBricks()
-        testMap.dump()
         
         let result = Validate.findCrossWords(
             makeWord("martins"),
@@ -160,7 +158,6 @@ class ValidateTests: XCTestCase {
     
     func testValidateDirection2() {
         let testMap = makeBricks()
-        testMap.dump()
         
         let search = Search.DirectionSearch(
             origin: .init(row: 1, column: 5),
@@ -190,7 +187,6 @@ class ValidateTests: XCTestCase {
     /// Can find a match without any crosswords. (Simply adding a character to a word)
     func testValidateDirection3() {
         let testMap = makeBricks()
-        testMap.dump()
         
         let search = Search.DirectionSearch(
             origin: .init(row: 3, column: 6),

@@ -13,10 +13,6 @@ class Rank {
     typealias Bricks = Matrix<PlacedBrick?>
     typealias Board = Matrix<BoardPosition>
     
-    struct PositionResults {
-        
-    }
-    
     struct RankingBrick: Equatable {
         let brick: PlacedBrick
         let position: MatrixIndex
@@ -31,9 +27,54 @@ class Rank {
         let position: MatrixIndex
     }
     
-    static func calculateScores(for results: Validate.PositionResult) -> PositionResults {
-        results.horizontal[1]
-        fatalError()
+    static func calculateScores(for results: Validate.PositionResult, bricks: Bricks, board: Board) -> [RankedResult] {
+        let horizontalResults = results.horizontal.map { result -> RankedResult in
+            rankResult(
+                result: result,
+                direction: .horizontal,
+                position: results.position,
+                bricks: bricks,
+                board: board
+            )
+        }
+        let verticalResults = results.vertical.map { result -> RankedResult in
+            rankResult(
+                result: result,
+                direction: .vertical,
+                position: results.position,
+                bricks: bricks,
+                board: board
+            )
+        }
+        return horizontalResults + verticalResults
+    }
+    
+    static func rankResult(
+        result: Validate.ValidatedResult,
+        direction: MatrixDirection,
+        position: MatrixIndex,
+        bricks: Bricks,
+        board: Board
+    ) -> RankedResult {
+        let find = findWordsToRank(
+            result.word,
+            crossWords: result.crossWords,
+            direction: direction,
+            position: position,
+            bricks: bricks
+        )
+        
+        let score = find.wordsToRank
+            .map { calculateScore(for: $0, board: board) }
+            .reduce(0, +)
+        
+        return RankedResult(
+            word: result.word,
+            newlyPlaced: find.newlyPlaced,
+            score: score,
+            direction: direction,
+            position: position
+        )
     }
     
     static func calculateScore(for word: [RankingBrick], board: Board) -> Int {
@@ -51,13 +92,18 @@ class Rank {
         return accumulatedLetterValue * wordMultiplier
     }
     
+    struct WordsToRank {
+        let wordsToRank: [[RankingBrick]]
+        let newlyPlaced: [FixedBrick]
+    }
+    
     static func findWordsToRank(
         _ word: [PlacedBrick],
         crossWords: [Validate.CrossWord],
         direction: MatrixDirection,
         position: MatrixIndex,
         bricks: Bricks
-    ) -> [[RankingBrick]] {
+    ) -> WordsToRank {
         let newlyPlaces = findNewlyPlacedBricks(
             word,
             direction: direction,
@@ -88,7 +134,10 @@ class Rank {
             )
         }
         
-        return [rankingWord] + rankingCrossWords
+        return WordsToRank(
+            wordsToRank: [rankingWord] + rankingCrossWords,
+            newlyPlaced: newlyPlaces
+        )
     }
     
     static func findNewlyPlacedBricks(

@@ -105,10 +105,10 @@ class RankTests: XCTestCase {
             .init(brick: .character("m"), position: .init(row: 3, column: 6), isNewlyPlaced: false)
         ]
         
-        assert(rankingWords.count == 3)
-        assert(rankingWords.contains(zapRankingControl))
-        assert(rankingWords.contains(catzRankingControl))
-        assert(rankingWords.contains(pmRankingControl))
+        assert(rankingWords.wordsToRank.count == 3)
+        assert(rankingWords.wordsToRank.contains(zapRankingControl))
+        assert(rankingWords.wordsToRank.contains(catzRankingControl))
+        assert(rankingWords.wordsToRank.contains(pmRankingControl))
     }
     
     /// Adding a 's' to 'martin', filtering out old crosswords in the middel
@@ -116,7 +116,6 @@ class RankTests: XCTestCase {
         let testMap = makeBricks()
         testMap[MatrixIndex.init(row: 4, column: 5)] = .character("x")
         testMap[MatrixIndex.init(row: 4, column: 7)] = .character("x")
-        testMap.dump()
         
         let xaxCrossWord = Validate.CrossWord.init(crossingIndex: 0, word: [
             .init(brick: PlacedBrick.character("x"), index: -3),
@@ -142,7 +141,7 @@ class RankTests: XCTestCase {
             .init(brick: .character("s"), position: .init(row: 9, column: 6), isNewlyPlaced: true)
         ]
         
-        assert(rankingWords.count == 1)
-        assert(rankingWords.contains(martinsRankingControl))
+        assert(rankingWords.wordsToRank.count == 1)
+        assert(rankingWords.wordsToRank.contains(martinsRankingControl))
     }
 }
