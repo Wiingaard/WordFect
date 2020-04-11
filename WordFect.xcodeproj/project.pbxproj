@@ -18,6 +18,8 @@
 		5B223A65242543DE00EC773B /* CSVImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B223A64242543DE00EC773B /* CSVImporter.swift */; };
 		5B5185292441AB9900698C3D /* BoardRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5185282441AB9900698C3D /* BoardRowView.swift */; };
 		5B51852B2441C01D00698C3D /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51852A2441C01D00698C3D /* BoardView.swift */; };
+		5B51852F2441EFC600698C3D /* TrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51852E2441EFC600698C3D /* TrayView.swift */; };
+		5B5185312441EFD500698C3D /* TrayBrickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5185302441EFD500698C3D /* TrayBrickView.swift */; };
 		5B577020243FC6590090D039 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B57701F243FC6590090D039 /* List.swift */; };
 		5B577022243FC8230090D039 /* ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B577021243FC8230090D039 /* ListTests.swift */; };
 		5B577024243FCA070090D039 /* Rank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B577023243FCA070090D039 /* Rank.swift */; };
@@ -83,6 +85,8 @@
 		5B223A64242543DE00EC773B /* CSVImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVImporter.swift; sourceTree = "<group>"; };
 		5B5185282441AB9900698C3D /* BoardRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardRowView.swift; sourceTree = "<group>"; };
 		5B51852A2441C01D00698C3D /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		5B51852E2441EFC600698C3D /* TrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayView.swift; sourceTree = "<group>"; };
+		5B5185302441EFD500698C3D /* TrayBrickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayBrickView.swift; sourceTree = "<group>"; };
 		5B57701F243FC6590090D039 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		5B577021243FC8230090D039 /* ListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTests.swift; sourceTree = "<group>"; };
 		5B577023243FCA070090D039 /* Rank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rank.swift; sourceTree = "<group>"; };
@@ -222,6 +226,8 @@
 				5BFCC7E1242659F60078AC50 /* BoardPositionView.swift */,
 				5B5185282441AB9900698C3D /* BoardRowView.swift */,
 				5B51852A2441C01D00698C3D /* BoardView.swift */,
+				5B51852E2441EFC600698C3D /* TrayView.swift */,
+				5B5185302441EFD500698C3D /* TrayBrickView.swift */,
 			);
 			path = "Board View";
 			sourceTree = "<group>";
@@ -372,7 +378,9 @@
 				5BFCC7E2242659F60078AC50 /* BoardPositionView.swift in Sources */,
 				5B5185292441AB9900698C3D /* BoardRowView.swift in Sources */,
 				5BFCC804242F8EBA0078AC50 /* Matrix.swift in Sources */,
+				5B5185312441EFD500698C3D /* TrayBrickView.swift in Sources */,
 				5BFCC7F6242D4B1E0078AC50 /* Brick.swift in Sources */,
+				5B51852F2441EFC600698C3D /* TrayView.swift in Sources */,
 				5B51852B2441C01D00698C3D /* BoardView.swift in Sources */,
 				5BFCC7F8242D4CDC0078AC50 /* Tray.swift in Sources */,
 				5BFCC7FD242D50D00078AC50 /* Color+Extension.swift in Sources */,
