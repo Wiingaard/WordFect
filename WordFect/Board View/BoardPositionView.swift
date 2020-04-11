@@ -41,16 +41,17 @@ struct BoardPositionView: View {
         ZStack {
             Rectangle()
                 .fill(LinearGradient(gradient: gradient, startPoint: .top, endPoint: .bottom))
-                .cornerRadius(12)
+                .cornerRadius(4)
             Text(text ?? "")
+                .font(.system(size: 8))
                 .bold()
                 .foregroundColor(textColor)
         }.overlay(
             Text(scoreText ?? "")
-                .bold()
-                .padding(),
+                .font(.system(size: 6))
+                .bold(),
             alignment: .topTrailing
-        )
+        ).aspectRatio(1, contentMode: .fit)
     }
 }
 

@@ -16,10 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        let brickView = BoardPositionView(
-            board: .empty,
-            brick: .character("a"),
-            isNewlyPlaces: false
+        let brickView = BoardView(
+            positions: Matrix(Board.standart),
+            bricks: Matrix(TestMap.empty)
         )
         
         // Create the SwiftUI view that provides the window contents.
