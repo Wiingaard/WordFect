@@ -40,6 +40,13 @@ class Matrix<T> {
             }
         }
     }
+    
+    func map<S>(_ transform: (T) -> S) -> Matrix<S> {
+        let mappedGrid = grid.map { row -> [S] in
+            row.map(transform)
+        }
+        return Matrix<S>(mappedGrid)
+    }
 }
 
 protocol MatrixDumpable {

@@ -48,5 +48,6 @@ struct BoardView_Previews: PreviewProvider {
             positions: Matrix(Board.standart),
             bricks: TestMap().test()
         ).padding()
+            
     }
 }

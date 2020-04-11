@@ -29,4 +29,13 @@ enum BonusPosition {
         case .tl: return 3
         }
     }
+    
+    var text: String {
+        switch self {
+        case .dw: return "DW"
+        case .tw: return "TW"
+        case .dl: return "DL"
+        case .tl: return "TL"
+        }
+    }
 }
