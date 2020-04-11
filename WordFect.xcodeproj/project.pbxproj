@@ -33,7 +33,6 @@
 		5BFCC7CB24263C1A0078AC50 /* BoardPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7CA24263C1A0078AC50 /* BoardPosition.swift */; };
 		5BFCC7CD2426450B0078AC50 /* BonusPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7CC2426450B0078AC50 /* BonusPosition.swift */; };
 		5BFCC7DD242655470078AC50 /* ParseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7DC242655470078AC50 /* ParseTests.swift */; };
-		5BFCC7DF2426597E0078AC50 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7DE2426597E0078AC50 /* BoardViewController.swift */; };
 		5BFCC7E2242659F60078AC50 /* BoardPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7E1242659F60078AC50 /* BoardPositionView.swift */; };
 		5BFCC7F6242D4B1E0078AC50 /* Brick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7F5242D4B1E0078AC50 /* Brick.swift */; };
 		5BFCC7F8242D4CDC0078AC50 /* Tray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7F7242D4CDC0078AC50 /* Tray.swift */; };
@@ -101,7 +100,6 @@
 		5BFCC7D2242652D60078AC50 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BFCC7D6242652D70078AC50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BFCC7DC242655470078AC50 /* ParseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseTests.swift; sourceTree = "<group>"; };
-		5BFCC7DE2426597E0078AC50 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
 		5BFCC7E1242659F60078AC50 /* BoardPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPositionView.swift; sourceTree = "<group>"; };
 		5BFCC7F5242D4B1E0078AC50 /* Brick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brick.swift; sourceTree = "<group>"; };
 		5BFCC7F7242D4CDC0078AC50 /* Tray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tray.swift; sourceTree = "<group>"; };
@@ -221,7 +219,6 @@
 		5BFCC7E0242659B70078AC50 /* Board View */ = {
 			isa = PBXGroup;
 			children = (
-				5BFCC7DE2426597E0078AC50 /* BoardViewController.swift */,
 				5BFCC7E1242659F60078AC50 /* BoardPositionView.swift */,
 				5B5185282441AB9900698C3D /* BoardRowView.swift */,
 				5B51852A2441C01D00698C3D /* BoardView.swift */,
@@ -374,7 +371,6 @@
 				5B577020243FC6590090D039 /* List.swift in Sources */,
 				5BFCC7E2242659F60078AC50 /* BoardPositionView.swift in Sources */,
 				5B5185292441AB9900698C3D /* BoardRowView.swift in Sources */,
-				5BFCC7DF2426597E0078AC50 /* BoardViewController.swift in Sources */,
 				5BFCC804242F8EBA0078AC50 /* Matrix.swift in Sources */,
 				5BFCC7F6242D4B1E0078AC50 /* Brick.swift in Sources */,
 				5B51852B2441C01D00698C3D /* BoardView.swift in Sources */,

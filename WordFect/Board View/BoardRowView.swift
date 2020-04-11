@@ -23,7 +23,7 @@ struct BoardRowView: View {
     let bricks: [Brick]
     
     var body: some View {
-        HStack(alignment: .center, spacing: 1) {
+        HStack(alignment: .center, spacing: 2) {
             ForEach(bricks) { brick -> BoardPositionView in
                 BoardPositionView(
                     board: brick.board,

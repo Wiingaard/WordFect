@@ -32,26 +32,33 @@ struct BoardPositionView: View {
     }
     
     private var textColor: Color {
-        brick != nil
-            ? .black
-            : .white
+        brick != nil ? .black : .white
     }
     
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(LinearGradient(gradient: gradient, startPoint: .top, endPoint: .bottom))
+                .fill(LinearGradient(
+                    gradient: gradient,
+                    startPoint: .top,
+                    endPoint: .bottom))
                 .cornerRadius(4)
+            
             Text(text ?? "")
-                .font(.system(size: 8))
+                .font(.system(size: 10))
                 .bold()
                 .foregroundColor(textColor)
-        }.overlay(
+                .padding([.trailing], scoreText != nil ? 4 : 0)
+            
             Text(scoreText ?? "")
-                .font(.system(size: 6))
-                .bold(),
-            alignment: .topTrailing
-        ).aspectRatio(1, contentMode: .fit)
+                .font(.system(size: 8))
+                .bold()
+                .frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity,
+                    alignment: .topTrailing)
+                .padding(2)
+        }
     }
 }
 

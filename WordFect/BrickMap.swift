@@ -23,6 +23,13 @@ private func lineOf(_ brick: PlacedBrick?, length: Int) -> [PlacedBrick?] {
 
 struct TestMap {
     static let empty = emptyMap
+    
+    func test() -> Search.Bricks {
+        let map = Search.Bricks(TestMap.empty)
+        map[.horizontal, 1] = TestLine.cat
+        map[.vertical, 6] = TestLine.martin
+        return map
+    }
 }
 
 struct TestLine {

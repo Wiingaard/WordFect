@@ -13,9 +13,8 @@ struct BoardView: View {
     let positions: Matrix<BoardPosition>
     let bricks: Matrix<PlacedBrick?>
     
-    static let getRow: (Int, Matrix<BoardPosition>, Matrix<PlacedBrick?>) -> [BoardRowView.Brick] = {
-        (row, positions, bricks) in
-        return zip(
+    static let getRow: (Int, Matrix<BoardPosition>, Matrix<PlacedBrick?>) -> [BoardRowView.Brick] = { (row, positions, bricks) in
+            return zip(
             positions[MatrixDirection.horizontal, row],
             bricks[MatrixDirection.horizontal, row]
         ).enumerated().map { (offset, element) -> BoardRowView.Brick in
@@ -29,13 +28,17 @@ struct BoardView: View {
     }
     
     var body: some View {
-        VStack(alignment: .center, spacing: 1) {
+        VStack(alignment: .center, spacing: 2) {
             ForEach((0..<Board.size), id: \.self) { row in
                 BoardRowView(
-                    bricks: BoardView.getRow(row, self.positions, self.bricks)
+                    bricks: BoardView.getRow(
+                        row,
+                        self.positions,
+                        self.bricks
+                    )
                 )
             }
-        }
+        }.aspectRatio(1, contentMode: .fit)
     }
 }
 
@@ -43,7 +46,7 @@ struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
         BoardView(
             positions: Matrix(Board.standart),
-            bricks: Matrix(TestMap.empty)
-        )
+            bricks: TestMap().test()
+        ).padding()
     }
 }
