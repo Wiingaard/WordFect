@@ -9,31 +9,57 @@
 import SwiftUI
 
 struct BoardPositionView: View {
-    let `type`: BoardPosition
+    let board: BoardPosition
+    let brick: PlacedBrick?
+    let isNewlyPlaces: Bool
+    
+    private var gradient: Gradient {
+        if let brick = brick {
+            return isNewlyPlaces
+                ? .init(colors: [.newlyPlacedTop, .newlyPlacedBot])
+                : brick.gradient
+        } else {
+            return board.gradient
+        }
+    }
+    
+    private var text: String? {
+        brick?.text ?? nil
+    }
+    
+    private var scoreText: String? {
+        brick?.scoreText ?? nil
+    }
+    
+    private var textColor: Color {
+        brick != nil
+            ? .black
+            : .white
+    }
     
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundColor(type.color)
+                .fill(LinearGradient(gradient: gradient, startPoint: .top, endPoint: .bottom))
                 .cornerRadius(12)
-            Text(type.text ?? "")
-                .foregroundColor(.white)
+            Text(text ?? "")
                 .bold()
+                .foregroundColor(textColor)
         }
     }
 }
 
 private extension BoardPosition {
-    var color: Color {
+    var gradient: Gradient {
         switch self {
         case .bonus(let bonus):
             switch bonus {
-            case .dw: return Color(hex: 0xB67B36)
-            case .tw: return Color(hex: 0x794041)
-            case .dl: return Color(hex: 0x819F74)
-            case .tl: return Color(hex: 0x4D66A4)
+            case .dw: return .init(colors: [.dwTop, .dwBot])
+            case .tw: return .init(colors: [.twTop, .twBot])
+            case .dl: return .init(colors: [.dlTop, .dlBot])
+            case .tl: return .init(colors: [.tlTop, .tlBot])
             }
-        case .empty: return Color.primary
+        case .empty: return .init(colors: [.emptyTop, .emptyBot])
         }
     }
     
@@ -41,18 +67,46 @@ private extension BoardPosition {
         switch self {
         case .bonus(let bonus):
             switch bonus {
-            case .dw: return "dw"
-            case .tw: return "tw"
-            case .dl: return "dl"
-            case .tl: return "tl"
+            case .dw: return "DW"
+            case .tw: return "TW"
+            case .dl: return "DL"
+            case .tl: return "TL"
             }
         case .empty: return nil
         }
     }
 }
 
+private extension PlacedBrick {
+    var gradient: Gradient {
+        .init(colors: [.placedTop, .placedBot])
+    }
+    
+    var text: String {
+        String(character).uppercased()
+    }
+    
+    var scoreText: String? {
+        switch self {
+        case .character(let char): return String(Rank.value(for: char))
+        case .joker: return nil
+        }
+    }
+}
+
 struct BoardPositionView_Previews: PreviewProvider {
     static var previews: some View {
-        BoardPositionView(type: .empty)
+        return Group {
+            BoardPositionView(
+                board: .empty,
+                brick: nil,
+                isNewlyPlaces: false
+            )
+            BoardPositionView(
+                board: .empty,
+                brick: nil,
+                isNewlyPlaces: false
+            )
+        }
     }
 }
