@@ -24,7 +24,7 @@ struct BoardPositionView: View {
     }
     
     private var text: String? {
-        brick?.text ?? nil
+        brick?.text ?? board.text ?? nil
     }
     
     private var scoreText: String? {
@@ -45,7 +45,12 @@ struct BoardPositionView: View {
             Text(text ?? "")
                 .bold()
                 .foregroundColor(textColor)
-        }
+        }.overlay(
+            Text(scoreText ?? "")
+                .bold()
+                .padding(),
+            alignment: .topTrailing
+        )
     }
 }
 
@@ -78,6 +83,7 @@ private extension BoardPosition {
 }
 
 private extension PlacedBrick {
+    
     var gradient: Gradient {
         .init(colors: [.placedTop, .placedBot])
     }
@@ -96,17 +102,10 @@ private extension PlacedBrick {
 
 struct BoardPositionView_Previews: PreviewProvider {
     static var previews: some View {
-        return Group {
-            BoardPositionView(
-                board: .empty,
-                brick: nil,
-                isNewlyPlaces: false
-            )
-            BoardPositionView(
-                board: .empty,
-                brick: nil,
-                isNewlyPlaces: false
-            )
-        }
+        BoardPositionView(
+            board: .empty,
+            brick: .character(Character("a")),
+            isNewlyPlaces: false
+        )
     }
 }
