@@ -16,17 +16,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        let brickView = BoardView(
-            positions: Matrix(Board.standart),
-            bricks: Matrix(TestMap.empty)
-        )
+        let view = PlayingFieldView()
         
-        // Create the SwiftUI view that provides the window contents.
-//        let contentView = ContentView()
-
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: brickView)
+            window.rootViewController = UIHostingController(rootView: view)
             self.window = window
             window.makeKeyAndVisible()
         }

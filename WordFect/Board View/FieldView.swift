@@ -11,6 +11,7 @@ import SwiftUI
 struct FieldView: View {
     
     let field: FieldBrick
+    var onTap: () -> () = { return }
     
     var body: some View {
         GeometryReader { geometry in
@@ -39,7 +40,7 @@ struct FieldView: View {
                 
                 self.field.centerImage?
                     .font(.system(size: geometry.size.width * 0.7, weight: .bold))
-            }
+            }.onTapGesture { self.onTap() }
         }
     }
 }
@@ -121,11 +122,15 @@ enum FieldBrick {
 }
 
 struct FieldView_Previews: PreviewProvider {
+    static let onTap: () -> () = { print("Tap") }
+    
     static var previews: some View {
         Group {
-            FieldView(field: .placed(.character(Character("a"))))
-            FieldView(field: .empty)
-            FieldView(field: .cursor(.vertical))
+            FieldView(
+                field: FieldBrick.placed(PlacedBrick.character(Character("a"))), onTap: onTap
+            )
+            FieldView(field: .empty, onTap: onTap)
+            FieldView(field: .cursor(.vertical), onTap: onTap)
         }
     }
 }

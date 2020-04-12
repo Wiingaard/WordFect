@@ -11,13 +11,15 @@ import SwiftUI
 struct LineView: View {
     
     let fields: [FieldBrick]
+    var onTap: (Int) -> () = { _ in return }
     
     var body: some View {
         let bricks = fields.enumerated().map { $0 }
         
         return HStack {
             ForEach(bricks, id: \.offset) { (offset, element) in
-                FieldView(field: element).aspectRatio(1, contentMode: .fit)
+                FieldView(field: element, onTap: { self.onTap(offset) })
+                    .aspectRatio(1, contentMode: .fit)
             }
         }
     }

@@ -23,6 +23,8 @@
 		5B51853324420C1300698C3D /* FieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51853224420C1300698C3D /* FieldView.swift */; };
 		5B518535244257B100698C3D /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B518534244257B100698C3D /* LineView.swift */; };
 		5B51853724425D0E00698C3D /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51853624425D0E00698C3D /* GridView.swift */; };
+		5B51853D24436B2F00698C3D /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51853C24436B2F00698C3D /* Keyboard.swift */; };
+		5B51854024438BE800698C3D /* PlayingFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51853F24438BE800698C3D /* PlayingFieldView.swift */; };
 		5B577020243FC6590090D039 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B57701F243FC6590090D039 /* List.swift */; };
 		5B577022243FC8230090D039 /* ListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B577021243FC8230090D039 /* ListTests.swift */; };
 		5B577024243FCA070090D039 /* Rank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B577023243FCA070090D039 /* Rank.swift */; };
@@ -93,6 +95,8 @@
 		5B51853224420C1300698C3D /* FieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldView.swift; sourceTree = "<group>"; };
 		5B518534244257B100698C3D /* LineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		5B51853624425D0E00698C3D /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
+		5B51853C24436B2F00698C3D /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
+		5B51853F24438BE800698C3D /* PlayingFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingFieldView.swift; sourceTree = "<group>"; };
 		5B57701F243FC6590090D039 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		5B577021243FC8230090D039 /* ListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTests.swift; sourceTree = "<group>"; };
 		5B577023243FCA070090D039 /* Rank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rank.swift; sourceTree = "<group>"; };
@@ -189,6 +193,7 @@
 				5B223A52242542AD00EC773B /* SceneDelegate.swift */,
 				5BFCC7FA242D4ED50078AC50 /* PlayingField.swift */,
 				5BFCC801242D52B60078AC50 /* BrickMap.swift */,
+				5B51853C24436B2F00698C3D /* Keyboard.swift */,
 				5B001274244113AD006780CD /* Engine */,
 				5B0012732441129C006780CD /* Models */,
 				5BFCC7FE242D50FF0078AC50 /* Extensions */,
@@ -229,6 +234,7 @@
 		5BFCC7E0242659B70078AC50 /* Board View */ = {
 			isa = PBXGroup;
 			children = (
+				5B51853F24438BE800698C3D /* PlayingFieldView.swift */,
 				5B51853224420C1300698C3D /* FieldView.swift */,
 				5B518534244257B100698C3D /* LineView.swift */,
 				5B51853624425D0E00698C3D /* GridView.swift */,
@@ -374,6 +380,7 @@
 				5BD5A6462435157F00F8FA5C /* Optional+Extension.swift in Sources */,
 				5BFCC7FB242D4ED50078AC50 /* PlayingField.swift in Sources */,
 				5B518535244257B100698C3D /* LineView.swift in Sources */,
+				5B51854024438BE800698C3D /* PlayingFieldView.swift in Sources */,
 				5B51853324420C1300698C3D /* FieldView.swift in Sources */,
 				5B223A53242542AD00EC773B /* SceneDelegate.swift in Sources */,
 				5BFCC7CD2426450B0078AC50 /* BonusPosition.swift in Sources */,
@@ -381,6 +388,7 @@
 				5B51853724425D0E00698C3D /* GridView.swift in Sources */,
 				5BFCC7C9242557070078AC50 /* Board.swift in Sources */,
 				5BFCC802242D52B60078AC50 /* BrickMap.swift in Sources */,
+				5B51853D24436B2F00698C3D /* Keyboard.swift in Sources */,
 				5B223A65242543DE00EC773B /* CSVImporter.swift in Sources */,
 				5B66E096243A4F4C0077A84E /* Search.swift in Sources */,
 				5BFCC7CB24263C1A0078AC50 /* BoardPosition.swift in Sources */,

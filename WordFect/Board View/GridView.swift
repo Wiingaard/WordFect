@@ -18,13 +18,17 @@ struct GridView: View {
     }
     
     @State var fields: Matrix<FieldBrick> = GridView.testField
+    var onTap: (MatrixIndex) -> () = { _ in return }
     
     var body: some View {
         VStack(alignment: .center, spacing: 2) {
             ForEach((0..<Board.size), id: \.self) { row in
                 HStack(alignment: .center, spacing: 2) {
                     ForEach((0..<Board.size), id: \.self) { column in
-                        FieldView(field: self.fields[MatrixIndex(row: row, column: column)])
+                        FieldView(
+                            field: self.fields[MatrixIndex(row: row, column: column)],
+                            onTap: { self.onTap(MatrixIndex(row: row, column: column)) }
+                        )
                     }
                 }
             }
@@ -33,7 +37,6 @@ struct GridView: View {
 }
 
 struct GridView_Previews: PreviewProvider {
-    
     
     static var previews: some View {
         GridView(fields: GridView.testField)
