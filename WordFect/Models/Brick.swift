@@ -74,9 +74,24 @@ enum PlacedBrick: MatrixDumpable, Hashable {
     
 }
 
+enum FieldBrick {
+    case empty
+    case bonus(BonusPosition)
+    case placed(PlacedBrick)
+    case newlyPlaced(PlacedBrick)
+    case cursor(MatrixDirection)
+    case tray(TrayBrick)
+    case trayEmpty
+}
+
 struct FixedBrick: Equatable {
     /// A brick placed on a line
     let brick: PlacedBrick
     /// The brick index from the beginning of the line
     let index: Int
+}
+
+struct Bricks {
+    static let emptyLine = Matrix<PlacedBrick?>.Line(repeating: nil, count: Board.size)
+    static let empty = Matrix<PlacedBrick?>.Grid.init(repeating: emptyLine, count: Board.size)
 }

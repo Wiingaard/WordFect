@@ -9,14 +9,17 @@
 import SwiftUI
 
 struct PlayingFieldView: View {
+    
+    @ObservedObject var playingField = PlayingField()
+    
     @State var isKeyboardActive: Bool = false
     
     var body: some View {
         VStack {
-            GridView(fields: GridView.testField, onTap: { _ in
-                self.isKeyboardActive.toggle()
+            GridView(fields: self.playingField.fields, onTap: { _ in
+                self.playingField.isEditing.toggle()
             })
-            Keyboard(isFirstResponder: isKeyboardActive) { keyboardPress in
+            Keyboard(isFirstResponder: playingField.isEditing) { keyboardPress in
                 print(keyboardPress)
             }
         }

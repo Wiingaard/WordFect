@@ -13,7 +13,7 @@ class Matrix<T> {
     typealias Line = [T]
     typealias Grid = [[T]]
     
-    private var grid: Grid
+    var grid: Grid
     
     init(_ grid: Grid) {
         self.grid = grid
@@ -42,10 +42,7 @@ class Matrix<T> {
     }
     
     func map<S>(_ transform: (T) -> S) -> Matrix<S> {
-        let mappedGrid = grid.map { row -> [S] in
-            row.map(transform)
-        }
-        return Matrix<S>(mappedGrid)
+        return Matrix<S>( grid.map { $0.map(transform) } )
     }
 }
 
@@ -112,5 +109,27 @@ struct MatrixIndex: CustomStringConvertible, Equatable {
     
     var description: String {
         return "(\(row),\(column))"
+    }
+}
+
+struct MatrixIterator<T>: IteratorProtocol {
+    var index = MatrixIndex.init(row: 0, column: 0)
+    private let max = Board.size - 1
+    private let matrix: Matrix<T>
+    
+    init(_ matrix: Matrix<T>) {
+        self.matrix = matrix
+    }
+    
+    mutating func next() -> T? {
+        guard index.column < max || index.row < max else { return nil }
+        
+        if index.column == max {
+            index = .init(row: index.row + 1, column: 0)
+        } else {
+            index = .init(row: index.row, column: index.column + 1)
+        }
+        
+        return matrix[index]
     }
 }

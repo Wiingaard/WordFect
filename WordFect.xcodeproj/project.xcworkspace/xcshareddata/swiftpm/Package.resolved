@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "KeyboardAvoidance",
+        "repositoryURL": "git@github.com:Wiingaard/KeyboardAvoidanceSwiftUI.git",
+        "state": {
+          "branch": null,
+          "revision": "9a734aa3178b3aa8d6048ec3107b38ce36dca1ba",
+          "version": "0.0.2"
+        }
+      },
+      {
         "package": "Combinatorics",
         "repositoryURL": "https://github.com/dankogai/swift-combinatorics.git",
         "state": {

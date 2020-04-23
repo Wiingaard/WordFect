@@ -10,14 +10,8 @@ import SwiftUI
 
 struct GridView: View {
     
-    static let testField = Matrix(Board.standart).map { brick -> FieldBrick in
-        switch brick {
-        case .bonus(let bonus): return FieldBrick.bonus(bonus)
-        case .empty: return FieldBrick.empty
-        }
-    }
+    @State var fields: Matrix<FieldBrick> = PlayingField.empty
     
-    @State var fields: Matrix<FieldBrick> = GridView.testField
     var onTap: (MatrixIndex) -> () = { _ in return }
     
     var body: some View {
@@ -39,6 +33,6 @@ struct GridView: View {
 struct GridView_Previews: PreviewProvider {
     
     static var previews: some View {
-        GridView(fields: GridView.testField)
+        GridView(fields: PlayingField.empty)
     }
 }

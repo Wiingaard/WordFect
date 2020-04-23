@@ -45,14 +45,7 @@ struct FieldView: View {
     }
 }
 
-enum FieldBrick {
-    case empty
-    case bonus(BonusPosition)
-    case placed(PlacedBrick)
-    case newlyPlaced(PlacedBrick)
-    case cursor(MatrixDirection)
-    case tray(TrayBrick)
-    case trayEmpty
+extension FieldBrick {
     
     var gradient: Gradient {
         switch self {
