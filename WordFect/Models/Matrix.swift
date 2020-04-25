@@ -91,6 +91,54 @@ struct MatrixIndex: CustomStringConvertible, Equatable {
         }
     }
     
+    func moveLine(_ direction: MatrixDirection, _ count: Int, to lineEnd: LineEnd) -> MatrixIndex {
+        switch direction {
+        case .horizontal:
+            return .init(row: lineEnd.lineIndex, column: column + count)
+        case .vertical:
+            return .init(row: row + count, column: lineEnd.lineIndex)
+        }
+    }
+    
+    /// Used to move through the Board. If it reaches a line's end, it will jump to next/previous line begin/end depending on `progress`.
+    /// Returns nil on the last/first index of the board
+    func iterate(_ progress: Progress, _ direction: MatrixDirection) -> MatrixIndex? {
+        let moveField = move(direction, count: progress.unitValue)
+        let moveLine = self.moveLine(
+            direction.orthogonal,
+            progress.unitValue,
+            to: progress == .forward ? .begin : .end
+        )
+        return moveField.isWithinBoard() ? moveField
+            : moveLine.isWithinBoard() ? moveLine
+            : nil
+    }
+    
+    
+    enum Progress {
+        case forward
+        case backward
+        
+        var unitValue: Int {
+            switch self {
+            case .forward: return 1
+            case .backward: return -1
+            }
+        }
+    }
+    
+    enum LineEnd {
+        case begin
+        case end
+        
+        var lineIndex: Int {
+            switch self {
+            case .begin: return 0
+            case .end: return Board.size - 1
+            }
+        }
+    }
+    
     /// Reads  "Position, how horizontal/vertical are you?"
     /// (row: 0, coloum: 3) results is 0 vertical and 3 horizontal
     /// Rows are vertical and Coloumn are horizontal
@@ -109,27 +157,5 @@ struct MatrixIndex: CustomStringConvertible, Equatable {
     
     var description: String {
         return "(\(row),\(column))"
-    }
-}
-
-struct MatrixIterator<T>: IteratorProtocol {
-    var index = MatrixIndex.init(row: 0, column: 0)
-    private let max = Board.size - 1
-    private let matrix: Matrix<T>
-    
-    init(_ matrix: Matrix<T>) {
-        self.matrix = matrix
-    }
-    
-    mutating func next() -> T? {
-        guard index.column < max || index.row < max else { return nil }
-        
-        if index.column == max {
-            index = .init(row: index.row + 1, column: 0)
-        } else {
-            index = .init(row: index.row, column: index.column + 1)
-        }
-        
-        return matrix[index]
     }
 }
