@@ -13,6 +13,7 @@ struct Keyboard: View {
     enum Output {
         case delete
         case character(Character)
+        case `return`
     }
     
     var isFirstResponder: Bool
@@ -48,7 +49,11 @@ fileprivate class _UIKeyboardHelperView: UIView, UIKeyInput {
     
     func insertText(_ text: String) {
         guard let character = text.first else { return }
-        press(.character(character))
+        if text == "\n" {
+            press(.return)
+        } else {
+            press(.character(character))
+        }
     }
     
     func deleteBackward() {

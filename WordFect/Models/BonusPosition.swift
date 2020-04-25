@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum BonusPosition {
+enum BonusPosition: MatrixDumpable {
     case dw
     case tw
     case dl
@@ -38,4 +38,6 @@ enum BonusPosition {
         case .tl: return "TL"
         }
     }
+    
+    var dumpable: String { text.lowercased() }
 }

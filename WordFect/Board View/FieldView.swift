@@ -85,7 +85,10 @@ extension FieldBrick {
         switch self {
         case .empty, .bonus, .cursor, .trayEmpty: return ""
         case .placed(let brick), .newlyPlaced(let brick):
-            return String(Rank.value(for: brick.character))
+            switch brick {
+            case .character(let char): return String(Rank.value(for: char))
+            case .joker: return ""
+            }
         case .tray(let brick):
             switch brick {
             case .character(let char): return String(Rank.value(for: char))

@@ -72,9 +72,21 @@ enum PlacedBrick: MatrixDumpable, Hashable {
         }
     }
     
+    static func from(_ char: Character) -> PlacedBrick? {
+        if allowedCharacters.contains(char) {
+            return .character(char)
+        } else if allowedCharacters.uppercased().contains(char) {
+            return .joker(Character(String(char).lowercased()))
+        } else {
+            return nil
+        }
+    }
+    
+    static let allowedCharacters = "abcdefghijklmnopqrstuvxyzæøå"
+    
 }
 
-enum FieldBrick {
+enum FieldBrick: MatrixDumpable {
     case empty
     case bonus(BonusPosition)
     case placed(PlacedBrick)
@@ -82,6 +94,32 @@ enum FieldBrick {
     case cursor(MatrixDirection)
     case tray(TrayBrick)
     case trayEmpty
+    
+    static func from(placed: PlacedBrick?, board: BoardPosition) -> FieldBrick {
+        if let placed = placed {
+            return .placed(placed)
+        } else {
+            return .from(board: board)
+        }
+    }
+    
+    static func from(board: BoardPosition) -> FieldBrick {
+        switch board {
+        case .bonus(let bonus): return .bonus(bonus)
+        case .empty: return .empty
+        }
+    }
+    
+    var dumpable: String {
+        switch self {
+        case .empty: return "   "
+        case .bonus(let pos): return " " + pos.dumpable
+        case .placed(let pla): return " " + pla.dumpable
+        case .newlyPlaced(let pla): return "_" + pla.dumpable
+        case .cursor(let dir): return dir == .vertical ? "VER" : "HOR"
+        case .tray, .trayEmpty: return "XXX"
+        }
+    }
 }
 
 struct FixedBrick: Equatable {

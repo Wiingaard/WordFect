@@ -12,16 +12,10 @@ struct PlayingFieldView: View {
     
     @ObservedObject var playingField = PlayingField()
     
-    @State var isKeyboardActive: Bool = false
-    
     var body: some View {
         VStack {
-            GridView(fields: self.playingField.fields, onTap: { _ in
-                self.playingField.isEditing.toggle()
-            })
-            Keyboard(isFirstResponder: playingField.isEditing) { keyboardPress in
-                print(keyboardPress)
-            }
+            GridView(fields: self.playingField.fields) { self.playingField.didTapField($0) }
+            Keyboard(isFirstResponder: self.playingField.isEditing) { self.playingField.didInputKey($0) }
         }
     }
 }
