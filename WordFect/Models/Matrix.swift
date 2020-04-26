@@ -44,6 +44,23 @@ class Matrix<T> {
     func map<S>(_ transform: (T) -> S) -> Matrix<S> {
         return Matrix<S>( grid.map { $0.map(transform) } )
     }
+    
+    func enumerated() -> Matrix<(MatrixIndex, T)> {
+        let enumeratedGrid = grid.enumerated().map { (rowIndex, row) in
+            row.enumerated().map { (columnIndex, field) in
+                return (MatrixIndex.init(row: rowIndex, column: columnIndex), field)
+            }
+        }
+        return Matrix<(MatrixIndex, T)>(enumeratedGrid)
+    }
+    
+    static func forEach(_ body: (MatrixIndex) -> ()) {
+        (0..<Board.size).forEach { row in
+            (0..<Board.size).forEach { column in
+                body(MatrixIndex(row: row, column: column))
+            }
+        }
+    }
 }
 
 protocol MatrixDumpable {

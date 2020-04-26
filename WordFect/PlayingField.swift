@@ -78,8 +78,12 @@ class PlayingField: ObservableObject {
         if let cursor = cursor {
             fields[cursor.position] = currentField(at: cursor.position)
         }
+        
         cursor = nil
         isEditing = false
+        
+        bricks = fields.map(PlacedBrick.from)
+        Matrix<Void>.forEach { fields[$0] = currentField(at: $0) }
     }
     
     func beginEditing() {

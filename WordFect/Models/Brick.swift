@@ -82,6 +82,13 @@ enum PlacedBrick: MatrixDumpable, Hashable {
         }
     }
     
+    static func from(_ field: FieldBrick) -> PlacedBrick? {
+        switch field {
+        case .bonus, .cursor, .empty, .tray, .trayEmpty: return nil
+        case .placed(let brick), .newlyPlaced(let brick): return brick
+        }
+    }
+    
     static let allowedCharacters = "abcdefghijklmnopqrstuvxyzæøå"
     
 }
