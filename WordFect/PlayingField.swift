@@ -8,34 +8,47 @@
 
 import Foundation
 
-struct Cursor {
-    let direction: MatrixDirection
-    let position: MatrixIndex
-    
-    func progress(_ progress: MatrixIndex.Progress) -> Cursor? {
-        guard let nextPosition = position.iterate(progress, direction) else {
-            return nil
-        }
-        return .init(direction: direction, position: nextPosition)
-    }
-}
-
 class PlayingField: ObservableObject {
+    
+    struct Cursor {
+        let direction: MatrixDirection
+        let position: MatrixIndex
+        
+        func progress(_ progress: MatrixIndex.Progress) -> Cursor? {
+            guard let nextPosition = position.iterate(progress, direction) else {
+                return nil
+            }
+            return .init(direction: direction, position: nextPosition)
+        }
+    }
     
     let board: Matrix<BoardPosition> = Matrix(Board.standart)
     var bricks: Matrix<PlacedBrick?> = Matrix(Bricks.empty)
-    var newlyPlaced: Matrix<PlacedBrick?> = Matrix(Bricks.empty)
     
-    var cursor: Cursor? = nil
+    private var cursor: Cursor? = nil
     
     @Published var editFieldDirection: MatrixDirection = .horizontal
     @Published var isEditing: Bool = false
     @Published var fields: Matrix<FieldBrick> = PlayingField.empty
     
     func didTapField(_ position: MatrixIndex) {
-        cursor = .init(direction: editFieldDirection, position: position)
-        isEditing = true
-        fields[position] = .cursor(editFieldDirection)
+        objectWillChange.send()
+        if let cursor = cursor {
+            if cursor.position == position {
+                editFieldDirection = editFieldDirection.orthogonal
+                fields[position] = .cursor(editFieldDirection)
+                self.cursor = Cursor(direction: editFieldDirection, position: position)
+            } else {
+                fields[cursor.position] = currentField(at: cursor.position)
+                let newCursor = Cursor.init(direction: cursor.direction, position: position)
+                fields[newCursor.position] = .cursor(newCursor.direction)
+                self.cursor = newCursor
+            }
+        } else {
+            cursor = .init(direction: editFieldDirection, position: position)
+            fields[position] = .cursor(editFieldDirection)
+            isEditing = true
+        }
     }
     
     func didInputKey(_ key: Keyboard.Output) {
@@ -56,8 +69,32 @@ class PlayingField: ObservableObject {
             progress(cursor: cursor, .backward)
             
         case .return:
-            self.cursor = nil
-            isEditing = false
+            finishEditing()
+        }
+    }
+    
+    func finishEditing() {
+        objectWillChange.send()
+        if let cursor = cursor {
+            fields[cursor.position] = currentField(at: cursor.position)
+        }
+        cursor = nil
+        isEditing = false
+    }
+    
+    func beginEditing() {
+        objectWillChange.send()
+        let center = MatrixIndex.init(row: 7, column: 7)
+        fields[center] = .cursor(editFieldDirection)
+        cursor = Cursor(direction: editFieldDirection, position: center)
+        isEditing = true
+    }
+    
+    func changeDirection() {
+        objectWillChange.send()
+        editFieldDirection = editFieldDirection.orthogonal
+        if let cursor = cursor {
+            fields[cursor.position] = .cursor(editFieldDirection)
         }
     }
     
@@ -66,8 +103,7 @@ class PlayingField: ObservableObject {
             fields[nextCursor.position] = .cursor(nextCursor.direction)
             self.cursor = nextCursor
         } else {
-            self.cursor = nil
-            isEditing = false
+            finishEditing()
         }
     }
     

@@ -17,7 +17,7 @@ struct RootView: View {
         NavigationView {
             ZStack {
                 VStack {
-                    PlayingFieldView()
+                    PlayingFieldView(playingField: playingField)
                     Spacer()
                 }
                 
@@ -27,16 +27,8 @@ struct RootView: View {
                 }
             }
             .animation(nil)
-            
-            
             .navigationBarTitle(Text("WordFect"))
-                .navigationBarItems(trailing:
-                    Button.init(action: {
-                        print("BAM")
-                    }, label: {
-                        Image(systemName: "pencil.circle")
-                    })
-            )
+            .navigationBarItems(trailing: NavigationBarButtons(playingField: playingField))
         }
     }
 }
