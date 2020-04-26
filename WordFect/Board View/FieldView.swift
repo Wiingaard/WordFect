@@ -63,7 +63,7 @@ extension FieldBrick {
         case .newlyPlaced, .cursor:
             return .init(colors: [.newlyPlacedTop, .newlyPlacedBot])
         case .trayEmpty:
-            return .init(colors: [.yellow, .yellow])
+            return .init(colors: [Color(UIColor.systemBackground), Color(UIColor.systemBackground)])
         }
     }
     

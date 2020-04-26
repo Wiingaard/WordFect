@@ -15,7 +15,6 @@ struct PlayingFieldView: View {
     var body: some View {
         VStack {
             GridView(fields: self.playingField.fields) { self.playingField.didTapField($0) }
-            Keyboard(isFirstResponder: self.playingField.isEditing) { self.playingField.didInputKey($0) }
         }
     }
 }

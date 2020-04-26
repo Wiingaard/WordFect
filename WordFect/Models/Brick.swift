@@ -117,6 +117,13 @@ enum FieldBrick: MatrixDumpable {
         }
     }
     
+    static func from(tray: TrayBrick?) -> FieldBrick {
+        switch tray {
+        case .some(let brick): return FieldBrick.tray(brick)
+        case .none: return FieldBrick.trayEmpty
+        }
+    }
+    
     var dumpable: String {
         switch self {
         case .empty: return "   "

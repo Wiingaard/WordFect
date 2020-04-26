@@ -51,7 +51,7 @@ class Search {
     /// All the characters that a joker can be turned into
     static let jokerSet = "abcdefghijklmnopqrstuvxyzæøå"
     
-    static func searchPosition(_ position: MatrixIndex, bricks: Bricks, tray: Tray) -> PositionResult {
+    static func searchPosition(_ position: MatrixIndex, bricks: Bricks, tray: TrayBricks) -> PositionResult {
         return .init(
             horizontal: searchDirection(position, direction: .horizontal, tray: tray, bricks: bricks),
             vertical: searchDirection(position, direction: .vertical, tray: tray, bricks: bricks),
@@ -63,7 +63,7 @@ class Search {
     static func searchDirection(
         _ position: MatrixIndex,
         direction: MatrixDirection,
-        tray: Tray,
+        tray: TrayBricks,
         bricks: Bricks
     ) -> DirectionSearch {
         /// Check for predecessor brick
@@ -165,7 +165,7 @@ class Search {
     
     /// Finds all potential word matched for a given line.
     static func potentialMatches(
-        tray: Tray,
+        tray: TrayBricks,
         fixed: [FixedBrick],
         maxLength: Int,
         minLength: Int
@@ -200,7 +200,7 @@ class Search {
     }
     
     /// Purpose is to turn potential jokers in the Tray, into different combinations of possible honest trays.
-    static func permutationSets(tray: Tray) -> [PermutationSet] {
+    static func permutationSets(tray: TrayBricks) -> [PermutationSet] {
         let charactersInTray = tray.compactMap { brick -> Character? in
             switch brick {
             case .character(let char): return char

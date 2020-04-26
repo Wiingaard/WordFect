@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LineView: View {
     
-    let fields: [FieldBrick]
+    @State var fields: [FieldBrick]
     var onTap: (Int) -> () = { _ in return }
     
     var body: some View {
@@ -34,6 +34,6 @@ struct LineView_Previews: PreviewProvider {
             .cursor(.vertical),
             .cursor(.horizontal),
             .bonus(.dw)
-        ])//.frame(height: 40)
+        ])
     }
 }

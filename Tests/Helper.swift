@@ -21,7 +21,7 @@ func makeFixed(_ word: String) -> [FixedBrick] {
     word.enumerated().map { FixedBrick(brick: PlacedBrick.character($1), index: $0) }
 }
 
-func makeTray(_ word: String) -> Tray {
+func makeTray(_ word: String) -> TrayBricks {
     word.map(TrayBrick.character)
 }
 

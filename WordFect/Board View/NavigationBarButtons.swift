@@ -11,11 +11,12 @@ import SwiftUI
 struct NavigationBarButtons: View {
     
     @ObservedObject var playingField: PlayingField
+    @ObservedObject var tray: Tray
     
     var body: some View {
         HStack {
-            if playingField.isEditing {
-                Button.init(action: playingField.finishEditing) {
+            if playingField.isEditing || tray.isEditing {
+                Button.init(action: doneAction) {
                     Text("Færdig").bold()
                 }.padding()
             } else {
@@ -25,13 +26,21 @@ struct NavigationBarButtons: View {
             }
         }
     }
+    
+    private func doneAction() {
+        if playingField.isEditing {
+            playingField.finishEditing()
+        } else {
+            tray.finishEditing()
+        }
+    }
 }
 
 struct NavigationBarButtons_Previews: PreviewProvider {
     static var previews: some View {
         let pf = PlayingField()
         pf.isEditing = true
-        return NavigationBarButtons(playingField: pf)
+        return NavigationBarButtons(playingField: pf, tray: Tray())
             .previewLayout(.sizeThatFits)
     }
 }

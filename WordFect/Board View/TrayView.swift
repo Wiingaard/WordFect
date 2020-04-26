@@ -10,32 +10,17 @@ import SwiftUI
 
 struct TrayView: View {
     
-    let tray: Tray
+    @ObservedObject var tray: Tray
 
-    private var empties: Int { 7 - tray.count }
-    
-    private var bricks: [TrayBrick?] {
-        tray + Array<TrayBrick?>(repeating: nil, count: empties)
-    }
-    
     var body: some View {
-        HStack {
-            ForEach((0..<7), id: \.self) { index in
-                TrayBrickView(trayBrick: self.bricks[index])
-                    .aspectRatio(1, contentMode: .fit)
-            }
+        VStack {
+            LineView(fields: tray.fields, onTap: tray.didTap).frame(height: 60)
         }
     }
 }
 
 struct TrayView_Previews: PreviewProvider {
     static var previews: some View {
-        TrayView(tray: [
-            .character(Character("a")),
-            .character(Character("c")),
-            .character(Character("d")),
-            .joker,
-            .character(Character("e"))
-        ])
+        TrayView(tray: Tray())
     }
 }

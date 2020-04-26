@@ -13,7 +13,7 @@ struct PositionWorker {
     let list: List
     let bricks: Matrix<PlacedBrick?>
     let board: Matrix<BoardPosition>
-    let tray: Tray
+    let tray: TrayBricks
     
     func analyze() -> [Rank.RankedResult] {
         let searchResults = Search.searchPosition(position, bricks: bricks, tray: tray)
