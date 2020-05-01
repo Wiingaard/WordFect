@@ -23,14 +23,12 @@ class KeyboardCoordinator: ObservableObject {
         self.tray = tray
         
         self.playingField.$isEditing.sink { [weak self] editing in
-            print("playingField.$isEditing:", editing)
             if editing {
                 self?.tray.finishEditing()
             }
         }.store(in: &bag)
         
         self.tray.$isEditing.sink { [weak self] editing in
-            print("tray.$isEditing:", editing)
             if editing {
                 self?.playingField.finishEditing()
             }

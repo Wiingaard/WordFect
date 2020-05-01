@@ -3,4 +3,54 @@
    uuid = "B1494E0E-E13C-428A-9936-862F6AA8DC2C"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2A2F66FE-CC45-4D15-AF2D-7A88F3FA72AA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WordFect/Tray.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "didInputKey(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2A2F66FE-CC45-4D15-AF2D-7A88F3FA72AA - 808eb75e36624285"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WordFect.Tray.didInputKey(WordFect.Keyboard.Output) -&gt; ()"
+                  moduleName = "WordFect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/martin/Desktop/Play%20apps/WordFect/WordFect/Tray.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "786">
+               </Location>
+               <Location
+                  uuid = "2A2F66FE-CC45-4D15-AF2D-7A88F3FA72AA - 808eb75e36624285"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WordFect.Tray.didInputKey(WordFect.Keyboard.Output) -&gt; ()"
+                  moduleName = "WordFect"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/martin/Desktop/Play%20apps/WordFect/WordFect/Tray.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "877">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

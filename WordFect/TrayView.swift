@@ -10,11 +10,13 @@ import SwiftUI
 
 struct TrayView: View {
     
-    @ObservedObject var tray: Tray
+    @ObservedObject var tray = Tray()
 
     var body: some View {
         VStack {
-            LineView(fields: tray.fields, onTap: tray.didTap).frame(height: 60)
+            LineView(fields: self.tray.fields) {
+                self.tray.didTap($0)
+            }.frame(height: 60)
         }
     }
 }

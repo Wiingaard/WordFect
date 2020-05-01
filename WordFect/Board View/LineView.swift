@@ -10,16 +10,17 @@ import SwiftUI
 
 struct LineView: View {
     
-    @State var fields: [FieldBrick]
+    @State var fields: Line<FieldBrick> = Tray.emptyFields
+    
     var onTap: (Int) -> () = { _ in return }
     
     var body: some View {
-        let bricks = fields.enumerated().map { $0 }
-        
-        return HStack {
-            ForEach(bricks, id: \.offset) { (offset, element) in
-                FieldView(field: element, onTap: { self.onTap(offset) })
-                    .aspectRatio(1, contentMode: .fit)
+        HStack {
+            ForEach((0..<Tray.size), id: \.self) { index in
+                FieldView(
+                    field: self.fields[index],
+                    onTap: { self.onTap(index) }
+                ).aspectRatio(1, contentMode: .fit)
             }
         }
     }
@@ -27,13 +28,16 @@ struct LineView: View {
 
 struct LineView_Previews: PreviewProvider {
     static var previews: some View {
-        LineView(fields: [
-            .placed(.character(Character("a"))),
-            .newlyPlaced(.character(Character("b"))),
-            .empty,
-            .cursor(.vertical),
-            .cursor(.horizontal),
-            .bonus(.dw)
+        let fields = Line([
+            FieldBrick.bonus(.dw),
+            FieldBrick.cursor(.horizontal),
+            FieldBrick.empty,
+            FieldBrick.newlyPlaced(PlacedBrick.character(Character("a"))),
+            FieldBrick.placed(PlacedBrick.joker(Character("b")))
         ])
+        
+        return LineView(fields: fields)
+            .frame(height: 60)
+            .previewLayout(.sizeThatFits)
     }
 }

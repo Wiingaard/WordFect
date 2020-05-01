@@ -33,11 +33,8 @@ struct RootView: View {
                         .padding(.bottom, trayPadding)
                         .onReceive(Publishers.keyboardHeight) { self.updateTrayPadding($0) }
                         .animation(.easeOut(duration: 0.3))
-                        .onReceive(playingField.$isEditing) { editing in
-                            if editing {
-                                self.updateTrayPadding(0)
-                            }
-                    }
+                        .onReceive(playingField.$isEditing) { self.returnTrayIfNeeded($0) }
+                    
                 }.edgesIgnoringSafeArea(.bottom)
                 Keyboard(isFirstResponder: keyboard.isActive) {
                     self.keyboard.input($0)
@@ -50,7 +47,15 @@ struct RootView: View {
     }
     
     private func updateTrayPadding(_ keyboardHeight: CGFloat) {
-        trayPadding = tray.isEditing ? keyboardHeight : RootView.defaultTrayPadding
+        trayPadding = tray.isEditing
+            ? keyboardHeight
+            : RootView.defaultTrayPadding
+    }
+    
+    private func returnTrayIfNeeded(_ returnTray: Bool) {
+        if returnTray {
+            updateTrayPadding(0)
+        }
     }
 }
 

@@ -39,6 +39,7 @@
 		5BD5A6442431469600F8FA5C /* SearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5A6432431469600F8FA5C /* SearchTests.swift */; };
 		5BD5A6462435157F00F8FA5C /* Optional+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5A6452435157F00F8FA5C /* Optional+Extension.swift */; };
 		5BF977962455EEA40053DB98 /* KeyboardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF977952455EEA40053DB98 /* KeyboardCoordinator.swift */; };
+		5BF97798245619BE0053DB98 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF97797245619BE0053DB98 /* Line.swift */; };
 		5BFCC7C724254BFA0078AC50 /* ParseWordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7C624254BFA0078AC50 /* ParseWordList.swift */; };
 		5BFCC7C9242557070078AC50 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7C8242557070078AC50 /* Board.swift */; };
 		5BFCC7CB24263C1A0078AC50 /* BoardPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7CA24263C1A0078AC50 /* BoardPosition.swift */; };
@@ -114,6 +115,7 @@
 		5BD5A6432431469600F8FA5C /* SearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTests.swift; sourceTree = "<group>"; };
 		5BD5A6452435157F00F8FA5C /* Optional+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Extension.swift"; sourceTree = "<group>"; };
 		5BF977952455EEA40053DB98 /* KeyboardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardCoordinator.swift; sourceTree = "<group>"; };
+		5BF97797245619BE0053DB98 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		5BFCC7C624254BFA0078AC50 /* ParseWordList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseWordList.swift; sourceTree = "<group>"; };
 		5BFCC7C8242557070078AC50 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		5BFCC7CA24263C1A0078AC50 /* BoardPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPosition.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				5B57701F243FC6590090D039 /* List.swift */,
 				5BFCC7CC2426450B0078AC50 /* BonusPosition.swift */,
 				5BFCC803242F8EBA0078AC50 /* Matrix.swift */,
+				5BF97797245619BE0053DB98 /* Line.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -199,7 +202,9 @@
 				5B223A50242542AD00EC773B /* AppDelegate.swift */,
 				5B223A52242542AD00EC773B /* SceneDelegate.swift */,
 				5BFCC7FA242D4ED50078AC50 /* PlayingField.swift */,
+				5B51853F24438BE800698C3D /* PlayingFieldView.swift */,
 				5BFCC7F7242D4CDC0078AC50 /* Tray.swift */,
+				5B51852E2441EFC600698C3D /* TrayView.swift */,
 				5B628B0E244B2CB9004E9BD1 /* RootView.swift */,
 				5BFCC801242D52B60078AC50 /* BrickMap.swift */,
 				5B51853C24436B2F00698C3D /* Keyboard.swift */,
@@ -243,7 +248,6 @@
 		5BFCC7E0242659B70078AC50 /* Board View */ = {
 			isa = PBXGroup;
 			children = (
-				5B51853F24438BE800698C3D /* PlayingFieldView.swift */,
 				5BCA456E2454DF6600FD75E6 /* NavigationBarButtons.swift */,
 				5B51853224420C1300698C3D /* FieldView.swift */,
 				5B518534244257B100698C3D /* LineView.swift */,
@@ -251,7 +255,6 @@
 				5BFCC7E1242659F60078AC50 /* BoardPositionView.swift */,
 				5B5185282441AB9900698C3D /* BoardRowView.swift */,
 				5B51852A2441C01D00698C3D /* BoardView.swift */,
-				5B51852E2441EFC600698C3D /* TrayView.swift */,
 				5B5185302441EFD500698C3D /* TrayBrickView.swift */,
 				5BF977952455EEA40053DB98 /* KeyboardCoordinator.swift */,
 			);
@@ -406,6 +409,7 @@
 				5B223A65242543DE00EC773B /* CSVImporter.swift in Sources */,
 				5B66E096243A4F4C0077A84E /* Search.swift in Sources */,
 				5BFCC7CB24263C1A0078AC50 /* BoardPosition.swift in Sources */,
+				5BF97798245619BE0053DB98 /* Line.swift in Sources */,
 				5BF977962455EEA40053DB98 /* KeyboardCoordinator.swift in Sources */,
 				5B577024243FCA070090D039 /* Rank.swift in Sources */,
 				5BFCC7C724254BFA0078AC50 /* ParseWordList.swift in Sources */,
