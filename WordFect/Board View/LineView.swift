@@ -16,7 +16,7 @@ struct LineView: View {
     
     var body: some View {
         HStack {
-            ForEach((0..<Tray.size), id: \.self) { index in
+            ForEach((0..<fields.count), id: \.self) { index in
                 FieldView(
                     field: self.fields[index],
                     onTap: { self.onTap(index) }

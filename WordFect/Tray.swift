@@ -40,13 +40,15 @@ class Tray: ObservableObject {
     func didTap(_ position: Int) {
         objectWillChange.send()
         isEditing = true
-        self.cursor = Cursor(position: position)
-        print("Tap", cursor ?? "derp")
-        fields[position] = .cursor(.horizontal)
+        if let cursor = self.cursor {
+            fields[position] = currentBrick(on: cursor.position)
+        }
+        let newCursor = Cursor(position: position)
+        fields[newCursor.position] = .cursor(.horizontal)
+        self.cursor = newCursor
     }
     
     func didInputKey(_ input: Keyboard.Output) {
-        print(input, cursor ?? "berp")
         guard let cursor = cursor else { return }
         objectWillChange.send()
         
@@ -55,12 +57,12 @@ class Tray: ObservableObject {
             if let brick = PlacedBrick.from(char) {
                 fields[cursor.position] = .newlyPlaced(brick)
             } else {
-                fields[cursor.position] = FieldBrick.from(tray: bricks[cursor.position])
+                fields[cursor.position] = currentBrick(on: cursor.position)
             }
             progress(cursor: cursor, .forward)
             
         case .delete:
-            fields[cursor.position] = FieldBrick.from(tray: bricks[cursor.position])
+            fields[cursor.position] = .trayEmpty
             progress(cursor: cursor, .backward)
             
         case .return:
@@ -68,9 +70,19 @@ class Tray: ObservableObject {
         }
     }
     
+    func currentBrick(on position: Int) -> FieldBrick {
+        return FieldBrick.from(tray: bricks[position])
+    }
+    
     func finishEditing() {
         cursor = nil
         isEditing = false
+        
+        bricks = fields.map(TrayBrick.from)
+        
+        Line<Void>.forEach { position in
+            fields[position] = FieldBrick.from(tray: bricks[position])
+        }
     }
     
     private func progress(cursor: Cursor, _ progress: MatrixIndex.Progress) {

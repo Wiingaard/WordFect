@@ -75,7 +75,7 @@ extension FieldBrick {
         case .newlyPlaced(let brick): return String(brick.character).uppercased()
         case .tray(let brick):
             switch brick {
-            case .character(let char): return String(char)
+            case .character(let char): return String(char).uppercased()
             case .joker: return ""
             }
         }

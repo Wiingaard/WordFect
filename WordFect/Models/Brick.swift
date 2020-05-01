@@ -32,6 +32,21 @@ enum TrayBrick: CustomStringConvertible {
         case .joker: return "_"
         }
     }
+    
+    static func from(placed: PlacedBrick) -> TrayBrick {
+        switch placed {
+        case .character(let char): return TrayBrick.character(char)
+        case .joker: return TrayBrick.joker
+        }
+    }
+    
+    static func from(field: FieldBrick) -> TrayBrick? {
+        switch field {
+        case .newlyPlaced(let brick), .placed(let brick): return TrayBrick.from(placed: brick)
+        case .tray(let brick): return brick
+        case .bonus, .cursor, .empty, .trayEmpty: return nil
+        }
+    }
 }
 
 enum PlacedBrick: MatrixDumpable, Hashable {

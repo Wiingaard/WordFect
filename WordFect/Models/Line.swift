@@ -29,4 +29,10 @@ class Line<Element> {
     func map<S>(_ transform: (Element) -> S) -> Line<S> {
         return Line<S>(line.map(transform))
     }
+    
+    static func forEach(_ body: (Int) -> ()) {
+        (0..<Tray.size).forEach { position in
+            body(position)
+        }
+    }
 }
