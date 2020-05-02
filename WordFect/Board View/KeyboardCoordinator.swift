@@ -13,7 +13,12 @@ class KeyboardCoordinator: ObservableObject {
     
     private var bag = Set<AnyCancellable>()
     
-    @Published var isActive: Bool = false
+    enum Input {
+        case playingField
+        case tray
+    }
+    
+    @Published var inputEnabled: Input? = nil
     
     private var playingField: PlayingField
     private var tray: Tray
@@ -34,17 +39,26 @@ class KeyboardCoordinator: ObservableObject {
             }
         }.store(in: &bag)
         
-        self.tray.$isEditing
-            .merge(with: self.playingField.$isEditing)
-            .sink { [weak self] isEditing in
-                self?.isActive = isEditing
-            }.store(in: &bag)
+        Publishers.CombineLatest(self.playingField.$isEditing, self.tray.$isEditing)
+            .sink { (editPlayingField, editTray) in
+                if editPlayingField {
+                    self.inputEnabled = .playingField
+                } else if editTray {
+                    self.inputEnabled = .tray
+                } else {
+                    self.inputEnabled = nil
+                }
+        }.store(in: &bag)
     }
     
     func input(_ input: Keyboard.Output) {
-        if playingField.isEditing {
+        guard let inputTo = inputEnabled else {
+            return
+        }
+        switch inputTo {
+        case .playingField:
             playingField.didInputKey(input)
-        } else if tray.isEditing {
+        case .tray:
             tray.didInputKey(input)
         }
     }
