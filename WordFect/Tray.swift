@@ -41,7 +41,9 @@ class Tray: ObservableObject {
         objectWillChange.send()
         isEditing = true
         if let cursor = self.cursor {
-            fields[position] = currentBrick(on: cursor.position)
+            let oldBrick = currentBrick(on: cursor.position)
+            print("Old brick:", oldBrick)
+            fields[position] = oldBrick
         }
         let newCursor = Cursor(position: position)
         fields[newCursor.position] = .cursor(.horizontal)
@@ -83,6 +85,13 @@ class Tray: ObservableObject {
         Line<Void>.forEach { position in
             fields[position] = FieldBrick.from(tray: bricks[position])
         }
+    }
+    
+    func beginEditing() {
+        let cursor = Cursor(position: 0)
+        self.cursor = cursor
+        isEditing = true
+        fields[cursor.position] = FieldBrick.cursor(.horizontal)
     }
     
     private func progress(cursor: Cursor, _ progress: MatrixIndex.Progress) {

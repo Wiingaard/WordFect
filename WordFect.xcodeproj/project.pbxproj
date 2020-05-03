@@ -16,6 +16,7 @@
 		5B223A5A242542B000EC773B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B223A59242542B000EC773B /* Preview Assets.xcassets */; };
 		5B223A5D242542B000EC773B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B223A5B242542B000EC773B /* LaunchScreen.storyboard */; };
 		5B223A65242543DE00EC773B /* CSVImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B223A64242543DE00EC773B /* CSVImporter.swift */; };
+		5B317E40245EBD23006D789C /* NavigationBarAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B317E3F245EBD23006D789C /* NavigationBarAppearance.swift */; };
 		5B5185292441AB9900698C3D /* BoardRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5185282441AB9900698C3D /* BoardRowView.swift */; };
 		5B51852B2441C01D00698C3D /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51852A2441C01D00698C3D /* BoardView.swift */; };
 		5B51852F2441EFC600698C3D /* TrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51852E2441EFC600698C3D /* TrayView.swift */; };
@@ -93,6 +94,7 @@
 		5B223A5C242542B000EC773B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B223A5E242542B000EC773B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B223A64242543DE00EC773B /* CSVImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVImporter.swift; sourceTree = "<group>"; };
+		5B317E3F245EBD23006D789C /* NavigationBarAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarAppearance.swift; sourceTree = "<group>"; };
 		5B5185282441AB9900698C3D /* BoardRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardRowView.swift; sourceTree = "<group>"; };
 		5B51852A2441C01D00698C3D /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		5B51852E2441EFC600698C3D /* TrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayView.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				5BCA456E2454DF6600FD75E6 /* NavigationBarButtons.swift */,
+				5B317E3F245EBD23006D789C /* NavigationBarAppearance.swift */,
 				5B51853224420C1300698C3D /* FieldView.swift */,
 				5B518534244257B100698C3D /* LineView.swift */,
 				5B51853624425D0E00698C3D /* GridView.swift */,
@@ -404,6 +407,7 @@
 				5B66E098243F03EF0077A84E /* Validate.swift in Sources */,
 				5B51853724425D0E00698C3D /* GridView.swift in Sources */,
 				5BFCC7C9242557070078AC50 /* Board.swift in Sources */,
+				5B317E40245EBD23006D789C /* NavigationBarAppearance.swift in Sources */,
 				5BFCC802242D52B60078AC50 /* BrickMap.swift in Sources */,
 				5B51853D24436B2F00698C3D /* Keyboard.swift in Sources */,
 				5B223A65242543DE00EC773B /* CSVImporter.swift in Sources */,

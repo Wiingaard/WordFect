@@ -17,33 +17,34 @@ struct TrayView: View {
     
     @State var trayPadding: CGFloat = TrayView.defaultTrayPadding
 
+    var backgroundView: some View {
+        if keyboard.inputEnabled == .tray {
+            return Color.black.opacity(0.5).onTapGesture { self.tray.finishEditing() }
+        } else {
+            return Color.clear.onTapGesture { }
+        }
+    }
+    
     var body: some View {
         VStack {
             Spacer()
             LineView(fields: self.tray.fields) { self.tray.didTap($0) }
-                .frame(height: 60)
-                .background(Color.gray)
+                .padding(10).background(Color.init(white: 0.2)).cornerRadius(10)
+                .padding(.horizontal, 50)
                 .padding(.bottom, trayPadding)
-                .onReceive(Publishers.keyboardHeight) { self.updateTrayPadding($0) }
+                .onReceive(keyboard.$inputAndHeight) { self.updateTrayHeight($0) }
                 .animation(.easeOut(duration: 0.3))
-                .onReceive(keyboard.$inputEnabled) { self.returnTrayIfNeeded($0) }
-        }.edgesIgnoringSafeArea(.bottom)
+        }
+        .edgesIgnoringSafeArea(.bottom)
+        .background(backgroundView)
     }
     
-    private func updateTrayPadding(_ keyboardHeight: CGFloat) {
-        trayPadding = tray.isEditing
-            ? keyboardHeight
-            : TrayView.defaultTrayPadding
-    }
-    
-    private func returnTrayIfNeeded(_ input: KeyboardCoordinator.Input?) {
-        guard let input = input, input == .playingField else { return }
-        trayPadding = TrayView.defaultTrayPadding
+    private func updateTrayHeight(_ input: (KeyboardCoordinator.Input?, CGFloat)) {
+        switch input.0 {
+        case .none, .playingField:
+            trayPadding = TrayView.defaultTrayPadding
+        case .tray:
+            trayPadding = input.1
+        }
     }
 }
-
-//struct TrayView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TrayView(tray: Tray(), keyboard: KeyboardCoordinator())
-//    }
-//}

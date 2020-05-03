@@ -15,23 +15,16 @@ struct NavigationBarButtons: View {
     
     var body: some View {
         HStack {
-            if playingField.isEditing || tray.isEditing {
-                Button.init(action: doneAction) {
-                    Text("Færdig").bold()
-                }.padding()
-            } else {
-                Button.init(action: playingField.beginEditing) {
-                    Text("Rediger").bold()
+            if playingField.isEditing {
+                Button.init(action: { self.tray.beginEditing() }) {
+                    Text("Næste").bold()
                 }.padding()
             }
-        }
-    }
-    
-    private func doneAction() {
-        if playingField.isEditing {
-            playingField.finishEditing()
-        } else {
-            tray.finishEditing()
+            if tray.isEditing {
+                Button.init(action: { self.tray.finishEditing() }) {
+                    Text("Færdig").bold()
+                }.padding()
+            }
         }
     }
 }

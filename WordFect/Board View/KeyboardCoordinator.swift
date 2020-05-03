@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 import Combine
 
 class KeyboardCoordinator: ObservableObject {
@@ -19,6 +20,8 @@ class KeyboardCoordinator: ObservableObject {
     }
     
     @Published var inputEnabled: Input? = nil
+    @Published var currentHeight: CGFloat = 0
+    @Published var inputAndHeight: (Input?, CGFloat) = (nil, 0)
     
     private var playingField: PlayingField
     private var tray: Tray
@@ -49,13 +52,20 @@ class KeyboardCoordinator: ObservableObject {
                     self.inputEnabled = nil
                 }
         }.store(in: &bag)
+        
+        Publishers.keyboardHeight
+            .assign(to: \.currentHeight, on: self)
+            .store(in: &bag)
+        
+        Publishers.CombineLatest.init($inputEnabled, Publishers.keyboardHeight)
+            .assign(to: \.inputAndHeight, on: self)
+            .store(in: &bag)
     }
     
     func input(_ input: Keyboard.Output) {
-        guard let inputTo = inputEnabled else {
+        switch inputEnabled {
+        case .none:
             return
-        }
-        switch inputTo {
         case .playingField:
             playingField.didInputKey(input)
         case .tray:

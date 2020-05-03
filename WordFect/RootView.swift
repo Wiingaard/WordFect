@@ -24,9 +24,11 @@ struct RootView: View {
                     self.keyboard.input($0)
                 }
             }
-            .animation(nil)
-            .navigationBarTitle(Text("WordFect"))
-            .navigationBarItems(trailing: NavigationBarButtons(playingField: playingField, tray: tray))
+                
+            .navigationBarTitle("Rediger")
+            .background(Color.black.edgesIgnoringSafeArea(.all))
+            .navigationBarItems(trailing: NavigationBarButtons(playingField: playingField, tray: tray) )
+            .customNavigationBar(titleColor: UIColor.white, backgroundColor: UIColor.black)
         }
     }
 }

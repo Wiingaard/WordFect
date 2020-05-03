@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: RootView(
+            window.rootViewController = DarkHostingController(rootView: RootView(
                 playingField: playingField,
                 tray: tray,
                 keyboard: KeyboardCoordinator(playingField, tray)
@@ -28,5 +28,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
+    }
+}
+
+class DarkHostingController<ContentView> : UIHostingController<ContentView> where ContentView : View {
+    override dynamic open var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
     }
 }
