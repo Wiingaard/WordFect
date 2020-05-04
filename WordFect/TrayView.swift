@@ -11,6 +11,7 @@ import Combine
 
 struct TrayView: View {
     static let defaultTrayPadding: CGFloat = 40
+    static let backgroundColor = Color.init(white: 0.2)
     
     @ObservedObject var tray: Tray
     @ObservedObject var keyboard: KeyboardCoordinator
@@ -29,7 +30,7 @@ struct TrayView: View {
         VStack {
             Spacer()
             LineView(fields: self.tray.fields) { self.tray.didTap($0) }
-                .padding(10).background(Color.init(white: 0.2)).cornerRadius(10)
+                .padding(10).background(TrayView.backgroundColor).cornerRadius(10)
                 .padding(.horizontal, 50)
                 .padding(.bottom, trayPadding)
                 .onReceive(keyboard.$inputAndHeight) { self.updateTrayHeight($0) }

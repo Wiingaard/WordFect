@@ -39,15 +39,15 @@ class Tray: ObservableObject {
     
     func didTap(_ position: Int) {
         objectWillChange.send()
-        isEditing = true
+        
         if let cursor = self.cursor {
-            let oldBrick = currentBrick(on: cursor.position)
-            print("Old brick:", oldBrick)
-            fields[position] = oldBrick
+            fields[cursor.position] = currentBrick(on: cursor.position)
+        } else {
+            isEditing = true
         }
-        let newCursor = Cursor(position: position)
-        fields[newCursor.position] = .cursor(.horizontal)
-        self.cursor = newCursor
+        
+        fields[position] = .cursor(.horizontal)
+        self.cursor = Cursor(position: position)
     }
     
     func didInputKey(_ input: Keyboard.Output) {
@@ -58,8 +58,10 @@ class Tray: ObservableObject {
         case .character(let char):
             if let brick = PlacedBrick.from(char) {
                 fields[cursor.position] = .newlyPlaced(brick)
+                bricks[cursor.position] = TrayBrick.from(placed: brick)
             } else {
                 fields[cursor.position] = currentBrick(on: cursor.position)
+                bricks[cursor.position] = nil
             }
             progress(cursor: cursor, .forward)
             
@@ -73,7 +75,15 @@ class Tray: ObservableObject {
     }
     
     func currentBrick(on position: Int) -> FieldBrick {
-        return FieldBrick.from(tray: bricks[position])
+        switch fields[position] {
+        case .newlyPlaced, .placed, .tray:
+            return fields[position]
+        default:
+            switch bricks[position] {
+            case .some(let brick): return .tray(brick)
+            case .none: return .trayEmpty
+            }
+        }
     }
     
     func finishEditing() {
