@@ -11,7 +11,7 @@ import Combine
 
 struct TrayView: View {
     static let defaultTrayPadding: CGFloat = 40
-    static let backgroundColor = Color.init(white: 0.2)
+    static let backgroundColor = Color.white24
     
     @ObservedObject var tray: Tray
     @ObservedObject var keyboard: KeyboardCoordinator

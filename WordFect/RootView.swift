@@ -19,12 +19,12 @@ struct RootView: View {
         NavigationView {
             ZStack {
                 PlayingFieldView(playingField: playingField)
-                TrayView(tray: tray, keyboard: keyboard)
+                AnalyzeView()
+//                TrayView(tray: tray, keyboard: keyboard)
                 Keyboard(isFirstResponder: keyboard.inputEnabled != nil) {
                     self.keyboard.input($0)
                 }
             }
-                
             .navigationBarTitle("Rediger")
             .background(Color.black.edgesIgnoringSafeArea(.all))
             .navigationBarItems(trailing: NavigationBarButtons(playingField: playingField, tray: tray) )

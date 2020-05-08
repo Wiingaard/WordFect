@@ -10,6 +10,11 @@ import SwiftUI
 
 extension Color {
     
+    static let white16 = Color(white: 0.16)
+    static let white24 = Color(white: 0.24)
+    static let white92 = Color(white: 0.92)
+    
+    
     // Bonus positions
     static let dlTop = Color(hex: 0x78986A)
     static let dlBot = Color(hex: 0x819F74)
