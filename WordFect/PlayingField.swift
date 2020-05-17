@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import SwiftUI
+import Combine
 
 class PlayingField: ObservableObject {
     
@@ -29,7 +31,19 @@ class PlayingField: ObservableObject {
     
     @Published var editFieldDirection: MatrixDirection = .horizontal
     @Published var isEditing: Bool = false
-    @Published var fields: Matrix<FieldBrick> = PlayingField.empty
+    @ObservedObject var fields: Matrix<FieldBrick> = PlayingField.empty
+    
+    lazy var isEmpty: AnyPublisher<Bool, Never> = fields.$grid.map { bricks -> Bool in
+        bricks.flatMap { $0 }.contains { brick -> Bool in
+            switch brick {
+            case .placed: return true
+            default: return false
+            }
+        }
+    }
+    .map(!)
+    .removeDuplicates()
+    .eraseToAnyPublisher()
     
     func didTapField(_ position: MatrixIndex) {
         objectWillChange.send()

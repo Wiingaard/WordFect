@@ -8,12 +8,12 @@
 
 import Foundation
 
-class Matrix<T> {
+class Matrix<T>: ObservableObject {
     typealias Field = T
     typealias Line = [T]
     typealias Grid = [[T]]
     
-    var grid: Grid
+    @Published var grid: Grid
     
     init(_ grid: Grid) {
         self.grid = grid
@@ -52,6 +52,14 @@ class Matrix<T> {
             }
         }
         return Matrix<(MatrixIndex, T)>(enumeratedGrid)
+    }
+    
+    func containes(where predicate: (T) -> Bool) -> Bool {
+        grid.contains { row -> Bool in
+            row.contains { field -> Bool in
+                return predicate(field)
+            }
+        }
     }
     
     static func forEach(_ body: (MatrixIndex) -> ()) {

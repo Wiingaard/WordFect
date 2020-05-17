@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import SwiftUI
+import Combine
 
 typealias TrayBricks = [TrayBrick]
 
@@ -32,8 +34,21 @@ class Tray: ObservableObject {
     }
     
     var bricks: Line<TrayBrick?> = Tray.emptyBricks
-    @Published var fields: Line<FieldBrick> = Tray.emptyFields
+    @ObservedObject var fields: Line<FieldBrick> = Tray.emptyFields
     @Published var isEditing: Bool = false
+    
+    lazy var isEmpty: AnyPublisher<Bool,Never> = fields.$line
+        .map { line in
+            line.contains {brick -> Bool in
+                switch brick {
+                case .tray: return true
+                default: return false
+                }
+            }
+    }
+    .map(!)
+    .removeDuplicates()
+    .eraseToAnyPublisher()
     
     private var cursor: Cursor? = nil
     

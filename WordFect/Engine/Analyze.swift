@@ -10,6 +10,8 @@ import Foundation
 import Combine
 
 class Analyze: ObservableObject {
+    private var cancellables: Set<AnyCancellable> = []
+    
     private var playingField: PlayingField
     private var tray: Tray
     
@@ -28,7 +30,23 @@ class Analyze: ObservableObject {
     ) {
         self.playingField = playingField
         self.tray = tray
+        
+        missingInputMessage
+            .compactMap { $0 }
+            .sink { [weak self] message in
+                self?.viewState = .missingInput(message: message)
+        }
+        .store(in: &cancellables)
     }
+    
+    private lazy var missingInputMessage: AnyPublisher = Publishers.CombineLatest(playingField.isEmpty, tray.isEmpty)
+        .map { (playingField, tray) -> String? in
+            switch (playingField, tray) {
+            case (true, _): return "Udfyld spillebræt"
+            case (_ , true): return "Udfyld hånd"
+            case (false, false): return nil
+            }
+    }.eraseToAnyPublisher()
     
     func change() {
         objectWillChange.send()

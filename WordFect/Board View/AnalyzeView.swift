@@ -16,24 +16,24 @@ struct AnalyzeView: View {
     
     func content() -> AnyView {
         switch analyze.viewState {
-        case .missingInput:
+        case .missingInput(let message):
             return AnyView(
-                Text("Missing Input")
+                Text(message).bold().foregroundColor(.white)
              )
             
         case .ready:
             return AnyView(
-                WigglyView(content: "🤖")
+                Text("Ready!").bold().foregroundColor(.white)
             )
             
         case .working:
             return AnyView(
-                Text("Working")
+                WigglyView(content: "🤖")
             )
             
-        case .results:
+        case .results(let results):
             return AnyView(
-                Text("Results")
+                Text("Results: \(results.count)").bold().foregroundColor(.white)
             )
         }
     }

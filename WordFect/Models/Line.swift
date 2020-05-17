@@ -9,9 +9,9 @@
 import Foundation
 import Combine
 
-class Line<Element> {
+class Line<Element>: ObservableObject {
     
-    var line: [Element]
+    @Published var line: [Element]
     
     var count: Int {
         line.count
