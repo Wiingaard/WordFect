@@ -14,12 +14,13 @@ struct RootView: View {
     @ObservedObject var playingField: PlayingField
     @ObservedObject var tray: Tray
     @ObservedObject var keyboard: KeyboardCoordinator
+    @ObservedObject var analyze: Analyze
     
     var body: some View {
         NavigationView {
             ZStack {
                 PlayingFieldView(playingField: playingField)
-                AnalyzeView()
+                AnalyzeView(analyze: analyze)
                 TrayView(tray: tray, keyboard: keyboard)
                 Keyboard(isFirstResponder: keyboard.inputEnabled != nil) {
                     self.keyboard.input($0)
@@ -40,7 +41,8 @@ struct RootView_Previews: PreviewProvider {
         return RootView(
             playingField: playingField,
             tray: tray,
-            keyboard: KeyboardCoordinator(playingField, tray)
+            keyboard: KeyboardCoordinator(playingField, tray),
+            analyze: Analyze(playingField, tray)
         )
     }
 }

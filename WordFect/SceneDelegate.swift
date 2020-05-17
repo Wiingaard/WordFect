@@ -23,7 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.rootViewController = DarkHostingController(rootView: RootView(
                 playingField: playingField,
                 tray: tray,
-                keyboard: KeyboardCoordinator(playingField, tray)
+                keyboard: KeyboardCoordinator(playingField, tray),
+                analyze: Analyze(playingField, tray)
             ))
             self.window = window
             window.makeKeyAndVisible()

@@ -18,6 +18,8 @@
 		5B223A65242543DE00EC773B /* CSVImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B223A64242543DE00EC773B /* CSVImporter.swift */; };
 		5B317E40245EBD23006D789C /* NavigationBarAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B317E3F245EBD23006D789C /* NavigationBarAppearance.swift */; };
 		5B317E42246082CE006D789C /* AnalyzeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B317E41246082CE006D789C /* AnalyzeView.swift */; };
+		5B3DE87E24714A5E007947E5 /* Analyze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3DE87D24714A5E007947E5 /* Analyze.swift */; };
+		5B3DE88024714C1E007947E5 /* WigglyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3DE87F24714C1E007947E5 /* WigglyView.swift */; };
 		5B5185292441AB9900698C3D /* BoardRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5185282441AB9900698C3D /* BoardRowView.swift */; };
 		5B51852B2441C01D00698C3D /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51852A2441C01D00698C3D /* BoardView.swift */; };
 		5B51852F2441EFC600698C3D /* TrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51852E2441EFC600698C3D /* TrayView.swift */; };
@@ -98,6 +100,8 @@
 		5B223A64242543DE00EC773B /* CSVImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVImporter.swift; sourceTree = "<group>"; };
 		5B317E3F245EBD23006D789C /* NavigationBarAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarAppearance.swift; sourceTree = "<group>"; };
 		5B317E41246082CE006D789C /* AnalyzeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeView.swift; sourceTree = "<group>"; };
+		5B3DE87D24714A5E007947E5 /* Analyze.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analyze.swift; sourceTree = "<group>"; };
+		5B3DE87F24714C1E007947E5 /* WigglyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WigglyView.swift; path = "Board View/WigglyView.swift"; sourceTree = "<group>"; };
 		5B5185282441AB9900698C3D /* BoardRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardRowView.swift; sourceTree = "<group>"; };
 		5B51852A2441C01D00698C3D /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		5B51852E2441EFC600698C3D /* TrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayView.swift; sourceTree = "<group>"; };
@@ -180,6 +184,7 @@
 				5B66E097243F03EF0077A84E /* Validate.swift */,
 				5B577023243FCA070090D039 /* Rank.swift */,
 				5B00126F2440D1B8006780CD /* PositionWorker.swift */,
+				5B3DE87D24714A5E007947E5 /* Analyze.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -210,6 +215,7 @@
 				5BFCC7FA242D4ED50078AC50 /* PlayingField.swift */,
 				5B51853F24438BE800698C3D /* PlayingFieldView.swift */,
 				5BFCC7F7242D4CDC0078AC50 /* Tray.swift */,
+				5B3DE87F24714C1E007947E5 /* WigglyView.swift */,
 				5B51852E2441EFC600698C3D /* TrayView.swift */,
 				5B628B0E244B2CB9004E9BD1 /* RootView.swift */,
 				5BFCC801242D52B60078AC50 /* BrickMap.swift */,
@@ -426,9 +432,11 @@
 				5BFCC7C724254BFA0078AC50 /* ParseWordList.swift in Sources */,
 				5B577020243FC6590090D039 /* List.swift in Sources */,
 				5BFCC7E2242659F60078AC50 /* BoardPositionView.swift in Sources */,
+				5B3DE88024714C1E007947E5 /* WigglyView.swift in Sources */,
 				5B5185292441AB9900698C3D /* BoardRowView.swift in Sources */,
 				5BFCC804242F8EBA0078AC50 /* Matrix.swift in Sources */,
 				5B628B0F244B2CB9004E9BD1 /* RootView.swift in Sources */,
+				5B3DE87E24714A5E007947E5 /* Analyze.swift in Sources */,
 				5B5185312441EFD500698C3D /* TrayBrickView.swift in Sources */,
 				5BFCC7F6242D4B1E0078AC50 /* Brick.swift in Sources */,
 				5B317E42246082CE006D789C /* AnalyzeView.swift in Sources */,
