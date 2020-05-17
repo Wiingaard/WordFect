@@ -9,42 +9,77 @@
 import SwiftUI
 import UIKit
 
-struct RobotView: View {
-    @State var rotation = Angle(degrees: 0)
-    let size: CGFloat
+struct WigglyRobotView: View {
+    
+    @State private var rotation = Angle.degrees(0)
+    
+    var foreverAnimation: Animation {
+        Animation.easeOut(duration: 0.25).repeatForever(autoreverses: true)
+    }
     
     var body: some View {
-        return ZStack {
-            Circle()
-                .foregroundColor(Color.white24)
-                .frame(width: self.size, height: self.size)
-            Text("🤖")
-                .font(.system(size: self.size / 2))
-                .rotationEffect(self.rotation)
-                .onAppear {
-                    self.rotation = Angle.init(degrees: -10)
-                    withAnimation(Animation.easeOut(duration: 0.2).repeatForever(autoreverses: true)) {
-                        self.rotation = Angle(degrees: 10)
-                    }
+        Text("🤖")
+            .font(.system(size: 60))
+            .rotationEffect(self.rotation)
+            .onAppear {
+                self.rotation = .degrees(-10)
+                withAnimation(self.foreverAnimation) {
+                    self.rotation = .degrees(10)
                 }
         }
+        .padding()
+        .background(Circle().foregroundColor(.white24))
     }
 }
 
+
 struct AnalyzeView: View {
-    @State var size: CGFloat = 80
+    
+    enum ViewState {
+        case missingInput(message: String)
+        case ready
+        case working
+        case results(results: [Int])
+    }
+    
+    @State private var viewState: ViewState = .ready
+
+    func content() -> AnyView {
+        switch viewState {
+        case .missingInput:
+            return AnyView(
+                Text("Missing Input")
+             )
+            
+        case .ready:
+            return AnyView(
+                WigglyRobotView()
+            )
+            
+        case .working:
+            return AnyView(
+                Text("Working")
+            )
+            
+        case .results:
+            return AnyView(
+                Text("Results")
+            )
+        }
+    }
     
     var body: some View {
         GeometryReader { geometry in
             VStack {
                 Spacer()
-                HStack {
-                    Spacer()
-                    Button.init(action: {
-                        self.size = self.size == 80 ? 40 : 80
-                    }, label: { Text("Change size").foregroundColor(Color.blue) })
-                    RobotView(size: self.size).padding(32)
-                    Spacer()
+                VStack {
+                    HStack {
+                        Spacer()
+                        self.content()
+                        Spacer()
+                    }
+                    .padding(.bottom, 72)
+                    .padding(.top, 16)
                 }
                 .padding(.bottom, geometry.safeAreaInsets.bottom)
                 .background(Color.white16)
@@ -53,10 +88,19 @@ struct AnalyzeView: View {
             .edgesIgnoringSafeArea(.bottom)
         }
     }
+    
+    func change() {
+        switch viewState {
+        case .missingInput: viewState = .ready
+        case .ready: viewState = .working
+        case .working: viewState = .results(results: [1,2,3])
+        case .results: viewState = .missingInput(message: "OMG")
+        }
+    }
 }
 
 struct AnalyzeView_Previews: PreviewProvider {
     static var previews: some View {
-        AnalyzeView()
+        WigglyRobotView().previewLayout(.sizeThatFits)
     }
 }

@@ -20,7 +20,7 @@ struct RootView: View {
             ZStack {
                 PlayingFieldView(playingField: playingField)
                 AnalyzeView()
-//                TrayView(tray: tray, keyboard: keyboard)
+                TrayView(tray: tray, keyboard: keyboard)
                 Keyboard(isFirstResponder: keyboard.inputEnabled != nil) {
                     self.keyboard.input($0)
                 }
