@@ -18,12 +18,21 @@ struct AnalyzeView: View {
         switch analyze.viewState {
         case .missingInput(let message):
             return AnyView(
-                Text(message).bold().foregroundColor(.white)
-             )
+                Text(message)
+                    .bold()
+                    .foregroundColor(.white)
+                    .padding()
+            )
             
         case .ready:
             return AnyView(
-                Text("Ready!").bold().foregroundColor(.white)
+                Button(action: { print("LOL") }) {
+                    Text("✨")
+                        .font(.system(size: 40))
+                        .padding()
+                }
+                .background(Circle().foregroundColor(.white24))
+//                .padding(.vertical, 12)
             )
             
         case .working:
@@ -33,7 +42,10 @@ struct AnalyzeView: View {
             
         case .results(let results):
             return AnyView(
-                Text("Results: \(results.count)").bold().foregroundColor(.white)
+                Text("Results: \(results.count)")
+                    .bold()
+                    .foregroundColor(.white)
+                    .padding()
             )
         }
     }
@@ -48,7 +60,7 @@ struct AnalyzeView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        self.content()
+                        self.content().frame(height: 140)
                         Spacer()
                     }
                     .padding(.bottom, 72)

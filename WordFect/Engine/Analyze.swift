@@ -23,6 +23,7 @@ class Analyze: ObservableObject {
     }
     
     @Published var viewState: ViewState = .ready
+    @Published var isRunning: Bool = false
     
     init(
         _ playingField: PlayingField,
@@ -34,9 +35,16 @@ class Analyze: ObservableObject {
         missingInputMessage
             .compactMap { $0 }
             .sink { [weak self] message in
+//                self?.viewState = .ready
                 self?.viewState = .missingInput(message: message)
         }
         .store(in: &cancellables)
+        
+        Publishers.CombineLatest(canStartRunning, $isRunning)
+            .filter { $0.0 && !$0.1 }
+            .sink { [weak self] _ in
+                self?.viewState = .ready
+        }.store(in: &cancellables)
     }
     
     private lazy var missingInputMessage: AnyPublisher = Publishers.CombineLatest(playingField.isEmpty, tray.isEmpty)
@@ -47,6 +55,10 @@ class Analyze: ObservableObject {
             case (false, false): return nil
             }
     }.eraseToAnyPublisher()
+    
+    private lazy var canStartRunning: AnyPublisher = Publishers.CombineLatest(playingField.isEmpty, tray.isEmpty)
+        .map { !$0 && !$1 }
+        .eraseToAnyPublisher()
     
     func change() {
         objectWillChange.send()
