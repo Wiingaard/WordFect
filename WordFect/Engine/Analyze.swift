@@ -24,6 +24,7 @@ class Analyze: ObservableObject {
     
     @Published var viewState: ViewState = .ready
     @Published var isRunning: Bool = false
+    var workingFields: Matrix<Bool> = .all(false)
     
     init(
         _ playingField: PlayingField,
@@ -35,8 +36,8 @@ class Analyze: ObservableObject {
         missingInputMessage
             .compactMap { $0 }
             .sink { [weak self] message in
-//                self?.viewState = .ready
-                self?.viewState = .missingInput(message: message)
+                self?.viewState = .ready
+//                self?.viewState = .missingInput(message: message)
         }
         .store(in: &cancellables)
         
@@ -59,6 +60,20 @@ class Analyze: ObservableObject {
     private lazy var canStartRunning: AnyPublisher = Publishers.CombineLatest(playingField.isEmpty, tray.isEmpty)
         .map { !$0 && !$1 }
         .eraseToAnyPublisher()
+    
+    func start() {
+        viewState = .working
+        Matrix<Void>.forEach { index in
+            workingFields[index] = true
+            let random = Double.random(in: 1...4)
+            let delay = RunLoop.SchedulerTimeType.Stride(TimeInterval(random))
+            Just(false)
+                .delay(for: delay, scheduler: RunLoop.main)
+                .sink { [weak self] isWorking in
+                    self?.workingFields[index] = isWorking
+            }.store(in: &cancellables)
+        }
+    }
     
     func change() {
         objectWillChange.send()

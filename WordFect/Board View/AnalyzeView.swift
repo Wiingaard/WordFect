@@ -26,13 +26,12 @@ struct AnalyzeView: View {
             
         case .ready:
             return AnyView(
-                Button(action: { print("LOL") }) {
+                Button(action: { self.analyze.start() }) {
                     Text("✨")
                         .font(.system(size: 40))
                         .padding()
                 }
                 .background(Circle().foregroundColor(.white24))
-//                .padding(.vertical, 12)
             )
             
         case .working:
@@ -53,9 +52,6 @@ struct AnalyzeView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                Button("Change") {
-                    self.analyze.change()
-                }
                 Spacer()
                 VStack {
                     HStack {

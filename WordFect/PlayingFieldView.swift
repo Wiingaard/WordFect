@@ -11,10 +11,14 @@ import SwiftUI
 struct PlayingFieldView: View {
     
     @ObservedObject var playingField = PlayingField()
+    @ObservedObject var analyze: Analyze
     
     var body: some View {
         VStack {
-            GridView(fields: self.playingField.fields) { self.playingField.didTapField($0) }
+            GridView(
+                fields: self.playingField.fields,
+                isWorking: self.analyze.workingFields
+            ) { self.playingField.didTapField($0) }
             Spacer()
         }
     }
@@ -22,6 +26,9 @@ struct PlayingFieldView: View {
 
 struct PlayingFieldView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayingFieldView()
+        let pf = PlayingField()
+        let tray = Tray()
+        let analyze = Analyze(pf, tray)
+        return PlayingFieldView(analyze: analyze)
     }
 }

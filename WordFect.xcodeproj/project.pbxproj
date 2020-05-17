@@ -20,6 +20,7 @@
 		5B317E42246082CE006D789C /* AnalyzeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B317E41246082CE006D789C /* AnalyzeView.swift */; };
 		5B3DE87E24714A5E007947E5 /* Analyze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3DE87D24714A5E007947E5 /* Analyze.swift */; };
 		5B3DE88024714C1E007947E5 /* WigglyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3DE87F24714C1E007947E5 /* WigglyView.swift */; };
+		5B3DE88224719D12007947E5 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3DE88124719D12007947E5 /* ActivityIndicator.swift */; };
 		5B5185292441AB9900698C3D /* BoardRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5185282441AB9900698C3D /* BoardRowView.swift */; };
 		5B51852B2441C01D00698C3D /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51852A2441C01D00698C3D /* BoardView.swift */; };
 		5B51852F2441EFC600698C3D /* TrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51852E2441EFC600698C3D /* TrayView.swift */; };
@@ -102,6 +103,7 @@
 		5B317E41246082CE006D789C /* AnalyzeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzeView.swift; sourceTree = "<group>"; };
 		5B3DE87D24714A5E007947E5 /* Analyze.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analyze.swift; sourceTree = "<group>"; };
 		5B3DE87F24714C1E007947E5 /* WigglyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WigglyView.swift; path = "Board View/WigglyView.swift"; sourceTree = "<group>"; };
+		5B3DE88124719D12007947E5 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		5B5185282441AB9900698C3D /* BoardRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardRowView.swift; sourceTree = "<group>"; };
 		5B51852A2441C01D00698C3D /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		5B51852E2441EFC600698C3D /* TrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayView.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				5B51853F24438BE800698C3D /* PlayingFieldView.swift */,
 				5BFCC7F7242D4CDC0078AC50 /* Tray.swift */,
 				5B3DE87F24714C1E007947E5 /* WigglyView.swift */,
+				5B3DE88124719D12007947E5 /* ActivityIndicator.swift */,
 				5B51852E2441EFC600698C3D /* TrayView.swift */,
 				5B628B0E244B2CB9004E9BD1 /* RootView.swift */,
 				5BFCC801242D52B60078AC50 /* BrickMap.swift */,
@@ -441,6 +444,7 @@
 				5BFCC7F6242D4B1E0078AC50 /* Brick.swift in Sources */,
 				5B317E42246082CE006D789C /* AnalyzeView.swift in Sources */,
 				5B51852F2441EFC600698C3D /* TrayView.swift in Sources */,
+				5B3DE88224719D12007947E5 /* ActivityIndicator.swift in Sources */,
 				5B51852B2441C01D00698C3D /* BoardView.swift in Sources */,
 				5BFCC7F8242D4CDC0078AC50 /* Tray.swift in Sources */,
 				5BFCC7FD242D50D00078AC50 /* Color+Extension.swift in Sources */,

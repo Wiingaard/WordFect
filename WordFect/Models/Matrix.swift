@@ -69,6 +69,12 @@ class Matrix<T>: ObservableObject {
             }
         }
     }
+    
+    static func all<T>(_ element: T) -> Matrix<T> {
+        let row = Array.init(repeating: element, count: Board.size)
+        let grid = Array.init(repeating: row, count: Board.size)
+        return Matrix<T>(grid)
+    }
 }
 
 protocol MatrixDumpable {

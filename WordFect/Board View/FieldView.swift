@@ -12,6 +12,18 @@ struct FieldView: View {
     
     let field: FieldBrick
     var onTap: () -> () = { return }
+    var loading: Bool = false
+    
+    private var loadingView: some View {
+        ZStack {
+            if loading {
+                Rectangle()
+                    .foregroundColor(Color.white16.opacity(0.7))
+                ActivityIndicator(isAnimating: loading)
+                    .configure { $0.color = .white }
+            }
+        }
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -40,7 +52,9 @@ struct FieldView: View {
                 
                 self.field.centerImage?
                     .font(.system(size: geometry.size.width * 0.7, weight: .bold))
-            }.onTapGesture { self.onTap() }
+            }
+            .onTapGesture { self.onTap() }
+            .overlay(self.loadingView.cornerRadius(geometry.size.width / 10))
         }
     }
 }
@@ -122,6 +136,11 @@ struct FieldView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
+            FieldView(
+                field: FieldBrick.placed(PlacedBrick.character(Character("a"))),
+                onTap: onTap,
+                loading: true
+            )
             FieldView(
                 field: FieldBrick.placed(PlacedBrick.character(Character("a"))), onTap: onTap
             )

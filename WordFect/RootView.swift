@@ -19,7 +19,7 @@ struct RootView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                PlayingFieldView(playingField: playingField)
+                PlayingFieldView(playingField: playingField, analyze: analyze)
                 AnalyzeView(analyze: analyze)
                 TrayView(tray: tray, keyboard: keyboard)
                 Keyboard(isFirstResponder: keyboard.inputEnabled != nil) {
