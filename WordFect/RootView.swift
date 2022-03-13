@@ -12,7 +12,7 @@ import Combine
 struct RootView: View {
     
     @ObservedObject var playingField: PlayingField
-    @ObservedObject var tray: Tray
+    @ObservedObject var trayVM: TrayViewModel
     @ObservedObject var keyboard: KeyboardCoordinator
     @ObservedObject var analyze: Analyze
     
@@ -21,14 +21,17 @@ struct RootView: View {
             ZStack {
                 PlayingFieldView(playingField: playingField, analyze: analyze)
                 AnalyzeView(analyze: analyze)
-                TrayView(tray: tray, keyboard: keyboard)
+                TrayView(vm: trayVM, keyboard: keyboard)
                 Keyboard(isFirstResponder: keyboard.inputEnabled != nil) {
                     self.keyboard.input($0)
                 }
             }
             .navigationBarTitle("Rediger")
             .background(Color.black.edgesIgnoringSafeArea(.all))
-            .navigationBarItems(trailing: NavigationBarButtons(playingField: playingField, tray: tray) )
+            .navigationBarItems(trailing: NavigationBarButtons(
+                playingField: playingField,
+                trayVM: trayVM)
+            )
             .customNavigationBar(titleColor: UIColor.white, backgroundColor: UIColor.black)
         }
     }
@@ -37,12 +40,12 @@ struct RootView: View {
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
         let playingField = PlayingField()
-        let tray = Tray()
+        let trayVM = TrayViewModel()
         return RootView(
             playingField: playingField,
-            tray: tray,
-            keyboard: KeyboardCoordinator(playingField, tray),
-            analyze: Analyze(playingField, tray)
+            trayVM: trayVM,
+            keyboard: KeyboardCoordinator(playingField, trayVM),
+            analyze: Analyze(playingField, trayVM)
         )
     }
 }

@@ -24,25 +24,25 @@ class KeyboardCoordinator: ObservableObject {
     @Published var inputAndHeight: (Input?, CGFloat) = (nil, 0)
     
     private var playingField: PlayingField
-    private var tray: Tray
+    private var trayVM: TrayViewModel
     
-    init(_ playingField: PlayingField, _ tray: Tray) {
+    init(_ playingField: PlayingField, _ trayVM: TrayViewModel) {
         self.playingField = playingField
-        self.tray = tray
+        self.trayVM = trayVM
         
         self.playingField.$isEditing.sink { [weak self] editing in
             if editing {
-                self?.tray.finishEditing()
+                self?.trayVM.finishEditing()
             }
         }.store(in: &bag)
         
-        self.tray.$isEditing.sink { [weak self] editing in
+        self.trayVM.$isEditing.sink { [weak self] editing in
             if editing {
                 self?.playingField.finishEditing()
             }
         }.store(in: &bag)
         
-        Publishers.CombineLatest(self.playingField.$isEditing, self.tray.$isEditing)
+        Publishers.CombineLatest(self.playingField.$isEditing, self.trayVM.$isEditing)
             .sink { (editPlayingField, editTray) in
                 if editPlayingField {
                     self.inputEnabled = .playingField
@@ -69,7 +69,7 @@ class KeyboardCoordinator: ObservableObject {
         case .playingField:
             playingField.didInputKey(input)
         case .tray:
-            tray.didInputKey(input)
+            trayVM.didInputKey(input)
         }
     }
     

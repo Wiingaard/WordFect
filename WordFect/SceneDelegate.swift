@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     let playingField = PlayingField()
-    let tray = Tray()
+    let trayVM = TrayViewModel()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -22,9 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = DarkHostingController(rootView: RootView(
                 playingField: playingField,
-                tray: tray,
-                keyboard: KeyboardCoordinator(playingField, tray),
-                analyze: Analyze(playingField, tray)
+                trayVM: trayVM,
+                keyboard: KeyboardCoordinator(playingField, trayVM),
+                analyze: Analyze(playingField, trayVM)
             ))
             self.window = window
             window.makeKeyAndVisible()

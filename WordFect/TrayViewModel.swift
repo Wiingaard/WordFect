@@ -12,7 +12,7 @@ import Combine
 
 typealias TrayBricks = [TrayBrick]
 
-class Tray: ObservableObject {
+class TrayViewModel: ObservableObject {
     static let size = 7
     
     static let emptyBricks = Line(
@@ -28,13 +28,13 @@ class Tray: ObservableObject {
         
         func progress(_ progress: MatrixIndex.Progress) -> Cursor? {
             let nextPosition = position + progress.unitValue
-            guard nextPosition >= 0 && nextPosition < Tray.size else { return nil }
+            guard nextPosition >= 0 && nextPosition < TrayViewModel.size else { return nil }
             return Cursor(position: nextPosition)
         }
     }
     
-    var bricks: Line<TrayBrick?> = Tray.emptyBricks
-    @ObservedObject var fields: Line<FieldBrick> = Tray.emptyFields
+    var bricks: Line<TrayBrick?> = TrayViewModel.emptyBricks
+    @ObservedObject var fields: Line<FieldBrick> = TrayViewModel.emptyFields
     @Published var isEditing: Bool = false
     
     lazy var isEmpty: AnyPublisher<Bool,Never> = fields.$line

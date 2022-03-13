@@ -27,7 +27,7 @@ struct PlayingFieldView: View {
 struct PlayingFieldView_Previews: PreviewProvider {
     static var previews: some View {
         let pf = PlayingField()
-        let tray = Tray()
+        let tray = TrayViewModel()
         let analyze = Analyze(pf, tray)
         return PlayingFieldView(analyze: analyze)
     }

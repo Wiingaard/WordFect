@@ -11,17 +11,17 @@ import SwiftUI
 struct NavigationBarButtons: View {
     
     @ObservedObject var playingField: PlayingField
-    @ObservedObject var tray: Tray
+    @ObservedObject var trayVM: TrayViewModel
     
     var body: some View {
         HStack {
             if playingField.isEditing {
-                Button.init(action: { self.tray.beginEditing() }) {
+                Button.init(action: { self.trayVM.beginEditing() }) {
                     Text("Næste").bold()
                 }.padding()
             }
-            if tray.isEditing {
-                Button.init(action: { self.tray.finishEditing() }) {
+            if trayVM.isEditing {
+                Button.init(action: { self.trayVM.finishEditing() }) {
                     Text("Færdig").bold()
                 }.padding()
             }
@@ -33,7 +33,7 @@ struct NavigationBarButtons_Previews: PreviewProvider {
     static var previews: some View {
         let pf = PlayingField()
         pf.isEditing = true
-        return NavigationBarButtons(playingField: pf, tray: Tray())
+        return NavigationBarButtons(playingField: pf, trayVM: TrayViewModel())
             .previewLayout(.sizeThatFits)
     }
 }

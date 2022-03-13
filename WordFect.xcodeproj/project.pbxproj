@@ -57,7 +57,7 @@
 		5BFCC7DD242655470078AC50 /* ParseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7DC242655470078AC50 /* ParseTests.swift */; };
 		5BFCC7E2242659F60078AC50 /* BoardPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7E1242659F60078AC50 /* BoardPositionView.swift */; };
 		5BFCC7F6242D4B1E0078AC50 /* Brick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7F5242D4B1E0078AC50 /* Brick.swift */; };
-		5BFCC7F8242D4CDC0078AC50 /* Tray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7F7242D4CDC0078AC50 /* Tray.swift */; };
+		5BFCC7F8242D4CDC0078AC50 /* TrayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7F7242D4CDC0078AC50 /* TrayViewModel.swift */; };
 		5BFCC7FB242D4ED50078AC50 /* PlayingField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7FA242D4ED50078AC50 /* PlayingField.swift */; };
 		5BFCC7FD242D50D00078AC50 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7FC242D50D00078AC50 /* Color+Extension.swift */; };
 		5BFCC800242D516D0078AC50 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCC7FF242D516D0078AC50 /* Collection+Extension.swift */; };
@@ -145,7 +145,7 @@
 		5BFCC7DC242655470078AC50 /* ParseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseTests.swift; sourceTree = "<group>"; };
 		5BFCC7E1242659F60078AC50 /* BoardPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPositionView.swift; sourceTree = "<group>"; };
 		5BFCC7F5242D4B1E0078AC50 /* Brick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brick.swift; sourceTree = "<group>"; };
-		5BFCC7F7242D4CDC0078AC50 /* Tray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tray.swift; sourceTree = "<group>"; };
+		5BFCC7F7242D4CDC0078AC50 /* TrayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayViewModel.swift; sourceTree = "<group>"; };
 		5BFCC7FA242D4ED50078AC50 /* PlayingField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingField.swift; sourceTree = "<group>"; };
 		5BFCC7FC242D50D00078AC50 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		5BFCC7FF242D516D0078AC50 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
@@ -227,7 +227,7 @@
 				5B223A52242542AD00EC773B /* SceneDelegate.swift */,
 				5BFCC7FA242D4ED50078AC50 /* PlayingField.swift */,
 				5B51853F24438BE800698C3D /* PlayingFieldView.swift */,
-				5BFCC7F7242D4CDC0078AC50 /* Tray.swift */,
+				5BFCC7F7242D4CDC0078AC50 /* TrayViewModel.swift */,
 				5B3DE87F24714C1E007947E5 /* WigglyView.swift */,
 				5B3DE88124719D12007947E5 /* ActivityIndicator.swift */,
 				5B51852E2441EFC600698C3D /* TrayView.swift */,
@@ -461,7 +461,7 @@
 				5B51852F2441EFC600698C3D /* TrayView.swift in Sources */,
 				5B3DE88224719D12007947E5 /* ActivityIndicator.swift in Sources */,
 				5B51852B2441C01D00698C3D /* BoardView.swift in Sources */,
-				5BFCC7F8242D4CDC0078AC50 /* Tray.swift in Sources */,
+				5BFCC7F8242D4CDC0078AC50 /* TrayViewModel.swift in Sources */,
 				5BFCC7FD242D50D00078AC50 /* Color+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

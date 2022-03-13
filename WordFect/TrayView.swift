@@ -13,14 +13,14 @@ struct TrayView: View {
     static let defaultTrayPadding: CGFloat = 40
     static let backgroundColor = Color.white24
     
-    @ObservedObject var tray: Tray
+    @ObservedObject var vm: TrayViewModel
     @ObservedObject var keyboard: KeyboardCoordinator
     
     @State var trayPadding: CGFloat = TrayView.defaultTrayPadding
 
     var backgroundView: some View {
         if keyboard.inputEnabled == .tray {
-            return Color.black.opacity(0.5).onTapGesture { self.tray.finishEditing() }
+            return Color.black.opacity(0.5).onTapGesture { self.vm.finishEditing() }
         } else {
             return Color.clear.onTapGesture { }
         }
@@ -29,7 +29,7 @@ struct TrayView: View {
     var body: some View {
         VStack {
             Spacer()
-            LineView(fields: self.tray.fields) { self.tray.didTap($0) }
+            LineView(fields: self.vm.fields) { self.vm.didTap($0) }
                 .padding(10).background(TrayView.backgroundColor).cornerRadius(10)
                 .padding(.horizontal, 50)
                 .padding(.bottom, trayPadding)

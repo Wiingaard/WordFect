@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LineView: View {
     
-    @State var fields: Line<FieldBrick> = Tray.emptyFields
+    @State var fields: Line<FieldBrick> = TrayViewModel.emptyFields
     
     var onTap: (Int) -> () = { _ in return }
     

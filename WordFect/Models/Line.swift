@@ -31,7 +31,7 @@ class Line<Element>: ObservableObject {
     }
     
     static func forEach(_ body: (Int) -> ()) {
-        (0..<Tray.size).forEach { position in
+        (0..<TrayViewModel.size).forEach { position in
             body(position)
         }
     }

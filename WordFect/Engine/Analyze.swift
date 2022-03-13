@@ -13,7 +13,7 @@ class Analyze: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     private var playingField: PlayingField
-    private var tray: Tray
+    private var trayVM: TrayViewModel
     
     enum ViewState {
         case missingInput(message: String)
@@ -28,10 +28,10 @@ class Analyze: ObservableObject {
     
     init(
         _ playingField: PlayingField,
-        _ tray: Tray
+        _ trayVM: TrayViewModel
     ) {
         self.playingField = playingField
-        self.tray = tray
+        self.trayVM = trayVM
         
         missingInputMessage
             .compactMap { $0 }
@@ -48,7 +48,7 @@ class Analyze: ObservableObject {
         }.store(in: &cancellables)
     }
     
-    private lazy var missingInputMessage: AnyPublisher = Publishers.CombineLatest(playingField.isEmpty, tray.isEmpty)
+    private lazy var missingInputMessage: AnyPublisher = Publishers.CombineLatest(playingField.isEmpty, trayVM.isEmpty)
         .map { (playingField, tray) -> String? in
             switch (playingField, tray) {
             case (true, _): return "Udfyld spillebræt"
@@ -57,7 +57,7 @@ class Analyze: ObservableObject {
             }
     }.eraseToAnyPublisher()
     
-    private lazy var canStartRunning: AnyPublisher = Publishers.CombineLatest(playingField.isEmpty, tray.isEmpty)
+    private lazy var canStartRunning: AnyPublisher = Publishers.CombineLatest(playingField.isEmpty, trayVM.isEmpty)
         .map { !$0 && !$1 }
         .eraseToAnyPublisher()
     
