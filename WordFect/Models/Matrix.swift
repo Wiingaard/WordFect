@@ -113,6 +113,7 @@ struct MatrixIndex: CustomStringConvertible, Equatable {
     let row: Int
     let column: Int
     
+    /// Returns index at `count` steps towards `direction`
     func move(_ direction: MatrixDirection, count: Int) -> MatrixIndex {
         switch direction {
         case .horizontal:
@@ -122,6 +123,7 @@ struct MatrixIndex: CustomStringConvertible, Equatable {
         }
     }
     
+    /// Like a "Press Enter". 
     func moveLine(_ direction: MatrixDirection, _ count: Int, to lineEnd: LineEnd) -> MatrixIndex {
         switch direction {
         case .horizontal:

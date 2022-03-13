@@ -10,6 +10,7 @@
 		5B00126E24408A43006780CD /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B00126D24408A43006780CD /* Helper.swift */; };
 		5B0012702440D1B8006780CD /* PositionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B00126F2440D1B8006780CD /* PositionWorker.swift */; };
 		5B0012722440D2D1006780CD /* PositionWorkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0012712440D2D1006780CD /* PositionWorkerTests.swift */; };
+		5B078FAF27C9AB8E0019F282 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5B078FAE27C9AB8E0019F282 /* README.md */; };
 		5B223A51242542AD00EC773B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B223A50242542AD00EC773B /* AppDelegate.swift */; };
 		5B223A53242542AD00EC773B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B223A52242542AD00EC773B /* SceneDelegate.swift */; };
 		5B223A57242542B000EC773B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B223A56242542B000EC773B /* Assets.xcassets */; };
@@ -40,6 +41,9 @@
 		5B66E096243A4F4C0077A84E /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B66E095243A4F4C0077A84E /* Search.swift */; };
 		5B66E098243F03EF0077A84E /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B66E097243F03EF0077A84E /* Validate.swift */; };
 		5B66E09A243F049A0077A84E /* ValidateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B66E099243F049A0077A84E /* ValidateTests.swift */; };
+		5BC6D57827DE4BA0004F0061 /* Search2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC6D57727DE4BA0004F0061 /* Search2.swift */; };
+		5BC6D57A27DE4C25004F0061 /* PlacedBrick2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC6D57927DE4C25004F0061 /* PlacedBrick2.swift */; };
+		5BC6D57C27DE4CA0004F0061 /* Search2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC6D57B27DE4CA0004F0061 /* Search2Tests.swift */; };
 		5BCA456F2454DF6600FD75E6 /* NavigationBarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCA456E2454DF6600FD75E6 /* NavigationBarButtons.swift */; };
 		5BD5A6442431469600F8FA5C /* SearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5A6432431469600F8FA5C /* SearchTests.swift */; };
 		5BD5A6462435157F00F8FA5C /* Optional+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5A6452435157F00F8FA5C /* Optional+Extension.swift */; };
@@ -91,6 +95,7 @@
 		5B00126D24408A43006780CD /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		5B00126F2440D1B8006780CD /* PositionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionWorker.swift; sourceTree = "<group>"; };
 		5B0012712440D2D1006780CD /* PositionWorkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionWorkerTests.swift; sourceTree = "<group>"; };
+		5B078FAE27C9AB8E0019F282 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5B223A4D242542AD00EC773B /* WordFect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordFect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B223A50242542AD00EC773B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B223A52242542AD00EC773B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +127,9 @@
 		5B66E095243A4F4C0077A84E /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		5B66E097243F03EF0077A84E /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
 		5B66E099243F049A0077A84E /* ValidateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateTests.swift; sourceTree = "<group>"; };
+		5BC6D57727DE4BA0004F0061 /* Search2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search2.swift; sourceTree = "<group>"; };
+		5BC6D57927DE4C25004F0061 /* PlacedBrick2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacedBrick2.swift; sourceTree = "<group>"; };
+		5BC6D57B27DE4CA0004F0061 /* Search2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search2Tests.swift; sourceTree = "<group>"; };
 		5BCA456E2454DF6600FD75E6 /* NavigationBarButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarButtons.swift; sourceTree = "<group>"; };
 		5BD5A6432431469600F8FA5C /* SearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTests.swift; sourceTree = "<group>"; };
 		5BD5A6452435157F00F8FA5C /* Optional+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Extension.swift"; sourceTree = "<group>"; };
@@ -171,6 +179,7 @@
 				5BFCC7C8242557070078AC50 /* Board.swift */,
 				5BFCC7CA24263C1A0078AC50 /* BoardPosition.swift */,
 				5BFCC7F5242D4B1E0078AC50 /* Brick.swift */,
+				5BC6D57927DE4C25004F0061 /* PlacedBrick2.swift */,
 				5B57701F243FC6590090D039 /* List.swift */,
 				5BFCC7CC2426450B0078AC50 /* BonusPosition.swift */,
 				5BFCC803242F8EBA0078AC50 /* Matrix.swift */,
@@ -183,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				5B66E095243A4F4C0077A84E /* Search.swift */,
+				5BC6D57727DE4BA0004F0061 /* Search2.swift */,
 				5B66E097243F03EF0077A84E /* Validate.swift */,
 				5B577023243FCA070090D039 /* Rank.swift */,
 				5B00126F2440D1B8006780CD /* PositionWorker.swift */,
@@ -194,6 +204,7 @@
 		5B223A44242542AD00EC773B = {
 			isa = PBXGroup;
 			children = (
+				5B078FAE27C9AB8E0019F282 /* README.md */,
 				5B223A4F242542AD00EC773B /* WordFect */,
 				5BFCC7D3242652D70078AC50 /* Tests */,
 				5B223A4E242542AD00EC773B /* Products */,
@@ -249,6 +260,7 @@
 			children = (
 				5B66E0932438CF8B0077A84E /* MatrixTests.swift */,
 				5BD5A6432431469600F8FA5C /* SearchTests.swift */,
+				5BC6D57B27DE4CA0004F0061 /* Search2Tests.swift */,
 				5B66E099243F049A0077A84E /* ValidateTests.swift */,
 				5B0012712440D2D1006780CD /* PositionWorkerTests.swift */,
 				5B577025243FCF400090D039 /* RankTests.swift */,
@@ -390,6 +402,7 @@
 			files = (
 				5B223A5D242542B000EC773B /* LaunchScreen.storyboard in Resources */,
 				5B223A5A242542B000EC773B /* Preview Assets.xcassets in Resources */,
+				5B078FAF27C9AB8E0019F282 /* README.md in Resources */,
 				5B223A57242542B000EC773B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,6 +422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B0012702440D1B8006780CD /* PositionWorker.swift in Sources */,
+				5BC6D57A27DE4C25004F0061 /* PlacedBrick2.swift in Sources */,
 				5B223A51242542AD00EC773B /* AppDelegate.swift in Sources */,
 				5BFCC800242D516D0078AC50 /* Collection+Extension.swift in Sources */,
 				5BD5A6462435157F00F8FA5C /* Optional+Extension.swift in Sources */,
@@ -428,6 +442,7 @@
 				5B51853D24436B2F00698C3D /* Keyboard.swift in Sources */,
 				5B223A65242543DE00EC773B /* CSVImporter.swift in Sources */,
 				5B66E096243A4F4C0077A84E /* Search.swift in Sources */,
+				5BC6D57827DE4BA0004F0061 /* Search2.swift in Sources */,
 				5BFCC7CB24263C1A0078AC50 /* BoardPosition.swift in Sources */,
 				5BF97798245619BE0053DB98 /* Line.swift in Sources */,
 				5BF977962455EEA40053DB98 /* KeyboardCoordinator.swift in Sources */,
@@ -459,6 +474,7 @@
 				5B00126E24408A43006780CD /* Helper.swift in Sources */,
 				5BD5A6442431469600F8FA5C /* SearchTests.swift in Sources */,
 				5BFCC7DD242655470078AC50 /* ParseTests.swift in Sources */,
+				5BC6D57C27DE4CA0004F0061 /* Search2Tests.swift in Sources */,
 				5B577022243FC8230090D039 /* ListTests.swift in Sources */,
 				5B66E09A243F049A0077A84E /* ValidateTests.swift in Sources */,
 				5B0012722440D2D1006780CD /* PositionWorkerTests.swift in Sources */,

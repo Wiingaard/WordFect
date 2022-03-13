@@ -9,6 +9,7 @@
 import XCTest
 @testable import WordFect
 
+
 class PositionWorkerTests: XCTestCase {
     
     /// catz: 8+1+2+(9*3) = 38
