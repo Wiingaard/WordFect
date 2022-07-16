@@ -25,7 +25,7 @@ class Search2Tests: XCTestCase {
             tray: tray,
             bricks: bricks
         )
-        search.makeTrayPermutations()
+        
     }
     
 }

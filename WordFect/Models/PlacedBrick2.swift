@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PlacedBrick2: MatrixDumpable {
+struct PlacedBrick2: MatrixDumpable, Hashable {
     let character: Character
     let isJoker: Bool
     let isFromTray: Bool

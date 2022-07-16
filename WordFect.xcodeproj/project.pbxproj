@@ -44,6 +44,8 @@
 		5BC6D57827DE4BA0004F0061 /* Search2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC6D57727DE4BA0004F0061 /* Search2.swift */; };
 		5BC6D57A27DE4C25004F0061 /* PlacedBrick2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC6D57927DE4C25004F0061 /* PlacedBrick2.swift */; };
 		5BC6D57C27DE4CA0004F0061 /* Search2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC6D57B27DE4CA0004F0061 /* Search2Tests.swift */; };
+		5BC6D57E27DE56EC004F0061 /* Tray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC6D57D27DE56EC004F0061 /* Tray.swift */; };
+		5BC6D58027DE6A24004F0061 /* TrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC6D57F27DE6A24004F0061 /* TrayTests.swift */; };
 		5BCA456F2454DF6600FD75E6 /* NavigationBarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCA456E2454DF6600FD75E6 /* NavigationBarButtons.swift */; };
 		5BD5A6442431469600F8FA5C /* SearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5A6432431469600F8FA5C /* SearchTests.swift */; };
 		5BD5A6462435157F00F8FA5C /* Optional+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5A6452435157F00F8FA5C /* Optional+Extension.swift */; };
@@ -130,6 +132,8 @@
 		5BC6D57727DE4BA0004F0061 /* Search2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search2.swift; sourceTree = "<group>"; };
 		5BC6D57927DE4C25004F0061 /* PlacedBrick2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacedBrick2.swift; sourceTree = "<group>"; };
 		5BC6D57B27DE4CA0004F0061 /* Search2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search2Tests.swift; sourceTree = "<group>"; };
+		5BC6D57D27DE56EC004F0061 /* Tray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tray.swift; sourceTree = "<group>"; };
+		5BC6D57F27DE6A24004F0061 /* TrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayTests.swift; sourceTree = "<group>"; };
 		5BCA456E2454DF6600FD75E6 /* NavigationBarButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarButtons.swift; sourceTree = "<group>"; };
 		5BD5A6432431469600F8FA5C /* SearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTests.swift; sourceTree = "<group>"; };
 		5BD5A6452435157F00F8FA5C /* Optional+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Extension.swift"; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				5BFCC7C8242557070078AC50 /* Board.swift */,
+				5BC6D57D27DE56EC004F0061 /* Tray.swift */,
 				5BFCC7CA24263C1A0078AC50 /* BoardPosition.swift */,
 				5BFCC7F5242D4B1E0078AC50 /* Brick.swift */,
 				5BC6D57927DE4C25004F0061 /* PlacedBrick2.swift */,
@@ -261,6 +266,7 @@
 				5B66E0932438CF8B0077A84E /* MatrixTests.swift */,
 				5BD5A6432431469600F8FA5C /* SearchTests.swift */,
 				5BC6D57B27DE4CA0004F0061 /* Search2Tests.swift */,
+				5BC6D57F27DE6A24004F0061 /* TrayTests.swift */,
 				5B66E099243F049A0077A84E /* ValidateTests.swift */,
 				5B0012712440D2D1006780CD /* PositionWorkerTests.swift */,
 				5B577025243FCF400090D039 /* RankTests.swift */,
@@ -441,6 +447,7 @@
 				5BFB5B4F2465FAA60041463E /* View+Extension.swift in Sources */,
 				5B51853D24436B2F00698C3D /* Keyboard.swift in Sources */,
 				5B223A65242543DE00EC773B /* CSVImporter.swift in Sources */,
+				5BC6D57E27DE56EC004F0061 /* Tray.swift in Sources */,
 				5B66E096243A4F4C0077A84E /* Search.swift in Sources */,
 				5BC6D57827DE4BA0004F0061 /* Search2.swift in Sources */,
 				5BFCC7CB24263C1A0078AC50 /* BoardPosition.swift in Sources */,
@@ -471,6 +478,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B66E0942438CF8B0077A84E /* MatrixTests.swift in Sources */,
+				5BC6D58027DE6A24004F0061 /* TrayTests.swift in Sources */,
 				5B00126E24408A43006780CD /* Helper.swift in Sources */,
 				5BD5A6442431469600F8FA5C /* SearchTests.swift in Sources */,
 				5BFCC7DD242655470078AC50 /* ParseTests.swift in Sources */,

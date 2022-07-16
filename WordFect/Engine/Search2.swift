@@ -21,10 +21,15 @@ struct Search2 {
     let tray: [TrayBrick]
     let bricks: Matrix<PlacedBrick?>
     
-    struct PotentialWord {
+    struct Word {
         let origin: MatrixIndex
         let direction: MatrixDirection
-        let word: Line<PlacedBrick2>
+        let line: Line<PlacedBrick2>
+    }
+    
+    struct Solution {
+        let word: Word
+        let crosswords: [Word]
     }
     
     /// Searches from `position` in `direction`.
@@ -32,86 +37,19 @@ struct Search2 {
     /// Finding potential words within the currencly places `bricks`.
     /// Only taking word that start on the `position`, regardless if it's comming from the `tray` or already placed in `bricks`.
     ///
-//    func search() -> [PotentialWord] {
-//
-//    }
-//    let jokerSet = "abcdefghijklmnopqrstuvxyzæøå"
-    let jokerSet = "xyz"
-    
-    func makeTrayPermutations() -> [[TrayBrick]] {
-//        let jokersInTray = tray.filter { $0.isJoker }.count
-//        let charactersInTray = tray.compactMap { brick -> Character? in
-//            switch brick {
-//            case .character(let char): return char
-//            case .joker: return nil
-//            }
-//        }
-        
-//        var permutations = [Permutation<PlacedBrick>]()
-//        for size in 1...max {
-//            permutationSets(tray: tray).forEach { set in
-//                if canReachLength(minLength, permutationSetSize: size, fixed: fixed) {
-//                    permutations.append(Permutation(of: set, size: size))
-//                }
-//            }
-//        }
-        
-        let lol = permutationSets()
-        print("permutationSets:", lol.map { $0.map { $0.character } })
-        let berp = permutations(of: lol, length: tray.count)
-        print("permutations(of:,length:)", berp.map { $0.map { $0.character } })
+    func search() -> [Solution] {
         return []
     }
-    
-    
-    func permutations(of sets: [[PlacedBrick2]], length: Int) -> [[PlacedBrick2]] {
-        var _permutations = [Permutation<PlacedBrick2>]()
-        sets.forEach { permutationSet in
-            for size in 1...length {
-                _permutations.append(Permutation(
-                    of: permutationSet,
-                    size: size)
-                )
-            }
-        }
-        
-        var allPermutations: [[PlacedBrick2]] = []
-        _permutations.forEach { permutation in
-            permutation.forEach { p in
-                let berp: [PlacedBrick2] = p.map { $0 }
-                allPermutations.append(berp)
-            }
-        }
 
-//        let mojn = Set(_permutations.flatMap { permutation -> [[PlacedBrick]] in
-//            return permutation.map { bricks in bricks.map { $0 } }
-//        })
-        return allPermutations
-    }
-    
-    /// Adds jokers to make Unique "potential" trays combinations.
-    /// If there's on jokers, the return will simply be the tray.
-    /// Not considering order of bricks.
-    /// tray: [a,b,c] => [[a,b,c]]
-    /// tray: [a,b] + 1 joker => [[a,b,a]-->[a,b,å]]
-    func permutationSets() -> [[PlacedBrick2]] {
-        let charactersInTray = tray.compactMap { brick -> PlacedBrick2? in
-            switch brick {
-            case .character(let char): return .character(char, fromTray: true)
-            case .joker: return nil
-            }
-        }
-        
-        let jokersInTray = tray.filter { $0.isJoker }.count
-        
-        if (jokersInTray > 0) {
-            return BaseN(of: jokerSet, size: jokersInTray).map { jokerChars in
-                return charactersInTray + jokerChars.map {
-                    PlacedBrick2(character: $0, isJoker: true, isFromTray: true)
-                }
-            }
-        } else {
-            return [charactersInTray]
-        }
-    }
 }
+
+/// For a position
+/// 1. Check if the position can be a starting brick in a word (if there are no predesessor bricks)
+/// 2. Find a possible word
+/// 3. Find formed crosswords for all newly placed bricks
+///
+/// Actually, we don't even need the tray here,
+/// we just need to know how many bricks are in the tray.
+/// A word could then consist for currently places bricks and wildcards of tray bricks.
+/// Because we're searching for words than align with current bricks,
+/// let's also find the all crosswords that was formed by the tray bricks.
